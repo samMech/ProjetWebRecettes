@@ -19,8 +19,8 @@
 			<attribute name="owner.project.facets" value="jpt.jpa"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="E:/420-818-BB/jour4/jstl/jstl.jar"/>
-	<classpathentry kind="lib" path="E:/420-818-BB/jour4/jstl/standard.jar"/>
-	<classpathentry kind="lib" path="F:/Ressources/ojdbc7.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sam/Dropbox/AEC/Etape 4/818-Programmation Web/Devoirs/Projet de Session/Projet_Recettes_Eclipse/librairies/jstl.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sam/Dropbox/AEC/Etape 4/818-Programmation Web/Devoirs/Projet de Session/Projet_Recettes_Eclipse/librairies/ojdbc7.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sam/Dropbox/AEC/Etape 4/818-Programmation Web/Devoirs/Projet de Session/Projet_Recettes_Eclipse/librairies/standard.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
