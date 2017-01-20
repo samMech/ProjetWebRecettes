@@ -24,6 +24,7 @@ public class DaoRecette extends DaoJPA<Recette> {
 	
 	public List<Recette> chercherRecette(){
 		
+		// TODO
 		return null;
 	}
 	
