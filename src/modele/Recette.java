@@ -17,7 +17,8 @@ public class Recette implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@SequenceGenerator(name="RECETTES_IDRECETTE_GENERATOR", sequenceName="SEQ_RECETTES")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="RECETTES_IDRECETTE_GENERATOR")
 	@Column(name="ID_RECETTE", unique=true, nullable=false, precision=8)
 	private long idRecette;
 
@@ -37,6 +38,11 @@ public class Recette implements Serializable {
 	//bi-directional many-to-one association to Mesure
 	@OneToMany(mappedBy="recette")
 	private List<Mesure> mesures;
+
+	//bi-directional many-to-one association to TypesRecette
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="ID_TYPE", nullable=false)
+	private TypesRecette typesRecette;
 
 	public Recette() {
 	}
@@ -115,6 +121,14 @@ public class Recette implements Serializable {
 		mesure.setRecette(null);
 
 		return mesure;
+	}
+
+	public TypesRecette getTypesRecette() {
+		return this.typesRecette;
+	}
+
+	public void setTypesRecette(TypesRecette typesRecette) {
+		this.typesRecette = typesRecette;
 	}
 
 }

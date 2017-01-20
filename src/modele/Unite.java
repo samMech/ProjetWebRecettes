@@ -15,7 +15,8 @@ public class Unite implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@SequenceGenerator(name="UNITES_IDUNITE_GENERATOR", sequenceName="SEQ_UNITES")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="UNITES_IDUNITE_GENERATOR")
 	@Column(name="ID_UNITE", unique=true, nullable=false, precision=3)
 	private long idUnite;
 

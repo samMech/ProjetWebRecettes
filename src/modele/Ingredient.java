@@ -16,21 +16,31 @@ public class Ingredient implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@SequenceGenerator(name="INGREDIENTS_IDINGREDIENT_GENERATOR", sequenceName="SEQ_INGREDIENTS")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="INGREDIENTS_IDINGREDIENT_GENERATOR")
 	@Column(name="ID_INGREDIENT", unique=true, nullable=false, precision=6)
 	private long idIngredient;
 
 	@Column(name="NOM_INGREDIENT", nullable=false, length=30)
 	private String nomIngredient;
 
-	//bi-directional many-to-one association to Category
+	//bi-directional many-to-one association to CategoriesIngredient
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="ID_CATEGORIE", nullable=false)
-	private Category category;
+	@JoinColumn(name="ID_CATEGORIE_ING", nullable=false)
+	private CategoriesIngredient categoriesIngredient;
 
-	//bi-directional many-to-one association to Mesure
-	@OneToMany(mappedBy="ingredient")
-	private List<Mesure> mesures;
+	//uni-directional many-to-many association to Recette
+	@ManyToMany
+	@JoinTable(
+		name="MESURES"
+		, joinColumns={
+			@JoinColumn(name="ID_INGREDIENT", nullable=false)
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="ID_RECETTE", nullable=false)
+			}
+		)
+	private List<Recette> recettes;
 
 	public Ingredient() {
 	}
@@ -51,34 +61,20 @@ public class Ingredient implements Serializable {
 		this.nomIngredient = nomIngredient;
 	}
 
-	public Category getCategory() {
-		return this.category;
+	public CategoriesIngredient getCategoriesIngredient() {
+		return this.categoriesIngredient;
 	}
 
-	public void setCategory(Category category) {
-		this.category = category;
+	public void setCategoriesIngredient(CategoriesIngredient categoriesIngredient) {
+		this.categoriesIngredient = categoriesIngredient;
 	}
 
-	public List<Mesure> getMesures() {
-		return this.mesures;
+	public List<Recette> getRecettes() {
+		return this.recettes;
 	}
 
-	public void setMesures(List<Mesure> mesures) {
-		this.mesures = mesures;
-	}
-
-	public Mesure addMesure(Mesure mesure) {
-		getMesures().add(mesure);
-		mesure.setIngredient(this);
-
-		return mesure;
-	}
-
-	public Mesure removeMesure(Mesure mesure) {
-		getMesures().remove(mesure);
-		mesure.setIngredient(null);
-
-		return mesure;
+	public void setRecettes(List<Recette> recettes) {
+		this.recettes = recettes;
 	}
 
 }
