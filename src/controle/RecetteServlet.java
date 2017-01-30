@@ -41,7 +41,7 @@ public class RecetteServlet extends HttpServlet {
 		
 		Recette recette = null;
 		//string contenant la page vers laquelle on redirige
-		String pageDestination;
+		String pageDestination = "";
 		
 		switch(requete){
 		case "ajouterRecette":
@@ -64,7 +64,7 @@ public class RecetteServlet extends HttpServlet {
 		
 		case "voirRecette":
 			String id = request.getParameter("idRecette");
-			recette = dao.chercherRecette(id);
+			//recette = dao.chercherRecette(id);
 			request.setAttribute("recette", recette);
 			pageDestination = "/WEB-INF/ViewRecette.jsp";
 		}
