@@ -22,7 +22,7 @@ public class Mesure implements Serializable {
 	private long idMesure;
 
 	@Column(nullable=false, precision=5, scale=2)
-	private BigDecimal quantite;
+	private double quantite;
 
 	//uni-directional many-to-one association to Ingredient
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -50,11 +50,11 @@ public class Mesure implements Serializable {
 		this.idMesure = idMesure;
 	}
 
-	public BigDecimal getQuantite() {
+	public double getQuantite() {
 		return this.quantite;
 	}
 
-	public void setQuantite(BigDecimal quantite) {
+	public void setQuantite(double quantite) {
 		this.quantite = quantite;
 	}
 

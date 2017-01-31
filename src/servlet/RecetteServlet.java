@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,7 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import modele.DaoRecette;
+import modele.Ingredient;
+import modele.Instruction;
+import modele.Mesure;
 import modele.Recette;
+import modele.Unite;
 
 /**
  * Servlet implementation class RecetteServlet
@@ -37,7 +42,7 @@ public class RecetteServlet extends HttpServlet {
 		String requete = request.getParameter("action");
 		
 		//on recupere l'objet dao
-		DaoRecette dao  = (DaoRecette)request.getAttribute("dao");
+		DaoRecette dao  = new DaoRecette();
 		
 		Recette recette = null;
 		//string contenant la page vers laquelle on redirige
@@ -45,14 +50,52 @@ public class RecetteServlet extends HttpServlet {
 		
 		switch(requete){
 		case "ajouterRecette":
+			
+			//on crée un objet recette
 			recette = new Recette();
+			
+			//on ajoute le nom, description et durée dans l'objet recette
 			recette.setNomRecette(request.getParameter("nomRecette"));
 			recette.setDescriptionRecette(request.getParameter("descRecette"));
 			int heure = Integer.parseInt(request.getParameter("heureRecette"));
 			int minute = Integer.parseInt(request.getParameter("minRecette"));
 			recette.setDureeRecette(utils.Conversion.convertirTemps(heure, minute));
-			//TODO: continuer le parcours du formulaire pour la creation de l'objet recette + insert avec dao
+			//TODO: insert avec dao
 			
+			//parcourir la liste des incredients et ajouter le nom, quantité et unité de mesure dans la recette
+			String[] ingredient;
+			String[]listeIngredients = request.getParameterValues("listeIngredients");
+			for(int i=0; i<listeIngredients.length/3; i++){
+				ingredient = request.getParameterValues("ingredient"+(i+1));
+				
+				Unite unit = new Unite();
+				unit.setNomUnite(ingredient[2]);
+				
+				Ingredient ing = new Ingredient();
+				ing.setNomIngredient(ingredient[0]);
+				
+				Mesure mesure = new Mesure();
+				mesure.setQuantite(Long.parseLong(ingredient[1]));
+				mesure.setIngredient(ing);
+				mesure.setUnite(unit);
+				
+				recette.addMesure(mesure);
+			}
+			
+			//parcourir la liste des instructions et les ajouter a la recette
+			String[]listeInstructions = request.getParameterValues("listeInstructions");
+			for(int i = 0; i< listeInstructions.length;i++){
+				
+				Instruction instruction = new Instruction();
+				instruction.setDescInstruction(listeInstructions[i]);
+				recette.addInstruction(instruction);
+			}
+			
+			//on enregistre la recette dans la BD
+			dao.enregistrer(recette);
+			
+			//on ajoute la recette dans la requete pour l'afficher dans la page viewRecette
+			request.setAttribute("recette", recette);
 			pageDestination = "/WEB-INF/ViewRecette.jsp";
 			break;
 			
@@ -63,8 +106,8 @@ public class RecetteServlet extends HttpServlet {
 			break;
 		
 		case "voirRecette":
-			String id = request.getParameter("idRecette");
-			//recette = dao.chercherRecette(id);
+			long id = Long.parseLong(request.getParameter("idRecette"));
+			recette = dao.chercherRecette(id);
 			request.setAttribute("recette", recette);
 			pageDestination = "/WEB-INF/ViewRecette.jsp";
 		}

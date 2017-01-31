@@ -102,16 +102,16 @@
 							</div>
 						</div>
 					</div>
-					<!--Section Ingédients-->
+					<!--Section Ingrédients-->
 					<div class="panel panel-info">
 						<div class="panel-heading text-center">
 							<h3>Ingrédients</h3>
 						</div>
 						<div class="panel-body">
-							<ul class="list-group">
-								<li class="list-group-item noBorder media">
+							<ul class="list-group" name="listeIngredients">
+								<li class="list-group-item noBorder media" name="ingredient1">
 									<div class="form-group media-body autoWidth">
-										<input class="form-control form-control-inline" type="text" size="22" placeholder="Ingrédient" id="ingredient1" name="ingredient1"/>
+										<input class="form-control form-control-inline" type="text" size="22" placeholder="Ingrédient" id="ingredient1" name="nomIngredient1"/>
 										<input class="form-control form-control-inline" type="text" size="5" placeholder="Quantité" id="qte1" name="qte1"/>
 										<select class="form-control form-control-inline" id="unite1" name="unite1">
 											<option>g</option>
@@ -132,7 +132,7 @@
 								</li>
 								<li class="list-group-item noBorder media">
 									<div class="form-group media-body autoWidth">
-										<input class="form-control form-control-inline" type="text" size="22" placeholder="Ingrédient" id="ingredient2" name="ingredient2"/>
+										<input class="form-control form-control-inline" type="text" size="22" placeholder="Ingrédient" id="ingredient2" name="nomIngredient2"/>
 										<input class="form-control form-control-inline" type="text" size="5" placeholder="Quantité" id="qte2" name="qte2"/>
 										<select class="form-control form-control-inline" id="unite2" name="unite2">
 											<option>g</option>
@@ -160,7 +160,7 @@
 							<h3>Instructions</h3>
 						</div>
 						<div class="panel-body">
-							<ul class="list-group">
+							<ul class="list-group" name="listeInstructions">
 								<li class="list-group-item noBorder media">
 									<div class="media-left media-top">
 										<label for="instruction1">1.</label>
