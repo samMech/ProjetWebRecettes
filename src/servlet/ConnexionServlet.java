@@ -1,6 +1,7 @@
-package controle;
+package servlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import controle.Driver;
+import modele.DaoRecette;
+import modele.Recette;
+import utils.Authentification;
 
 /**
  * Servlet implementation class ConnexionServlet
@@ -33,8 +39,8 @@ public class ConnexionServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		// Récupération de l'action demandée
-		String action = (String) session.getAttribute("action");
-		
+		String action = (String) request.getParameter("action");
+				
 		// Récupération des paramètres
 		String idUsager = (String) session.getAttribute("idUsager");
 		if(idUsager != null && ! idUsager.isEmpty()){			
@@ -43,27 +49,32 @@ public class ConnexionServlet extends HttpServlet {
 		}
 		
 		// La destination
-		String urlDestination;		
-
+		String urlDestination = "/Accueil.jsp";
 		switch(action){
 			case "SE_CONNECTER" :
 				
 				// Récupération du login et password
-				String login = request.getParameter("login");
-				String password = request.getParameter("password");
+				String login = request.getParameter("email");
+				String password = request.getParameter("pwd");
 				
-				// Vérification
-				// TODO
-				
-				// Chargement du profil
-				// TODO
-				urlDestination = "/Bienvenue.jsp";
+				// Vérification du login et mot de passe
+				if(Authentification.validerUsager(login, password)){
+					// Chargement des recettes pour la page de bienvenue					
+					request.setAttribute("recettesCarousel", Driver.chargerRecettesBienvenue());										
+					urlDestination = "/Bienvenue.jsp";					
+				}
+				else{
+					// Erreur --> on retourne à la page
+					request.setAttribute("erreurConnexion", "erreur");
+				}			
+
 				break;
 			case "BIENVENUE" :
+				// Chargement des recettes pour la page de bienvenue					
+				request.setAttribute("recettesCarousel", Driver.chargerRecettesBienvenue());				
 				urlDestination = "/Bienvenue.jsp";
 				break;
 			default :
-				urlDestination = "/Accueil.html";
 				break;
 		}
 		
@@ -71,7 +82,7 @@ public class ConnexionServlet extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher(urlDestination);
 		rd.forward(request, response);
 	}
-
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

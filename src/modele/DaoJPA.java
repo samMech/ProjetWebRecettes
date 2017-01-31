@@ -23,7 +23,7 @@ public abstract class DaoJPA<T> {
     private final Class<T> type;
         
     private EntityManagerFactory emf;
-    private EntityManager em = null;
+    protected EntityManager em = null;
     private EntityTransaction et = null;
     
     ///////////////////
@@ -39,7 +39,9 @@ public abstract class DaoJPA<T> {
         emf = Persistence.createEntityManagerFactory("jpaUnit");// Création initiale
     }
     
-    // Méthodes
+    //////////////
+    // Méthodes //
+    //////////////
     
     /**
      * Permet de lancer une requête sans paramètre

@@ -1,4 +1,4 @@
-package controle;
+package servlet;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class NavigationServlet
+ * Servlet implementation class CompteServlet
  */
-@WebServlet("/NavigationServlet")
-public class NavigationServlet extends HttpServlet {
+@WebServlet("/CompteServlet")
+public class CompteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NavigationServlet() {
+    public CompteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

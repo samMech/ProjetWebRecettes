@@ -1,4 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+
+<%--Importation des librairies JSTL--%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,7 +35,7 @@
 				<!--Titre de la page-->
 				<div class="panel panel-primary text-center">
 					<div class="panel-heading">
-						<h1>La Bo√Æte √† Ingr√©dients</h1>
+						<h1>La BoÓte ‡† IngrÈdients</h1>
 					</div>
 					<div class="panel-body" id="imgTitre">
 						<!--Carousel simple-->
@@ -51,7 +55,7 @@
 								<h2>Connexion</h2>
 							</div>
 							<div class="panel-body">
-								<form id="formConnexion" method="POST" action="bienvenue.html">
+								<form id="formConnexion" method="POST" action="ConnexionServlet">
 									<!--Login-->
 									<div class="form-group">
 										<label for="email">Adresse courriel:</label>
@@ -79,8 +83,15 @@
 									<div class="form-group checkbox">
 										<label><input type="checkbox" id="optConnexion" name="optConnexion"/> Rester connect√©</label>
 									</div>
+									<!--Erreur-->
+									<c:if test="${requestScope.connexion != null && requestScope.connexion.isEmpty() == false}">
+									<div>
+										<label class="label label-error">${requestScope.connexion}</label>
+									</div>									
+									</c:if>
 									<!--Enter-->
 									<div class="form-group text-center">
+										<input type="hidden" name="action" value="SE CONNECTER" />
 									    <button type="submit" class="btn btn-primary btn-block" id="connexion"><span class="glyphicon glyphicon-log-in"></span> Se connecter</button>
 									</div>
 								</form>
