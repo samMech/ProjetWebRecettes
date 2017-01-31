@@ -8,7 +8,7 @@ import modele.Recette;
 /**
  * Classe contrôleur pour la gestion du dao
  * 
- * @author Marc-André
+ * @author Marc-André Malouin
  * @version 1.00 (31 janvier 2017)
  */
 public class Driver {

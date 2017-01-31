@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@page session="true" contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -12,10 +12,10 @@
 			<a class="navbar-brand" href="#">Logo</a>
 		</div>
 		<div class="collapse navbar-collapse" id="myNavbar">
-			<c:if test="${idUsager != null || ! idUsager.isEmpty()}">
+			<c:if test="${sessionScope.idUsager != null && ! sessionScope.idUsager.isEmpty()}">
 			<ul class="nav navbar-nav">
 				<li><a href="bienvenue.html"><span class="glyphicon glyphicon-home"></span> Accueil</a></li>
-				<li class="active"><a href="recherche.html">Nouvelle liste d'épicerie</a></li>
+				<li class="active"><a href="recherche.html">Nouvelle liste d'Ã©picerie</a></li>
 				<li><a href="formRecettes.html">Nouvelle recette</a></li>
 				<li>
 					<form class="navbar-form" id="formRechercheRapide" action="recherche.html">
@@ -34,8 +34,8 @@
 				<li>
 					<a href="index.html">						
 						<c:choose>
-						   <c:when test="${idUsager != null || ! idUsager.isEmpty()}">
-						       <span class="glyphicon glyphicon-log-out"></span>Déconnexion 
+						   <c:when test="${sessionScope.idUsager != null && ! sessionScope.idUsager.isEmpty()}">
+						       <span class="glyphicon glyphicon-log-out"></span>DÃ©connexion 
 						    </c:when>
 						    <c:otherwise>
 						        <span class="glyphicon glyphicon-log-in"></span> Connexion

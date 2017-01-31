@@ -2,6 +2,6 @@
 <!DOCTYPE html>
 <html>
 <body>
-	<jsp:forward page="/ConnexionServlet?action=none"></jsp:forward>
+	<jsp:forward page="/ConnexionServlet?action=start"></jsp:forward>
 </body>
 </html>

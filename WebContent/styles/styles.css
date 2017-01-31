@@ -1,0 +1,87 @@
+/***********************************/
+/* Feuille de styles additionnelle */
+/***********************************/
+
+/* Couleur de la barre de navigation */
+.navbar {
+  background-color: #337AB7;/*Même couleur que les éléments contextuels "primary"*/
+}
+
+/* Texte de la barre de navigation */
+.navbar-inverse .navbar-nav > li > a {
+	color: #FFFFFF;
+}
+
+/* Style pour le foooter */
+footer {
+  background-color: #D9EDF7;/*Même couleur que les éléments contextuels "info"*/
+  color: black;
+  padding: 15px;
+}
+
+/* Couleurs pour les icones*/
+.blue{
+  color: blue;
+  font-size: 25px;
+}
+
+.green{
+  color:green;
+  font-size: 25px;
+}
+
+.red{
+  color: red;
+  font-size: 25px;
+}
+
+.redText{
+	color: red;
+}
+
+/* Pour changer la souris pour que les icones apparaisent cliquable */
+.mouseIcon:hover{
+	cursor: pointer;
+}
+
+/* Pour garder seulement la bordure du haut */
+.topBorder{
+	border-left: 0;
+	border-right: 0;
+	border-bottom: 0;
+}
+
+/* Pour enlever la bordure */
+.noBorder{
+	border: 0;
+}
+
+/* Pour empêcher le redimensionnement par form-control */
+.form-control-inline{
+    min-width: 0;
+    width: auto;
+    display: inline;
+}
+
+/* Pour empêcher le composant de prendre toute la largeur */
+.autoWidth{
+	width: auto;	
+}
+
+/* Pour empêcher les mots trop grands de dépasser du cadre*/
+.wrapText{
+	word-wrap: break-word;	
+}
+
+/* Pour garder le menu de navigation en haut */
+.affix{
+  top: 60px;/* Hauteur de la barre de navigation + 10px*/
+	width: 100%;
+}
+
+/* Pour configurer la couleur de fond des tabs */
+.nav-tabs > li.active > a,
+.nav-tabs > li > a:hover,
+.nav-tabs > li.active > a:focus {
+    background-color: #D9EDF7 ;/*Même couleur que les éléments contextuels "info"*/
+}

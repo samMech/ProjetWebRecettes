@@ -3,6 +3,12 @@
 <%--Importation des librairies JSTL--%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<%--On vÈrifie si l'usager est dÈj‡ connectÈ--%>
+<c:if test="${sessionScope.idUsager != null && ! sessionScope.idUsager.isEmpty()}">
+	<%--Redirection vers la page de bienvenue--%>
+	<jsp:forward page="/ConnexionServlet?action=start"></jsp:forward>
+</c:if>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,16 +17,16 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	<script type="text/javascript" src="carousel.js"></script>
-	<link rel="stylesheet" type="text/css" href="carousel.css">
-	<script type="text/javascript" src="required-field.js"></script>
-	<link rel="stylesheet" type="text/css" href="required-field-block.css">
+	<link rel="stylesheet" type="text/css" href="styles/styles.css">
+	<script type="text/javascript" src="scripts/carousel.js"></script>
+	<link rel="stylesheet" type="text/css" href="styles/carousel.css">
+	<script type="text/javascript" src="scripts/required-field.js"></script>
+	<link rel="stylesheet" type="text/css" href="styles/required-field-block.css">
 </head>
 <body>
 
 	<!--La barre de navigation-->
-	<jsp:include page="WEB-INF/navbar.jspf"></jsp:include>
+	<jsp:include page="WEB-INF/jspf/navbar.jsp"></jsp:include>
 		
 	<!--Le contenu central-->  
 	<div class="container-fluid wrapText">
@@ -70,7 +76,7 @@
 									<!--Password-->
 									<div class="form-group">
 										<label for="pwd">Mot de passe:</label>
-										<a class="pull-right" href="resetPasswordl.html">Mot de passe oubli√©?</a><!--Password reset-->
+										<a class="pull-right" href="resetPassword.jsp">Mot de passe oubli√©?</a><!--Password reset-->
 										<div class="input-group required-field-block">
 											<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
 											<input type="password" class="form-control" id="pwd" name="pwd" required/>
@@ -82,23 +88,23 @@
 									<!--Option-->
 									<div class="form-group checkbox">
 										<label><input type="checkbox" id="optConnexion" name="optConnexion"/> Rester connect√©</label>
-									</div>
-									<!--Erreur-->
-									<c:if test="${requestScope.connexion != null && requestScope.connexion.isEmpty() == false}">
-									<div>
-										<label class="label label-error">${requestScope.connexion}</label>
 									</div>									
-									</c:if>
+									<c:if test="${erreurConnexion == true}">
+									<!--Erreur-->
+									<div class="form-group text-center">
+										<label class="label redText">Veuillez vÈrifier que votre adresse courriel et mot de passe sont valides</label>
+									</div>									
+									</c:if>									
 									<!--Enter-->
 									<div class="form-group text-center">
-										<input type="hidden" name="action" value="SE CONNECTER" />
+										<input type="hidden" name="action" value="SE_CONNECTER" />
 									    <button type="submit" class="btn btn-primary btn-block" id="connexion"><span class="glyphicon glyphicon-log-in"></span> Se connecter</button>
 									</div>
 								</form>
 								<!--Nouveau compte-->
 								<div class="panel-footer text-center">
 									<label class="small">---Pas encore de compte ?---</label>
-									<button type="button" class="btn btn-default btn-block" onclick="document.location.href='creerCompte.html'">Cr√©er un nouveau compte</button>
+									<button type="button" class="btn btn-default btn-block" onclick="document.location.href='creerCompte.jsp'">Cr√©er un nouveau compte</button>
 								</div>
 							</div>
 						</div>
@@ -133,10 +139,7 @@
 	</div>
 
 	<!--Le bas de page-->
-	<br/>
-	<footer class="container-fluid text-center">
-		<p><span class="glyphicon glyphicon-copyright-mark"></span> 2016 La Bo√Æte √† Ingr√©dients</p>
-	</footer>
+	<jsp:include page="WEB-INF/jspf/footer.jsp"></jsp:include>
 
 </body>
 </html>

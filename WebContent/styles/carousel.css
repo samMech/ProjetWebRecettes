@@ -1,0 +1,29 @@
+/* CSS pour les transitions du carousel */
+.carousel.fade {
+  opacity: 1;
+}
+.carousel.fade .item {
+  -moz-transition: opacity ease-in-out 1.5s;
+  -o-transition: opacity ease-in-out 1.5s;
+  -webkit-transition: opacity ease-in-out 1.5s;
+  transition: opacity ease-in-out 1.5s;
+  left: 0 !important;
+  opacity: 0;
+  top:0;
+  position:absolute;
+  width: 100%;
+  display:block !important;
+  z-index:1;
+}
+.carousel.fade .item:first-child {
+  top:auto;
+  position:relative;
+}
+.carousel.fade .item.active {
+  opacity: 1;
+  -moz-transition: opacity ease-in-out 1.5s;
+  -o-transition: opacity ease-in-out 1.5s;
+  -webkit-transition: opacity ease-in-out 1.5s;
+  transition: opacity ease-in-out 1.5s;
+  z-index:2;
+}

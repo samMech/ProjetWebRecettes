@@ -49,7 +49,7 @@ public class ConnexionServlet extends HttpServlet {
 		}
 		
 		// La destination
-		String urlDestination = "/Accueil.jsp";
+		String urlDestination = "/accueil.jsp";
 		switch(action){
 			case "SE_CONNECTER" :
 				
@@ -59,20 +59,23 @@ public class ConnexionServlet extends HttpServlet {
 				
 				// Vérification du login et mot de passe
 				if(Authentification.validerUsager(login, password)){
+					// Ajout de l'usager à la session
+					session.setAttribute("idUsager", login);
+					
 					// Chargement des recettes pour la page de bienvenue					
 					request.setAttribute("recettesCarousel", Driver.chargerRecettesBienvenue());										
-					urlDestination = "/Bienvenue.jsp";					
+					urlDestination = "/bienvenue.jsp";					
 				}
 				else{
 					// Erreur --> on retourne à la page
-					request.setAttribute("erreurConnexion", "erreur");
+					request.setAttribute("erreurConnexion", true);
 				}			
 
 				break;
 			case "BIENVENUE" :
 				// Chargement des recettes pour la page de bienvenue					
 				request.setAttribute("recettesCarousel", Driver.chargerRecettesBienvenue());				
-				urlDestination = "/Bienvenue.jsp";
+				urlDestination = "/bienvenue.jsp";
 				break;
 			default :
 				break;
