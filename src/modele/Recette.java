@@ -26,7 +26,7 @@ public class Recette implements Serializable {
 	private String descriptionRecette;
 
 	@Column(name="DUREE_RECETTE", nullable=false, precision=6)
-	private BigDecimal dureeRecette;
+	private int dureeRecette;
 
 	@Column(name="NOM_RECETTE", nullable=false, length=100)
 	private String nomRecette;
@@ -63,11 +63,11 @@ public class Recette implements Serializable {
 		this.descriptionRecette = descriptionRecette;
 	}
 
-	public BigDecimal getDureeRecette() {
+	public int getDureeRecette() {
 		return this.dureeRecette;
 	}
 
-	public void setDureeRecette(BigDecimal dureeRecette) {
+	public void setDureeRecette(int dureeRecette) {
 		this.dureeRecette = dureeRecette;
 	}
 
