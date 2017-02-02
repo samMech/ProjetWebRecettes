@@ -90,13 +90,36 @@
 										<label for="pwd">Confirmer le mot de passe: </label>
 										<div class="input-group required-field-block">
 											<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-											<input type="password" class="form-control" id="pwd" name="pwd" required/>
+											<input type="password" class="form-control" id="pwd" name="pwd" required pattern="[0-9a-zA-Z!@#$%&]{8}"/>
 											<div class="required-icon">
 												<div class="text">*</div>
 											</div>
 										</div>
 									</div>
-
+									
+									<c:choose>
+										<c:when test="${requestScope.usagerExistant == true}">
+											<!--Erreur-->
+											<div class="form-group text-center">
+												<label class="label redText">Cette adresse courriel est déjà utilisée par un autre usager</label>
+											</div>									
+										</c:when>
+										<c:when test="${requestScope.pwdInvalide == true}">
+											<!--Erreur-->
+											<div class="form-group text-center">
+												<label class="label redText">Ce mot de passe est invalide !</label>
+											</div>									
+										</c:when>
+										<c:when test="${requestScope.erreurEnvoiEmail == true}">
+											<!--Erreur-->
+											<div class="form-group text-center">
+												<label class="label redText">Une erreur est survenue, veuillez ré-essayer plus tard</label>
+											</div>									
+										</c:when>
+										<c:otherwise>											
+										</c:otherwise>
+									</c:choose>
+									
 									<!--Enter-->
 									<div class="form-group text-center">
 										<input type="hidden" name="action" value="CREATE_ACCOUNT" />
@@ -106,8 +129,7 @@
 								<!--Nouveau compte-->
 								<div class="panel-footer text-center">
 									<label class="small">---Vous avez déjà un compte ?---</label>
-									<input type="hidden" name="action" value="CANCEL" />
-									<button type="button" class="btn btn-default btn-block">Se connecter</button>
+									<button type="button" class="btn btn-default btn-block" onClick="document.location.href='ConnexionServlet?action=CANCEL'">Se connecter</button>
 								</div>
 							</div>
 						</div>

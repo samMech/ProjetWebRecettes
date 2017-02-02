@@ -1,8 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.util.List;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,8 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import controle.Driver;
-import modele.DaoRecette;
-import modele.Recette;
 import utils.Authentification;
 
 /**
@@ -48,7 +44,7 @@ public class ConnexionServlet extends HttpServlet {
 			action = "BIENVENUE";
 		}
 		
-		// La destination
+		// Aiguillage selon l'action
 		String urlDestination = "/accueil.jsp";
 		switch(action){
 			case "SE_CONNECTER" :

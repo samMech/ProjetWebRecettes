@@ -9,10 +9,11 @@
 		<class>modele.Recette</class>
 		<class>modele.TypesRecette</class>
 		<class>modele.Unite</class>
+		<class>modele.Usager</class>
 		<properties>
-			<property name="javax.persistence.jdbc.driver" value="oracle.jdbc.driver.OracleDriver"/>
-			<property name="javax.persistence.jdbc.url" value="192.168.56.101:1521:orcl"/>
-			<property name="javax.persistence.jdbc.user" value="hr"/>
+		    <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@192.168.56.101:1521:orcl"/>
+		    <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
+		    <property name="javax.persistence.jdbc.user" value="hr"/>
 			<property name="javax.persistence.jdbc.password" value="hr"/>
 		</properties>
 	</persistence-unit>

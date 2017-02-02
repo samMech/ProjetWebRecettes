@@ -30,6 +30,11 @@ public class Recette implements Serializable {
 	@Column(name="NOM_RECETTE", nullable=false, length=100)
 	private String nomRecette;
 
+	//bi-directional many-to-one association to Usager
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="ID_USAGER", nullable=false)
+	private Usager usager;
+	
 	//bi-directional many-to-one association to Instruction
 	@OneToMany(mappedBy="recette")
 	private List<Instruction> instructions;
@@ -130,4 +135,12 @@ public class Recette implements Serializable {
 		this.typesRecette = typesRecette;
 	}
 
+	public Usager getUsager() {
+		return this.usager;
+	}
+
+	public void setUsager(Usager usager) {
+		this.usager = usager;
+	}
+	
 }

@@ -88,13 +88,15 @@
 									<!--Option-->
 									<div class="form-group checkbox">
 										<label><input type="checkbox" id="optConnexion" name="optConnexion"/> Rester connectÃ©</label>
-									</div>									
+									</div>	
+																	
 									<c:if test="${erreurConnexion == true}">
 									<!--Erreur-->
 									<div class="form-group text-center">
 										<label class="label redText">Veuillez vérifier que votre adresse courriel et mot de passe sont valides</label>
 									</div>									
-									</c:if>									
+									</c:if>	
+																	
 									<!--Enter-->
 									<div class="form-group text-center">
 										<input type="hidden" name="action" value="SE_CONNECTER" />

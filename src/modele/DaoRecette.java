@@ -3,6 +3,7 @@ package modele;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
 /**
@@ -25,12 +26,44 @@ public class DaoRecette extends DaoJPA<Recette> {
 	//////////////
 	
 	/**
+	 * Méthode pour retourner un usager selon son login unique
+	 * 
+	 * @param email L'adresse courriel identifiant l'usager de manière unique
+	 * @return L'usager correspondant ou null si inexistant
+	 */
+	public Usager getUsager(String email){
+		if(email != null && ! email.isEmpty()){
+			try{
+	            // Ouverture de la connexion
+	            ouvrirConnexion();
+	            
+	            // Construction de la requête
+	            TypedQuery<Usager> query = em.createQuery("SELECT u FROM Usager u WHERE u.email = :email", Usager.class);
+	            query.setParameter("email", email);
+
+	            // Recherche
+	            return query.getSingleResult();
+			}
+            catch(NoResultException e){
+            	return null;
+            }	            
+	        finally{
+	            // Fermeture de la connexion
+	            fermerConnexion();
+	        }
+		}
+		else{
+			return null;
+		}
+	}
+	
+	/**
 	 * Méthode pour retourner la liste de toutes les recettes
 	 * 
 	 * @return La liste de toutes les recettes ou une liste vide si aucun résultat
 	 */
 	public List<Recette> getRecettes(){
-		return lancerRequete("SELECT * FROM Recettes r");
+		return lancerRequete("SELECT r FROM Recette r");
 	}
 	
 	/**
@@ -46,13 +79,16 @@ public class DaoRecette extends DaoJPA<Recette> {
 	            ouvrirConnexion();
 	            
 	            // Construction de la requête
-	            TypedQuery<Recette> query = em.createQuery("SELECT * FROM Recettes r ORDER BY idRecette DESC LIMIT :n", Recette.class);
+	            TypedQuery<Recette> query = em.createQuery("SELECT r FROM Recette r ORDER BY idRecette DESC LIMIT :n", Recette.class);
 	            query.setParameter("n", nbRecettes);
 
 	            // Recherche
 	            return query.getResultList();
 	            
-	        }finally{
+	        }catch(NoResultException e){
+            	return new ArrayList<>();
+            }	 
+			finally{
 	            // Fermeture de la connexion
 	            fermerConnexion();
 	        }
@@ -74,7 +110,7 @@ public class DaoRecette extends DaoJPA<Recette> {
             ouvrirConnexion();
             
             // Construction de la requête
-            TypedQuery<Recette> query = em.createQuery("SELECT * FROM Recettes r WHERE idRecette = :id", Recette.class);
+            TypedQuery<Recette> query = em.createQuery("SELECT r FROM Recette r WHERE idRecette = :id", Recette.class);
             query.setParameter("id", idRecette);
 
             // Recherche

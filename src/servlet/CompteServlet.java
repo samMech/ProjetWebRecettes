@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 
+import javax.mail.MessagingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import controle.Driver;
-import utils.Authentification;
+import modele.Usager;
+import utils.Communication;
+import utils.Utilitaire;
 
 /**
  * Servlet implementation class CompteServlet
@@ -27,6 +30,26 @@ public class CompteServlet extends HttpServlet {
         super();
     }
 
+    //===========================================//
+    // Constantes
+    
+    // La longueur pour les mots de passe
+    private static int PWD_NB_CHARS = 8;
+    
+    // Les caractères valides pour le mot de passe
+    private static String PWD_CARACTERES_VALIDES = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%&";
+    
+    // L'adresse couriel de l'expéditeur pour l'envoi des email de confirmation
+    private static String EMAIL_EXPEDITEUR = "confirmation@boiteAingredients.com";
+        
+    // Le message pour le courriel de confirmation pour la création d'un nouveau compte
+    private static String MSG_EMAIL_COMPTE = "Merci pour votre inscription\n Pour compléter la création de votre compte, copiez le code ci-dessous dans la zone du formulaire.";
+    		
+    // Le message pour le courriel de confirmation pour la ré-initialisation du mot de passe    			
+    private static String MSG_EMAIL_PASSWORD = "Votre mot de passe a été ré-initialisé. Votre nouveau mot de passe temporaire se trouve ci-dessous.";
+    
+    //===========================================//
+            
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -37,7 +60,7 @@ public class CompteServlet extends HttpServlet {
 		
 		// Récupération de l'action demandée
 		String action = (String) request.getParameter("action");
-				
+		
 		// Récupération des paramètres
 		String idUsager = (String) session.getAttribute("idUsager");
 		if(idUsager != null && ! idUsager.isEmpty()){			
@@ -45,33 +68,128 @@ public class CompteServlet extends HttpServlet {
 			action = "BIENVENUE";
 		}
 		
-		// La destination
+		// Aiguillage selon l'action
+		String nomUsager, email, password, codeConfirmation, message;
 		String urlDestination = "/ConnexionServlet?action=none";
 		switch(action){
 			case "CREATE_ACCOUNT" :
 				
 				// Récupération des paramètres
-				String nomUsager = request.getParameter("userName");
-				String email = request.getParameter("email");
-				String password = request.getParameter("pwd");
+				nomUsager = request.getParameter("userName");
+				email = request.getParameter("email");
+				password = request.getParameter("pwd");
 				
-				// TODO: Envoi du courriel de validation
-								
-				// TODO Création d'un nouveau compte
+				// On vérifie si l'usager n'existe pas déjà et si le mot de passe est valide
+				if(Driver.trouverUsager(email) != null){
+					// Erreur : l'usager existe déjà
+					request.setAttribute("usagerExistant", true);
+					urlDestination = "/creerCompte.jsp";
+				}
+				else if(Utilitaire.validerMotDePasse(password, PWD_NB_CHARS, PWD_CARACTERES_VALIDES) == false){
+					// Mot de passe invalide
+					request.setAttribute("pwdInvalide", true);
+					urlDestination = "/creerCompte.jsp";
+				}
+				else{					
+					// Génération d'un code aléatoire
+					codeConfirmation = Utilitaire.genererCodeAleatoire();
+					
+					// On ré-attache les informations à la requête pour la confirmation
+					request.setAttribute("userName", nomUsager);
+					request.setAttribute("email", email);
+					request.setAttribute("password", password);
+					request.setAttribute("codeConfirmation", codeConfirmation);
+					
+					// Création du message à envoyer
+					message = MSG_EMAIL_COMPTE + "\n\n Voici votre code d'activation: " + codeConfirmation;
+										
+					try {
+						// Envoi du courriel de validation
+						Communication.envoyerCourriel(email, EMAIL_EXPEDITEUR, "Confirmation d'inscription", message);
+						
+						// Redirection vers la page de confirmation
+						urlDestination = "/WEB_INF/confimationEmail.jsp";
+						
+					} catch (MessagingException e) {
+						e.printStackTrace();
+						// Affichage d'un message d'erreur					
+						request.setAttribute("erreurEnvoiEmail", true);
+						urlDestination = "/creerCompte.jsp";
+					}					
+				}				
 				
-				urlDestination = "/creerCompte.jsp";
+				break;
+			case "CONFIRM_EMAIL_NEW_ACCOUNT" :
+				
+				// Récupération des paramètres
+				String codeOriginal = request.getParameter("codeConfirmation"); 
+				String codeSoumis = request.getParameter("codeSoumis");
+				
+				// Vérification du code de confirmation
+				if(codeOriginal.equals(codeSoumis)){
+					// Récupération des paramètres
+					nomUsager = request.getParameter("userName");
+					email = request.getParameter("email");
+					password = request.getParameter("pwd");
+					
+					// Création du nouvel usager
+					Driver.creerNouvelUsager(nomUsager, email, password);
+					
+					// Affichage d'un message de confirmation
+					request.setAttribute("compteCree", true);
+					urlDestination = "/WEB_INF/confimationEmail.jsp";
+				}
+				else{
+					// On ré-attache les informations à la requête pour ne pas les perdre
+					request.setAttribute("userName", request.getParameter("userName"));
+					request.setAttribute("email", request.getParameter("email"));
+					request.setAttribute("password", request.getParameter("password"));
+					request.setAttribute("codeConfirmation", request.getParameter("codeConfirmation"));
+					
+					// Affichage d'un message d'erreur
+					request.setAttribute("erreurCodeConfirmation", true);
+					urlDestination = "/WEB_INF/confimationEmail.jsp";
+				}
+				
 				break;
 			case "RESET_PASSWORD" :
 				
+				// Récupération des paramètres
+				email = request.getParameter("email");
 				
-				
-				// Ré-initialisation du mot de passe			
-				
-				
-				
+				// Vérification de l'adresse courrielle
+				Usager usager = Driver.trouverUsager(email); 
+				if(usager != null){
+					
+					// Création d'un nouveau mot de passe
+					String newPassword = Utilitaire.genererMotDePasse(PWD_NB_CHARS, PWD_CARACTERES_VALIDES);
+					
+					// Enregistrement du nouveau mot de passe, dans le profil de l'usager
+					usager.setPassword(newPassword);
+					Driver.enregistrer(usager, Usager.class);
+					
+					// Création du message à envoyer
+					message = MSG_EMAIL_PASSWORD + "\n\n Voici votre nouveau mot de passe: " + newPassword;
+					
+					// Envoi du courriel de validation
+					try {
+						Communication.envoyerCourriel(email, EMAIL_EXPEDITEUR, "Ré-initialisation du mot de passe", message); 
+						request.setAttribute("confirmationEmail", true);// Succès						
+					} catch (MessagingException e) {
+						// Erreur --> affichage d'un message d'erreur					
+						request.setAttribute("erreurEnvoiEmail", true);
+					}		
+				}
+				else{
+					// Erreur: l'usager n'existe pas
+					request.setAttribute("usagerInexistant", true);
+				}
+								
 				urlDestination = "/resetPassword.jsp";
+				
 				break;
 			case "CANCEL" :
+				urlDestination = "/ConnexionServlet?action=none";
 				break;
 			default :
 				break;

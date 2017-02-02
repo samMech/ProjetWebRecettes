@@ -69,8 +69,7 @@
 								<!--Nouveau compte-->
 								<div class="panel-footer text-center">
 									<label class="small">---Cliquez ici pour retourner à la page d'accueil---</label>
-									<input type="hidden" name="action" value="CANCEL" />
-									<button type="button" class="btn btn-default btn-block">Annuler</button>
+									<button type="button" class="btn btn-default btn-block" onClick="document.location.href='ConnexionServlet?action=CANCEL'">Annuler</button>
 								</div>
 							</div>
 						</div>
