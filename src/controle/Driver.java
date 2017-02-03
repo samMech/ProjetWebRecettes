@@ -32,14 +32,14 @@ public class Driver {
 	 * @param nom Le nom de l'usager
 	 * @param email L'adresse courriel de l'usager
 	 * @param password Le mot de passe de l'usager
+	 * @return L'usager créé
 	 */
-	public static void creerNouvelUsager(String nom, String email, String password){
-		Usager usager = new Usager(nom, email , password);
-		enregistrer(usager, Usager.class);		
+	public static Usager creerNouvelUsager(String nom, String email, String password){
+		return new Usager(nom, email , password);	
 	}
 	
 	/**
-	 * Méthode pour vérifier si un usager existe déjà
+	 * Méthode pour trouver un usager par son email
 	 * 
 	 * @param email L'adresse courriel de l'usager (login)
 	 * @return L'usager trouvé ou null si inexistant
@@ -47,6 +47,17 @@ public class Driver {
 	public static Usager trouverUsager(String email){
 		DaoRecette dao = new DaoRecette();
 		return dao.getUsager(email);		
+	}
+	
+	/**
+	 * Méthode pour trouver un usager par son id
+	 * 
+	 * @param id L'identifiant de l'usager
+	 * @return L'usager trouvé ou null si inexistant
+	 */
+	public static Usager trouverUsager(int id){
+		DaoRecette dao = new DaoRecette();
+		return dao.getUsager(id);		
 	}
 	
 	/**

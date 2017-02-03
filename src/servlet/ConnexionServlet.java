@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import controle.Driver;
-import utils.Authentification;
+import modele.Usager;
 
 /**
  * Servlet implementation class ConnexionServlet
@@ -36,10 +36,9 @@ public class ConnexionServlet extends HttpServlet {
 		
 		// Récupération de l'action demandée
 		String action = (String) request.getParameter("action");
-				
-		// Récupération des paramètres
-		String idUsager = (String) session.getAttribute("idUsager");
-		if(idUsager != null && ! idUsager.isEmpty()){			
+		
+		// On vérifie si l'usager est déjà connecté
+		if(session.getAttribute("idUsager") != null){			
 			// L'usager est connecté --> redirection vers la page de bienvenue
 			action = "BIENVENUE";
 		}
@@ -47,16 +46,24 @@ public class ConnexionServlet extends HttpServlet {
 		// Aiguillage selon l'action
 		String urlDestination = "/accueil.jsp";
 		switch(action){
+			case "BIENVENUE" :
+				// Chargement des recettes pour la page de bienvenue					
+				request.setAttribute("recettesCarousel", Driver.chargerRecettesBienvenue());				
+				urlDestination = "/bienvenue.jsp";
+				break;
 			case "SE_CONNECTER" :
 				
 				// Récupération du login et password
 				String login = request.getParameter("email");
 				String password = request.getParameter("pwd");
 				
+				// Recherche de l'usager
+				Usager user = Driver.trouverUsager(login);
+				
 				// Vérification du login et mot de passe
-				if(Authentification.validerUsager(login, password)){
+				if(user != null && user.getPassword().equals(password)){
 					// Ajout de l'usager à la session
-					session.setAttribute("idUsager", login);
+					session.setAttribute("idUsager", user.getIdUsager());
 					
 					// Chargement des recettes pour la page de bienvenue					
 					request.setAttribute("recettesCarousel", Driver.chargerRecettesBienvenue());										
@@ -67,11 +74,6 @@ public class ConnexionServlet extends HttpServlet {
 					request.setAttribute("erreurConnexion", true);
 				}			
 
-				break;
-			case "BIENVENUE" :
-				// Chargement des recettes pour la page de bienvenue					
-				request.setAttribute("recettesCarousel", Driver.chargerRecettesBienvenue());				
-				urlDestination = "/bienvenue.jsp";
 				break;
 			default :
 				break;

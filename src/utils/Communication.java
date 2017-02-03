@@ -1,5 +1,6 @@
 package utils;
 
+import java.util.Date;
 import java.util.Properties;
 
 import javax.mail.*;
@@ -22,24 +23,32 @@ public class Communication {
 	 * @param message Le message à envoyer
 	 */
 	public static void envoyerCourriel(String destinataire, String expediteur, String sujet, String message) throws MessagingException {
-		
+				
 		// Mise en place du serveur SMTP
 		Properties props = new Properties();
-		props.put("mail.smtp.host", "smtp.gmail.com");
-		props.put("mail.smtp.port", "465");
+		props.put("mail.smtp.host", "localhost");
+		props.put("mail.smtp.port", "587");
+		props.put("mail.smtp.auth", "Container");
+		props.put("mail.smtp.starttls.enable", "true");
 		
-		Session session = Session.getDefaultInstance(props, null);
+		//Session session = Session.getDefaultInstance(props, null);
+		Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication("login", "password");// TODO
+			}
+		  });
 		
 		session.setDebug(true);
 		// Construction du message
 		Message msg = new MimeMessage(session);
 		msg.setFrom(new InternetAddress(expediteur));
 		msg.setRecipient(Message.RecipientType.TO, new InternetAddress(destinataire));
+		msg.setSentDate(new Date());
 		msg.setSubject(sujet);
 		msg.setText(message);
 		
 		// Envoi du message
-		Transport.send(msg);
+		//Transport.send(msg);
 	}	
 	
 }

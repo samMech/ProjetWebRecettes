@@ -4,9 +4,9 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%--On vérifie si l'usager est déjà connecté--%>
-<c:if test="${sessionScope.idUsager != null && ! sessionScope.idUsager.isEmpty()}">
+<c:if test="${sessionScope.idUsager != null}">
 	<%--Redirection vers la page de bienvenue--%>
-	<jsp:forward page="/ConnexionServlet?action=start"></jsp:forward>
+	<jsp:forward page="/ConnexionServlet?action=BIENVENUE"></jsp:forward>
 </c:if>
 
 <!DOCTYPE html>
@@ -101,19 +101,19 @@
 										<c:when test="${requestScope.usagerExistant == true}">
 											<!--Erreur-->
 											<div class="form-group text-center">
-												<label class="label redText">Cette adresse courriel est déjà utilisée par un autre usager</label>
+												<h3 class="text-center"><span class="label label-warning">Cette adresse courriel est déjà utilisée par un autre usager !</span></h3><br />
 											</div>									
 										</c:when>
 										<c:when test="${requestScope.pwdInvalide == true}">
 											<!--Erreur-->
 											<div class="form-group text-center">
-												<label class="label redText">Ce mot de passe est invalide !</label>
+												<h3 class="text-center"><span class="label label-warning">Ce mot de passe est invalide !</span></h3><br />
 											</div>									
 										</c:when>
 										<c:when test="${requestScope.erreurEnvoiEmail == true}">
 											<!--Erreur-->
 											<div class="form-group text-center">
-												<label class="label redText">Une erreur est survenue, veuillez ré-essayer plus tard</label>
+												<h3 class="text-center"><span class="label label-danger">Une erreur est survenue, veuillez ré-essayer plus tard.</span></h3><br />
 											</div>									
 										</c:when>
 										<c:otherwise>											
@@ -143,11 +143,13 @@
 							</div>
 							<div class="panel-body">
 								<ul>
-									<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed enim dui. Suspendisse porta odio eget vestibulum consectetur. Aenean </li>
-									<li>euismod rutrum justo ac faucibus. Aliquam eu lorem at arcu cursus blandit quis ut turpis. Aenean porta, metus nec lobortis luctus, metus elit </li>
-									<li>vehicula libero, sit amet pulvinar velit elit nec felis. Ut posuere lectus id mi dictum, ut viverra sem euismod. Aenean tempus cursus tortor.</li>
-									<li> Morbi vel urna ex. Fusce tempor magna eget efficitur sollicitudin.</li>
-									<li>Duis ac tellus ut libero volutpat ullamcorper. Quisque sed efficitur quam. Aliquam eget vestibulum mi. Sed eu nisl rhoncus, luctus lorem in, lacinia </li><li>metus. Nam iaculis gravida metus sed semper. Pellentesque eu quam eget neque aliquet auctor. Duis vitae suscipit lectus. Donec id ante libero. </li><li>Aenean justo dolor, efficitur nec auctor id, viverra in lorem. Morbi condimentum non nisi vitae tincidunt. Sed mattis est sit amet volutpat blandit. </li><li>Donec at euismod neque. Vestibulum consectetur dapibus neque, non rhoncus velit ultricies id.</li>
+									<li>Tous les champs sont obligatoires</li>
+									<li>L'adresse courriel doit être valide. Un code de confirmation vous sera envoyez par courriel pour compléter le processus d'inscription</li>
+									<li>
+										Le mot de passe doit contenir exactement 8 caractères (lettres et/ou chiffres)<br />
+									    Seul les caractères spéciaux suivant sont autorisés: ! @ # $ % & <br />
+									    Les caractères accentués ne sont pas autorisés
+									</li>
 								</ul>
 							</div>							
 						</div>

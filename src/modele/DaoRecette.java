@@ -28,6 +28,33 @@ public class DaoRecette extends DaoJPA<Recette> {
 	/**
 	 * Méthode pour retourner un usager selon son login unique
 	 * 
+	 * @param id L'identifiant unique de l'usager
+	 * @return L'usager correspondant ou null si inexistant
+	 */
+	public Usager getUsager(int id){
+		try{
+            // Ouverture de la connexion
+            ouvrirConnexion();
+            
+            // Construction de la requête
+            TypedQuery<Usager> query = em.createQuery("SELECT u FROM Usager u WHERE u.idUsager = :id", Usager.class);
+            query.setParameter("id", id);
+
+            // Recherche
+            return query.getSingleResult();
+		}
+        catch(NoResultException e){
+        	return null;
+        }	            
+        finally{
+            // Fermeture de la connexion
+            fermerConnexion();
+        }
+	}
+	
+	/**
+	 * Méthode pour retourner un usager selon son login unique
+	 * 
 	 * @param email L'adresse courriel identifiant l'usager de manière unique
 	 * @return L'usager correspondant ou null si inexistant
 	 */
@@ -79,11 +106,10 @@ public class DaoRecette extends DaoJPA<Recette> {
 	            ouvrirConnexion();
 	            
 	            // Construction de la requête
-	            TypedQuery<Recette> query = em.createQuery("SELECT r FROM Recette r ORDER BY idRecette DESC LIMIT :n", Recette.class);
-	            query.setParameter("n", nbRecettes);
+	            TypedQuery<Recette> query = em.createQuery("SELECT r FROM Recette r ORDER BY r.idRecette DESC", Recette.class);
 
 	            // Recherche
-	            return query.getResultList();
+	            return query.setMaxResults(nbRecettes).getResultList();
 	            
 	        }catch(NoResultException e){
             	return new ArrayList<>();

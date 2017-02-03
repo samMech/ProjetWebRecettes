@@ -4,9 +4,9 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%--On vérifie si l'usager est déjà connecté--%>
-<c:if test="${sessionScope.idUsager != null && ! sessionScope.idUsager.isEmpty()}">
+<c:if test="${sessionScope.idUsager != null}">
 	<%--Redirection vers la page de bienvenue--%>
-	<jsp:forward page="/ConnexionServlet?action=start"></jsp:forward>
+	<jsp:forward page="/ConnexionServlet?action=BIENVENUE"></jsp:forward>
 </c:if>
 
 <!DOCTYPE html>
@@ -79,7 +79,7 @@
 										<a class="pull-right" href="resetPassword.jsp">Mot de passe oubliÃ©?</a><!--Password reset-->
 										<div class="input-group required-field-block">
 											<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-											<input type="password" class="form-control" id="pwd" name="pwd" required/>
+											<input type="password" class="form-control" id="pwd" name="pwd" required pattern="[0-9a-zA-Z!@#$%&]{8}"/>
 											<div class="required-icon">
 												<div class="text">*</div>
 											</div>
@@ -90,10 +90,10 @@
 										<label><input type="checkbox" id="optConnexion" name="optConnexion"/> Rester connectÃ©</label>
 									</div>	
 																	
-									<c:if test="${erreurConnexion == true}">
+									<c:if test="${requestScope.erreurConnexion == true}">
 									<!--Erreur-->
 									<div class="form-group text-center">
-										<label class="label redText">Veuillez vérifier que votre adresse courriel et mot de passe sont valides</label>
+										<h3 class="text-center"><span class="label label-warning">Veuillez vérifier que votre adresse courriel et mot de passe sont valides.</span></h3><br />
 									</div>									
 									</c:if>	
 																	

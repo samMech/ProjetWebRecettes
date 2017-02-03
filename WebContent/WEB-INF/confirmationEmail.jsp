@@ -39,53 +39,61 @@
 				
 				<!--Le contenu-->
 				<div class="row">
-				
-					<!--Le panneau de connexion (invisible)-->
-					<div class="col-sm-5"></div>
-				
+					
+					<!-- Bordure gauche -->
+					<div class="col-sm-2"></div>
+								
 					<!--Le texte de bienvenue-->	
-					<div class="col-sm-7">
+					<div class="col-sm-8">		
 						<div class="panel panel-info">
-							Un courriel a été envoyé à votre adresse courriel !
-							<br />
-							Pour compléter votre inscription, veuillez copier le code fournis à l'intérieur
-							dans la zone de texte ci-dessous et cliquer sur confirmer
-							<form id="formConfirmationEmail" method="POST" action="CompteServlet">
-								<!--Login-->
-								<div class="form-group">
-									<label for="userName">Code de confirmation:</label>
-									<div class="input-group required-field-block col-lg-12">
-										<input type="text" class="form-control " id="codeSoumis" name="codeSoumis" required pattern="$[requestScope.codeConfirmation]"/>
-										<div class="required-icon">
-											<div class="text">*</div>
+							<div class="panel-heading">
+								<h3>Un courriel a été envoyé à votre adresse courriel !</h3>
+							</div>
+							<div class="panel body">							
+								<p>
+									Pour compléter votre inscription, veuillez copier le code fournis à l'intérieur
+									dans la zone de texte ci-dessous et cliquer sur confirmer
+								</p>
+								<form id="formConfirmationEmail" method="POST" action="CompteServlet">
+									<!--Login-->
+									<div class="form-group form-inline">
+										<label for="userName">Code de confirmation:</label>
+										<div class="input-group required-field-block col-lg-12">
+											<input type="text" class="form-control " id="codeSoumis" name="codeSoumis" required />
+											<div class="required-icon">
+												<div class="text">*</div>
+											</div>
 										</div>
 									</div>
-								</div>
-								
-								<c:choose>
-									<c:when test="${requestScope.compteCree == true}">
-										<div class="form-group text-center">
-											<label class="label redText">Votre compte a été créé avec succès.</label>
-											<a href="ConnexionServlet?action=none">Retournez à la page de connexion</a>
-										</div>									
-									</c:when>
-									<c:otherwise>										
-										<c:if test="${requestScope.erreurCodeConfirmation == true}">
+									
+									<c:choose>
+										<c:when test="${requestScope.compteCree == true}">
 											<div class="form-group text-center">
-												<label class="label redText">Le code soumis est erroné. Vérifiez que vous avez bien copié le code fournit dans le courriel de confirmation que vous avez reçu.</label>
+												<h3 class="text-center"><span class="label label-success">Votre compte a été créé avec succès.</span></h3><br />
+												<a href="ConnexionServlet?action=none">Retournez à la page de connexion</a>
 											</div>									
-										</c:if>
-										<!--Enter-->
-										<div class="form-group text-center">
-											<input type="hidden" name="action" value="CONFIRM_EMAIL_NEW_ACCOUNT" />
-										    <button type="submit" class="btn btn-primary btn-block" id="confirmation"><span class="glyphicon glyphicon-log-in"></span> Confirmer l'inscription</button>
-										</div>	
-									</c:otherwise>
-								</c:choose>		
-											
-							</form>							
+										</c:when>
+										<c:otherwise>										
+											<c:if test="${requestScope.erreurCodeConfirmation == true}">
+												<div class="form-group text-center">
+													<h3 class="text-center"><span class="label label-warning">Le code soumis est erroné. Vérifiez que vous avez bien copié le code fournit dans le courriel de confirmation que vous avez reçu.</span></h3><br />
+												</div>									
+											</c:if>
+											<!--Enter-->
+											<div class="form-group text-center">
+												<input type="hidden" name="action" value="CONFIRM_EMAIL_NEW_ACCOUNT" />
+											    <button type="submit" class="btn btn-primary btn-block" id="confirmation"><span class="glyphicon glyphicon-log-in"></span> Confirmer l'inscription</button>
+											</div>	
+										</c:otherwise>
+									</c:choose>		
+												
+								</form>	
+							</div>						
 						</div>
 					</div>
+					
+					<!-- Bordure droite -->
+					<div class="col-sm-2"></div>
 					
 				</div>
 			</div>

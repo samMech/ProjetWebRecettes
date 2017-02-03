@@ -4,9 +4,9 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%--On vérifie si l'usager est déjà connecté--%>
-<c:if test="${sessionScope.idUsager != null && ! sessionScope.idUsager.isEmpty()}">
+<c:if test="${sessionScope.idUsager != null}">
 	<%--Redirection vers la page de bienvenue--%>
-	<jsp:forward page="/ConnexionServlet?action=start"></jsp:forward>
+	<jsp:forward page="/ConnexionServlet?action=BIENVENUE"></jsp:forward>
 </c:if>
 
 <!DOCTYPE html>
@@ -60,6 +60,14 @@
 											<input type="email" class="form-control" id="email" name="email" required/>
 										</div>
 									</div>
+									
+									<c:if test="${requestScope.usagerInexistant == true}">
+									<!--Erreur-->
+									<div class="form-group text-center">
+										<h3 class="text-center"><span class="label label-warning">L'adresse courriel fournie ne correspond à aucun usager existant !</span></h3><br />
+									</div>									
+									</c:if>	
+									
 									<!--Enter-->
 									<div class="form-group text-center">
 										<input type="hidden" name="action" value="RESET_PASSWORD" />
@@ -69,7 +77,7 @@
 								<!--Nouveau compte-->
 								<div class="panel-footer text-center">
 									<label class="small">---Cliquez ici pour retourner à la page d'accueil---</label>
-									<button type="button" class="btn btn-default btn-block" onClick="document.location.href='ConnexionServlet?action=CANCEL'">Annuler</button>
+									<button type="button" class="btn btn-default btn-block" onClick="document.location.href='ConnexionServlet?action=CANCEL'">Se Connecter</button>
 								</div>
 							</div>
 						</div>
@@ -82,9 +90,20 @@
 								<h3>Instructions</h3>
 							</div>
 							<div class="panel-body">
-								Pour réinitialiser votre mot de passe, entrez votre adresse courriel.
-								Un courriel vous sera envoyé avec un lien de réactivation. Cliquez sur ce lien pour réinitialiser votre compte.
-								<h3 class="text-center"><span id="messageConfirmation" class="label label-success">Un courriel vous a été envoyé</span></h3><!--Mettre label-success ou label-danger selon le cas-->
+								<ul>
+									<li>Pour réinitialiser votre mot de passe, entrez votre adresse courriel.</li>
+									<li>Un courriel vous sera envoyé avec un nouveau mot de passe.</li>
+								</ul>
+								
+								<c:choose>
+									<c:when test="${requestScope.erreurEnvoiEmail == true}">
+										<h3 class="text-center"><span id="messageConfirmation" class="label label-danger">Une erreur est survenue, veuillez ré-essayer plus tard.</span></h3>
+									</c:when>
+									<c:when test="${requestScope.confirmationEmail == true }">
+										<h3 class="text-center"><span id="messageConfirmation" class="label label-success">Un courriel contenant votre nouveau mot de passe vous a été envoyé.</span></h3>
+									</c:when>
+								</c:choose>
+																								
 							</div>							
 						</div>
 					</div>
