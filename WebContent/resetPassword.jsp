@@ -4,7 +4,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%--On vérifie si l'usager est déjà connecté--%>
-<c:if test="${sessionScope.idUsager != null}">
+<c:if test="${sessionScope.Usager != null}">
 	<%--Redirection vers la page de bienvenue--%>
 	<jsp:forward page="/ConnexionServlet?action=BIENVENUE"></jsp:forward>
 </c:if>

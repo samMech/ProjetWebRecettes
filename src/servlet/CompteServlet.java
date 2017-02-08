@@ -62,7 +62,8 @@ public class CompteServlet extends HttpServlet {
 		String action = (String) request.getParameter("action");
 		
 		// On vérifie si l'usager est déjà connecté
-		if(session.getAttribute("idUsager") != null){			
+		Usager user = (Usager) session.getAttribute("Usager"); 
+		if(user != null){			
 			// L'usager est connecté --> redirection vers la page de bienvenue
 			action = "CANCEL";
 		}
@@ -73,7 +74,7 @@ public class CompteServlet extends HttpServlet {
 		switch(action){
 			case "BIENVENUE" :
 				// Chargement des recettes pour la page de bienvenue					
-				request.setAttribute("recettesCarousel", Driver.chargerRecettesBienvenue());				
+				request.setAttribute("recettesCarousel", Driver.chargerRecettesBienvenue(user));				
 				urlDestination = "/bienvenue.jsp";
 				break;
 			case "CREATE_ACCOUNT" :
@@ -99,7 +100,7 @@ public class CompteServlet extends HttpServlet {
 					codeConfirmation = Utilitaire.genererCodeAleatoire();
 					
 					// Création du nouvel l'usager
-					Usager user = Driver.creerNouvelUsager(nomUsager, email, password);
+					user = Driver.creerNouvelUsager(nomUsager, email, password);
 					
 					// On met les informations dans la session en attendant la confirmation
 					session.setAttribute("usagerTemp", user);
@@ -127,7 +128,7 @@ public class CompteServlet extends HttpServlet {
 			case "CONFIRM_EMAIL_NEW_ACCOUNT" :
 				
 				// Récupération des paramètres
-				Usager user = (Usager) session.getAttribute("usagerTemp");
+				user = (Usager) session.getAttribute("usagerTemp");
 				String codeOriginal = (String) session.getAttribute("codeConfirmationCompte"); 
 				String codeSoumis = request.getParameter("codeSoumis");
 								

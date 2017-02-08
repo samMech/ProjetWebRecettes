@@ -38,7 +38,8 @@ public class ConnexionServlet extends HttpServlet {
 		String action = (String) request.getParameter("action");
 		
 		// On vérifie si l'usager est déjà connecté
-		if(session.getAttribute("idUsager") != null){			
+		Usager user = (Usager) session.getAttribute("Usager"); 
+		if(user != null){			
 			// L'usager est connecté --> redirection vers la page de bienvenue
 			action = "BIENVENUE";
 		}
@@ -48,7 +49,7 @@ public class ConnexionServlet extends HttpServlet {
 		switch(action){
 			case "BIENVENUE" :
 				// Chargement des recettes pour la page de bienvenue					
-				request.setAttribute("recettesCarousel", Driver.chargerRecettesBienvenue());				
+				request.setAttribute("recettesCarousel", Driver.chargerRecettesBienvenue(user));				
 				urlDestination = "/WEB-INF/bienvenue.jsp";
 				break;
 			case "SE_CONNECTER" :
@@ -58,7 +59,7 @@ public class ConnexionServlet extends HttpServlet {
 				String password = request.getParameter("pwd");
 				
 				// Recherche de l'usager
-				Usager user = Driver.trouverUsager(login);
+				user = Driver.trouverUsager(login);
 				
 				// Vérification du login et mot de passe
 				if(user != null && user.getPassword().equals(password)){
@@ -67,7 +68,7 @@ public class ConnexionServlet extends HttpServlet {
 					session.setAttribute("Usager", user);
 					
 					// Chargement des recettes pour la page de bienvenue					
-					request.setAttribute("recettesRecentes", Driver.chargerRecettesBienvenue());										
+					request.setAttribute("recettesRecentes", Driver.chargerRecettesBienvenue(user));										
 					urlDestination = "/WEB-INF/bienvenue.jsp";					
 				}
 				else{

@@ -55,7 +55,7 @@ public class Driver {
 	 * @param id L'identifiant de l'usager
 	 * @return L'usager trouvé ou null si inexistant
 	 */
-	public static Usager trouverUsager(int id){
+	public static Usager trouverUsager(long id){
 		DaoRecette dao = new DaoRecette();
 		return dao.getUsager(id);		
 	}
@@ -63,10 +63,11 @@ public class Driver {
 	/**
 	 * Méthode pour récupérer la liste des recettes à afficher sur la page de bienvenue
 	 * 
+	 * @param usager L'usagé présentement connecté
 	 * @return La liste des recettes à afficher
 	 */
-	public static List<Recette> chargerRecettesBienvenue(){
+	public static List<Recette> chargerRecettesBienvenue(Usager usager){
 		DaoRecette dao = new DaoRecette();
-		return dao.chercherRecettesRecentes(5);
+		return dao.chercherRecettesRecentes(usager, 5);
 	}	
 }

@@ -31,7 +31,7 @@ public class DaoRecette extends DaoJPA<Recette> {
 	 * @param id L'identifiant unique de l'usager
 	 * @return L'usager correspondant ou null si inexistant
 	 */
-	public Usager getUsager(int id){
+	public Usager getUsager(long id){
 		try{
             // Ouverture de la connexion
             ouvrirConnexion();
@@ -96,18 +96,20 @@ public class DaoRecette extends DaoJPA<Recette> {
 	/**
 	 * Méthode pour trouver les n plus récentes recettes
 	 * 
+	 * @param usager L'usagé présentement connecté
 	 * @param nbRecettes Le nombre de recettes à retourner
 	 * @return La liste des n plus récentes recettes ou une liste vide si aucun résultat
 	 */
-	public List<Recette> chercherRecettesRecentes(int nbRecettes){
+	public List<Recette> chercherRecettesRecentes(Usager usager, int nbRecettes){
 		if(nbRecettes > 0){
 			try{
 	            // Ouverture de la connexion
 	            ouvrirConnexion();
 	            
 	            // Construction de la requête
-	            TypedQuery<Recette> query = em.createQuery("SELECT r FROM Recette r ORDER BY r.idRecette DESC", Recette.class);
-
+	            TypedQuery<Recette> query = em.createQuery("SELECT r FROM Recette r WHERE r.usager = :user ORDER BY r.idRecette DESC", Recette.class);
+	            query.setParameter("user",  usager);
+	            
 	            // Recherche
 	            return query.setMaxResults(nbRecettes).getResultList();
 	            
