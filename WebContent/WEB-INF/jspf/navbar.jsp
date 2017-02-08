@@ -12,7 +12,7 @@
 			<a class="navbar-brand" href="#">Logo</a>
 		</div>
 		<div class="collapse navbar-collapse" id="myNavbar">
-			<c:if test="${sessionScope.idUsager != null && ! sessionScope.idUsager.isEmpty()}">
+			<c:if test="${sessionScope.Usager != null}">
 			<ul class="nav navbar-nav">
 				<li><a href="bienvenue.html"><span class="glyphicon glyphicon-home"></span> Accueil</a></li>
 				<li class="active"><a href="recherche.html">Nouvelle liste d'épicerie</a></li>
@@ -34,7 +34,7 @@
 				<li>
 					<a href="index.html">						
 						<c:choose>
-						   <c:when test="${sessionScope.idUsager != null && ! sessionScope.idUsager.isEmpty()}">
+						   <c:when test="${sessionScope.Usager != null}">
 						       <span class="glyphicon glyphicon-log-out"></span>Déconnexion 
 						    </c:when>
 						    <c:otherwise>

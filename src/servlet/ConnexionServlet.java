@@ -49,7 +49,7 @@ public class ConnexionServlet extends HttpServlet {
 			case "BIENVENUE" :
 				// Chargement des recettes pour la page de bienvenue					
 				request.setAttribute("recettesCarousel", Driver.chargerRecettesBienvenue());				
-				urlDestination = "/bienvenue.jsp";
+				urlDestination = "/WEB-INF/bienvenue.jsp";
 				break;
 			case "SE_CONNECTER" :
 				
@@ -62,12 +62,13 @@ public class ConnexionServlet extends HttpServlet {
 				
 				// Vérification du login et mot de passe
 				if(user != null && user.getPassword().equals(password)){
+										
 					// Ajout de l'usager à la session
-					session.setAttribute("idUsager", user.getIdUsager());
+					session.setAttribute("Usager", user);
 					
 					// Chargement des recettes pour la page de bienvenue					
-					request.setAttribute("recettesCarousel", Driver.chargerRecettesBienvenue());										
-					urlDestination = "/bienvenue.jsp";					
+					request.setAttribute("recettesRecentes", Driver.chargerRecettesBienvenue());										
+					urlDestination = "/WEB-INF/bienvenue.jsp";					
 				}
 				else{
 					// Erreur --> on retourne à la page
