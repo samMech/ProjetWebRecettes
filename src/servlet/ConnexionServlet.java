@@ -36,20 +36,23 @@ public class ConnexionServlet extends HttpServlet {
 		
 		// Récupération de l'action demandée
 		String action = (String) request.getParameter("action");
+		if(action == null){
+			action = "NONE";// Chargement initial
+		}
 		
 		// On vérifie si l'usager est déjà connecté
 		Usager user = (Usager) session.getAttribute("Usager"); 
-		if(user != null){			
+		if(! action.equals("DECONNEXION") && user != null){			
 			// L'usager est connecté --> redirection vers la page de bienvenue
 			action = "BIENVENUE";
 		}
 		
 		// Aiguillage selon l'action
 		String urlDestination = "/accueil.jsp";
-		switch(action){
+		switch(action){			
 			case "BIENVENUE" :
 				// Chargement des recettes pour la page de bienvenue					
-				request.setAttribute("recettesCarousel", Driver.chargerRecettesBienvenue(user));				
+				request.setAttribute("recettesRecentes", Driver.chargerRecettesBienvenue(user));				
 				urlDestination = "/WEB-INF/bienvenue.jsp";
 				break;
 			case "SE_CONNECTER" :
@@ -57,7 +60,7 @@ public class ConnexionServlet extends HttpServlet {
 				// Récupération du login et password
 				String login = request.getParameter("email");
 				String password = request.getParameter("pwd");
-				
+								
 				// Recherche de l'usager
 				user = Driver.trouverUsager(login);
 				
@@ -66,6 +69,11 @@ public class ConnexionServlet extends HttpServlet {
 										
 					// Ajout de l'usager à la session
 					session.setAttribute("Usager", user);
+				
+					// On vérifie si l'option resté connecté est activé
+					if(request.getParameterValues("optConnexion").length == 1){
+						session.setMaxInactiveInterval(-1);// La session n'expire plus
+					}
 					
 					// Chargement des recettes pour la page de bienvenue					
 					request.setAttribute("recettesRecentes", Driver.chargerRecettesBienvenue(user));										
@@ -74,9 +82,13 @@ public class ConnexionServlet extends HttpServlet {
 				else{
 					// Erreur --> on retourne à la page
 					request.setAttribute("erreurConnexion", true);
-				}			
-
+				}				
+				
 				break;
+			case "DECONNEXION" :
+				// On efface les informations de l'usager de la session
+				session.removeAttribute("Usager");
+				break;				
 			default :
 				break;
 		}
