@@ -12,13 +12,14 @@
 			<a class="navbar-brand" href="#">Logo</a>
 		</div>
 		<div class="collapse navbar-collapse" id="myNavbar">
+		
 			<c:if test="${sessionScope.Usager != null}">
 			<ul class="nav navbar-nav">
-				<li><a href="bienvenue.html"><span class="glyphicon glyphicon-home"></span> Accueil</a></li>
-				<li class="active"><a href="recherche.html">Nouvelle liste d'épicerie</a></li>
-				<li><a href="formRecettes.html">Nouvelle recette</a></li>
+				<li><a href="ConnexionServlet"><span class="glyphicon glyphicon-home"></span> Accueil</a></li>
+				<li class="active"><a href="RechercheServlet?action=chargerPage">Nouvelle liste d'épicerie</a></li>
+				<li><a href="RecetteServlet?action=chargerFormulaire">Nouvelle recette</a></li>
 				<li>
-					<form class="navbar-form" id="formRechercheRapide" action="recherche.html">
+					<form class="navbar-form" id="formRechercheRapide" action="RechercheServlet?action=SEARCH">
 						<div class="form-group input-group">
 							<input type="text" class="form-control" placeholder="Recherche rapide" name="texteRecherche" id="texteRecherche">
 							<div class="input-group-btn">
@@ -29,19 +30,20 @@
 				</li>
 			</ul>
 			</c:if>
+			
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="#en"><span class="glyphicon glyphicon-globe"></span> English</a></li>
 				<li>
-					<a href="index.html">						
-						<c:choose>
-						   <c:when test="${sessionScope.Usager != null}">
-						       <span class="glyphicon glyphicon-log-out"></span>Déconnexion 
-						    </c:when>
-						    <c:otherwise>
-						        <span class="glyphicon glyphicon-log-in"></span> Connexion
-						    </c:otherwise>
-						</c:choose>
-					</a>
+									
+					<c:choose>
+					   <c:when test="${sessionScope.Usager != null}">
+					       <a href="ConnexionServlet?action=DECONNEXION"><span class="glyphicon glyphicon-log-out"></span>Déconnexion</a> 
+					    </c:when>
+					    <c:otherwise>
+					        <a href="ConnexionServlet"><span class="glyphicon glyphicon-log-in"></span> Connexion</a>
+					    </c:otherwise>
+					</c:choose>
+					
 				</li>
 			</ul>			
 		</div>

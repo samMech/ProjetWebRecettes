@@ -87,7 +87,7 @@
 									</div>
 									<!--Option-->
 									<div class="form-group checkbox">
-										<label><input type="checkbox" id="optConnexion" name="optConnexion"/> Rester connecté</label>
+										<label><input type="checkbox" id="optConnexion" name="optConnexion" value="true"/> Rester connecté</label>
 									</div>	
 																	
 									<c:if test="${requestScope.erreurConnexion == true}">
