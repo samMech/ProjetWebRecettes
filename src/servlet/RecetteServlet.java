@@ -8,13 +8,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import modele.DaoRecette;
 import modele.Ingredient;
 import modele.Instruction;
 import modele.Mesure;
 import modele.Recette;
+import modele.TypesRecette;
 import modele.Unite;
+import modele.Usager;
 
 /**
  * Servlet implementation class RecetteServlet
@@ -37,6 +40,9 @@ public class RecetteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		// on recupere la session
+		HttpSession session = request.getSession();
+		
 		//on recupere le paramètre qui indique l'action à executer
 		String requete = request.getParameter("action");
 		
@@ -48,6 +54,10 @@ public class RecetteServlet extends HttpServlet {
 		String pageDestination = "";
 		
 		switch(requete){
+		
+		case "chargerFormulaire":
+			pageDestination = "/WEB-INF/FormRecette.jsp";
+			break;
 		case "ajouterRecette":
 			
 			//on crée un objet recette
@@ -59,14 +69,19 @@ public class RecetteServlet extends HttpServlet {
 			int heure = Integer.parseInt(request.getParameter("heureRecette"));
 			int minute = Integer.parseInt(request.getParameter("minRecette"));
 			recette.setDureeRecette(utils.Conversion.convertirTemps(heure, minute));
-			//TODO: insert avec dao
+			
+			//TODO creer des types de recette dans la BD et les utiliser pour charger la liste d'options de type
+			TypesRecette type = new TypesRecette();
+			type.setTypeRecette(request.getParameter("typeRecette"));
+			recette.setTypesRecette(type);
+
 			
 			//parcourir la liste des incredients et ajouter le nom, quantité et unité de mesure dans la recette
 			String[] ingredient;
-			String[]listeIngredients = request.getParameterValues("listeIngredients");
-			for(int i=0; i<listeIngredients.length/3; i++){
+			int i = 0;
+			while(request.getParameterValues("ingredient" + (i+1)) != null){
 				ingredient = request.getParameterValues("ingredient"+(i+1));
-				
+				//TODO creer des unites dans la BD et les utiliser pour charger la liste d'options d'unités
 				Unite unit = new Unite();
 				unit.setNomUnite(ingredient[2]);
 				
@@ -79,16 +94,20 @@ public class RecetteServlet extends HttpServlet {
 				mesure.setUnite(unit);
 				
 				recette.addMesure(mesure);
+				i++;
 			}
 			
-			//parcourir la liste des instructions et les ajouter a la recette
-			String[]listeInstructions = request.getParameterValues("listeInstructions");
-			for(int i = 0; i< listeInstructions.length;i++){
-				
+			i=0;
+			while(request.getParameter("instruction" + (i+1)) != null){
 				Instruction instruction = new Instruction();
-				instruction.setDescInstruction(listeInstructions[i]);
+				instruction.setDescInstruction(request.getParameter("instruction" + (i+1)));
 				recette.addInstruction(instruction);
+				i++;
 			}
+			
+			//on ajoute l'id de l'usager dans la recette
+			Usager usager = (Usager) session.getAttribute("Usager");
+			recette.setUsager(usager);
 			
 			//on enregistre la recette dans la BD
 			dao.enregistrer(recette);
@@ -119,7 +138,6 @@ public class RecetteServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
