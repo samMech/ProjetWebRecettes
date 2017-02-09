@@ -30,6 +30,8 @@ public class Locale_en extends ListResourceBundle {
 	    {"accueil.panel.message", "This site allows you to create and edit a grocery list based on the recipes you want to cook.<br /><br />"
 		    	+ "Log in or sign up to a new account now to manage your own online cookbook."},
 	    /////////////////////////////////////////////////////////
+	    {"compte.form.erreurPwdDifferents", "Passwords are not the same."},
+	    /////////////////////////////////////////////////////////
 	    {"bienvenue.message", "Welcome"},
 	    {"bienvenue.panel.titre", "Your Latest Recipes"},
 	    {"bienvenue.panel.lienRecette", "View recipe"},

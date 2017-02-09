@@ -10,6 +10,10 @@
 	<jsp:forward page="/ConnexionServlet?action=BIENVENUE"></jsp:forward>
 </c:if>
 
+<%--Initialisation de la locale--%>
+<fmt:setLocale value="${sessionScope.langue != null ? sessionScope.langue : pageContext.request.locale.language}"/>
+<fmt:setBundle basename="ressources_i18n.Locale"/>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -125,6 +129,7 @@
 									<!--Enter-->
 									<div class="form-group text-center">
 										<input type="hidden" name="action" value="CREATE_ACCOUNT" />
+										<input type="hidden" id="msgErreurPasswordsDifferents" value="<fmt:message key="compte.form.erreurPwdDifferents"/>" />
 									    <button type="submit" class="btn btn-primary btn-block" id="connexion"><span class="glyphicon glyphicon-log-in"></span> Créer un compte</button>
 									</div>
 								</form>

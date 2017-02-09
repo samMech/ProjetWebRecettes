@@ -30,6 +30,8 @@ public class Locale extends ListResourceBundle {
 	    {"accueil.panel.message", "Ce site vous permet de créer et modifier une liste d'épicerie en fonction des recettes que vous voulez cuisinez.<br /><br />"
 	    	+ "Connectez-vous ou créez un nouveau compte dès maintenant pour gérer votre propre livre de recettes en ligne."},
 	    /////////////////////////////////////////////////////////
+	    {"compte.form.erreurPwdDifferents", "Les mots de passes ne sont pas identiques."},
+	    ///////////////////////////////////////////////////////
 	    {"bienvenue.message", "Bienvenue"},
 	    {"bienvenue.panel.titre", "Vos plus récentes recettes"},
 	    {"bienvenue.panel.lienRecette", "Voir la recette"},

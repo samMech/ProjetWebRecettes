@@ -62,7 +62,7 @@
 						<div id="recettesRecentes">
 							<ul class="nav nav-tabs nav-justified">
 								<c:forEach var="recette" items="${requestScope.recettesRecentes}">
-									<li ${status.first ? class="active" : ''}>
+									<li ${index == 0 ? class="active" : ''}>
 										<h4><a data-toggle="tab" href="RecetteServlet?action=voirRecette&idRecette=${recette.idRecette}"><fmt:message key="application.recette"/> ${index + 1}</a></h4>
 									</li>
 								</c:forEach>
@@ -71,7 +71,7 @@
 						<div class="panel panel-info">			
 							<div class="panel-body tab-content row">
 								<c:forEach var="recette" items="${requestScope.recettesRecentes}">
-									<div id="recette${index+1}" class="tab-pane fade in ${status.first ? active : ''}">
+									<div id="recette${index+1}" class="tab-pane fade in ${index == 0 ? active : ''}">
 										<div class="col-sm-2 text-center">
 											<button class="btn btn-primary" onclick="document.location.href='RecetteServlet?action=voirRecette&idRecette=${recette.idRecette}'"><fmt:message key="bienvenue.panel.lienRecette"/></button>								
 										</div>

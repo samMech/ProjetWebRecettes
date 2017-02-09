@@ -11,7 +11,7 @@
 </c:if>
 
 <%--Initialisation de la locale--%>
-<fmt:setLocale value="${sessionScope.langue != null ? sessionScope.langue : pageContext.request.locale}"/>
+<fmt:setLocale value="${sessionScope.langue != null ? sessionScope.langue : pageContext.request.locale.language}"/>
 <fmt:setBundle basename="ressources_i18n.Locale"/>
 
 <!DOCTYPE html>
