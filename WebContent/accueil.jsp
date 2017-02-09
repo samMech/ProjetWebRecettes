@@ -2,6 +2,7 @@
 
 <%--Importation des librairies JSTL--%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%--On vÈrifie si l'usager est dÈj‡ connectÈ--%>
 <c:if test="${sessionScope.Usager != null}">
@@ -9,10 +10,14 @@
 	<jsp:forward page="/ConnexionServlet?action=BIENVENUE"></jsp:forward>
 </c:if>
 
+<%--Initialisation de la locale--%>
+<fmt:setLocale value="${sessionScope.langue != null ? sessionScope.langue : pageContext.request.locale}"/>
+<fmt:setBundle basename="ressources_i18n.Locale"/>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>La BoÓte √† Ingr√©dients</title>
+	<title><fmt:message key="application.nom"/></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -29,7 +34,7 @@
 	<jsp:include page="WEB-INF/jspf/navbar.jsp"></jsp:include>
 		
 	<!--Le contenu central-->  
-	<div class="container-fluid wrapText">
+	<div class="container-fluid">
 		<div class="row content">
 	  					
 			<!--La barre de navigation gauche-->
@@ -41,7 +46,7 @@
 				<!--Titre de la page-->
 				<div class="panel panel-primary text-center">
 					<div class="panel-heading">
-						<h1>La BoÓte ‡† IngrÈdients</h1>
+						<h1><fmt:message key="application.nom"/></h1>
 					</div>
 					<div class="panel-body" id="imgTitre">
 						<!--Carousel simple-->
@@ -58,13 +63,13 @@
 					<div class="col-sm-5">
 						<div class="panel panel-primary">
 							<div class="panel-heading">
-								<h2>Connexion</h2>
+								<h2><fmt:message key="accueil.form.connexion"/></h2>
 							</div>
 							<div class="panel-body">
 								<form id="formConnexion" method="POST" action="ConnexionServlet">
 									<!--Login-->
 									<div class="form-group">
-										<label for="email">Adresse courriel:</label>
+										<label for="email"><fmt:message key="accueil.form.login"/></label>
 										<div class="input-group required-field-block">
 											<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 											<input type="email" class="form-control hideTitleTooltip" id="email" name="email" required/>
@@ -75,8 +80,8 @@
 									</div>
 									<!--Password-->
 									<div class="form-group">
-										<label for="pwd">Mot de passe:</label>
-										<a class="pull-right" href="resetPassword.jsp">Mot de passe oubli√©?</a><!--Password reset-->
+										<label for="pwd"><fmt:message key="accueil.form.password"/></label>
+										<a class="pull-right" href="resetPassword.jsp"><fmt:message key="accueil.form.passwordOublie"/></a><!--Password reset-->
 										<div class="input-group required-field-block">
 											<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
 											<input type="password" class="form-control" id="pwd" name="pwd" required pattern="[0-9a-zA-Z!@#$%&]{8}"/>
@@ -87,26 +92,26 @@
 									</div>
 									<!--Option-->
 									<div class="form-group checkbox">
-										<label><input type="checkbox" id="optConnexion" name="optConnexion" value="true"/> Rester connect√©</label>
+										<label><input type="checkbox" id="optConnexion" name="optConnexion" value="true"/> <fmt:message key="accueil.form.resterConnecte"/></label>
 									</div>	
 																	
 									<c:if test="${requestScope.erreurConnexion == true}">
 									<!--Erreur-->
 									<div class="form-group text-center">
-										<h3 class="text-center"><span class="label label-warning">Veuillez vÈrifier que votre adresse courriel et mot de passe sont valides.</span></h3><br />
+										<h3 class="text-center"><span class="label label-warning"><fmt:message key="accueil.form.erreurInfosConnexion"/></span></h3><br />
 									</div>									
 									</c:if>	
 																	
 									<!--Enter-->
 									<div class="form-group text-center">
 										<input type="hidden" name="action" value="SE_CONNECTER" />
-									    <button type="submit" class="btn btn-primary btn-block" id="connexion"><span class="glyphicon glyphicon-log-in"></span> Se connecter</button>
+									    <button type="submit" class="btn btn-primary btn-block" id="connexion"><span class="glyphicon glyphicon-log-in"></span> <fmt:message key="accueil.form.submit"/></button>
 									</div>
 								</form>
 								<!--Nouveau compte-->
 								<div class="panel-footer text-center">
-									<label class="small">---Pas encore de compte ?---</label>
-									<button type="button" class="btn btn-default btn-block" onclick="document.location.href='creerCompte.jsp'">Cr√©er un nouveau compte</button>
+									<label class="small">---<fmt:message key="accueil.form.compte"/>---</label>
+									<button type="button" class="btn btn-default btn-block" onclick="document.location.href='creerCompte.jsp'"><fmt:message key="accueil.form.creerCompte"/></button>
 								</div>
 							</div>
 						</div>
@@ -116,17 +121,10 @@
 					<div class="col-sm-7">
 						<div class="panel panel-info">
 							<div class="panel-heading">
-								<h3>Bienvenue !</h3>
+								<h3><fmt:message key="accueil.panel.bienvenue"/></h3>
 							</div>
 							<div class="panel-body">
-								<p>	
-								Ce site vous permet de cr√©er et modifier une
-								liste d'√©picerie en fonction des recettes que
-								vous voulez cuisinez.
-
-								Connectez-vous ou cr√©ez un nouveau compte
-								d√®s maintenant pour g√©rer votre propre livre de recettes en ligne.
-								</p>
+								<p><fmt:message key="accueil.panel.message"/></p>	
 							</div>							
 						</div>
 					</div>

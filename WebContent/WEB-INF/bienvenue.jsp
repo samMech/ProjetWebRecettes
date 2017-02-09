@@ -2,11 +2,16 @@
 
 <%--Importation des librairies JSTL--%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<%--Initialisation de la locale--%>
+<fmt:setLocale value="${sessionScope.langue}"/>
+<fmt:setBundle basename="ressources_i18n.Locale"/>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>La Boîte à Ingrédients</title>
+	<title><fmt:message key="application.nom"/></title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -22,7 +27,7 @@
 	<jsp:include page="jspf/navbar.jsp"></jsp:include>
 
 	<!--Le contenu central-->  
-	<div class="container-fluid wrapText">
+	<div class="container-fluid">
 		<div class="row content">
 	  					
 			<!--La barre de navigation gauche-->
@@ -34,7 +39,7 @@
 				<!--Titre de la page-->
 				<div class="panel panel-primary text-center">
 					<div class="panel-heading">
-						<h1>Bienvenue ${sessionScope.Usager.nomUsager}</h1>
+						<h1><fmt:message key="bienvenue.message"/> ${sessionScope.Usager.nomUsager}</h1>
 					</div>
 					<div class="panel-body" id="imgTitre">
 						<!--Carousel simple-->
@@ -47,7 +52,7 @@
 				<!--Le contenu-->
 				<div class="panel panel-info text-center">			
 					<div class="panel-heading">
-						<h3><span>Vos plus récentes recettes</span></h3>
+						<h3><span><fmt:message key="bienvenue.panel.titre"/></span></h3>
 					</div>
 				</div>
 				
@@ -58,7 +63,7 @@
 							<ul class="nav nav-tabs nav-justified">
 								<c:forEach var="recette" items="${requestScope.recettesRecentes}">
 									<li ${status.first ? class="active" : ''}>
-										<h4><a data-toggle="tab" href="RecetteServlet?action=voirRecette&idRecette=${recette.idRecette}">Recette ${index + 1}</a></h4>
+										<h4><a data-toggle="tab" href="RecetteServlet?action=voirRecette&idRecette=${recette.idRecette}"><fmt:message key="application.recette"/> ${index + 1}</a></h4>
 									</li>
 								</c:forEach>
 							</ul>
@@ -68,12 +73,12 @@
 								<c:forEach var="recette" items="${requestScope.recettesRecentes}">
 									<div id="recette${index+1}" class="tab-pane fade in ${status.first ? active : ''}">
 										<div class="col-sm-2 text-center">
-											<button class="btn btn-primary" onclick="document.location.href='RecetteServlet?action=voirRecette&idRecette=${recette.idRecette}'">Voir la recette</button>								
+											<button class="btn btn-primary" onclick="document.location.href='RecetteServlet?action=voirRecette&idRecette=${recette.idRecette}'"><fmt:message key="bienvenue.panel.lienRecette"/></button>								
 										</div>
 										<br/>
 										<div class="col-sm-10">
 											<p>${recette.descriptionRecette}</p>
-											<h4><span class="label label-info">Temps de préparation: ${recette.dureeRecette} min</span></h4>
+											<h4><span class="label label-info"><fmt:message key="bienvenue.panel.dureeRecette"/> ${recette.dureeRecette} min</span></h4>
 										</div>
 									</div>
 								</c:forEach>								
@@ -82,7 +87,7 @@
 					</c:when>
 					<c:otherwise>
 						<div class="panel-footer text-center">
-							Pas encore de recette ? Ajoutez-en à votre livre dès maintenant !
+							<fmt:message key="bienvenue.panel.vide"/>
 						</div>		
 					</c:otherwise>
 				</c:choose>

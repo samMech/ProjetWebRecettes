@@ -2,6 +2,7 @@
 
 <%--Importation des librairies JSTL--%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%--On vérifie si l'usager est déjà connecté--%>
 <c:if test="${sessionScope.Usager != null}">
@@ -26,7 +27,7 @@
 	<jsp:include page="WEB-INF/jspf/navbar.jsp"></jsp:include>
 
 	<!--Le contenu central-->  
-	<div class="container-fluid wrapText">
+	<div class="container-fluid">
 		<div class="row content">
 	  					
 			<!--La barre de navigation gauche-->

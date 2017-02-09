@@ -2,6 +2,7 @@
 
 <%--Importation des librairies JSTL--%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -21,7 +22,7 @@
 	<jsp:include page="jspf/navbar.jsp"></jsp:include>
 
 	<!--Le contenu central-->  
-	<div class="container-fluid wrapText">
+	<div class="container-fluid">
 		<div class="row content">
 	  					
 			<!--La barre de navigation gauche-->

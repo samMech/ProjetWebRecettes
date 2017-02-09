@@ -2,6 +2,7 @@
 
 <%--Importation des librairies JSTL--%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%--On vérifie si l'usager est déjà connecté--%>
 <c:if test="${sessionScope.Usager != null}">
@@ -20,6 +21,7 @@
 	<link rel="stylesheet" type="text/css" href="styles/styles.css">
 	<script type="text/javascript" src="scripts/required-field.js"></script>
 	<link rel="stylesheet" type="text/css" href="styles/required-field-block.css">
+	<script type="text/javascript" src="scripts/password.js"></script>
 </head>
 <body>
 
@@ -27,7 +29,7 @@
 	<jsp:include page="WEB-INF/jspf/navbar.jsp"></jsp:include>
 
 	<!--Le contenu central-->  
-	<div class="container-fluid wrapText">
+	<div class="container-fluid">
 		<div class="row content">
 	  					
 			<!--La barre de navigation gauche-->
@@ -79,7 +81,7 @@
 										<label for="pwd">Mot de passe:</label>
 										<div class="input-group required-field-block">
 											<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-											<input type="password" class="form-control" id="pwd" name="pwd" required/>
+											<input type="password" class="form-control" id="pwd" name="pwd" required pattern="[0-9a-zA-Z!@#$%&]{8}" onchange="comparerPasswords();"/>
 											<div class="required-icon">
 												<div class="text">*</div>
 											</div>
@@ -90,7 +92,7 @@
 										<label for="pwd">Confirmer le mot de passe: </label>
 										<div class="input-group required-field-block">
 											<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-											<input type="password" class="form-control" id="pwd" name="pwd" required pattern="[0-9a-zA-Z!@#$%&]{8}"/>
+											<input type="password" class="form-control" id="pwd2" name="pwd2" required pattern="[0-9a-zA-Z!@#$%&]{8}" onkeyup="comparerPasswords();"/>
 											<div class="required-icon">
 												<div class="text">*</div>
 											</div>
