@@ -2,6 +2,8 @@ package modele;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -84,6 +86,9 @@ public class Recette implements Serializable {
 	}
 
 	public List<Instruction> getInstructions() {
+		if(instructions == null){
+			instructions = new ArrayList<>();
+		}
 		return this.instructions;
 	}
 
