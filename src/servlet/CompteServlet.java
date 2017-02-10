@@ -3,6 +3,7 @@ package servlet;
 import java.io.IOException;
 
 import javax.mail.MessagingException;
+import javax.persistence.PersistenceException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -108,21 +109,21 @@ public class CompteServlet extends HttpServlet {
 					
 					// Création du message à envoyer
 					message = MSG_EMAIL_COMPTE + "\n\nVoici votre code d'activation: " + codeConfirmation;
-										
+						
+
 					try {
 						// Envoi du courriel de validation
 						Communication.envoyerCourriel(email, EMAIL_EXPEDITEUR, "Confirmation d'inscription", message);
-						System.out.println("CODE CONFIRMATION: " + codeConfirmation);
-						// Redirection vers la page de confirmation
-						urlDestination = "/WEB-INF/confirmationEmail.jsp";
 						
+						// Redirection vers la page de confirmation
+						urlDestination = "/WEB-INF/confirmationEmail.jsp";	
 					} catch (MessagingException e) {
 						e.printStackTrace();
 						// Affichage d'un message d'erreur					
 						request.setAttribute("erreurEnvoiEmail", true);
 						urlDestination = "/creerCompte.jsp";
-					}					
-				}				
+					}	
+				}
 				
 				break;
 			case "CONFIRM_EMAIL_NEW_ACCOUNT" :
@@ -170,9 +171,9 @@ public class CompteServlet extends HttpServlet {
 					message = MSG_EMAIL_PASSWORD + "\n\n Voici votre nouveau mot de passe: " + newPassword;
 					
 					try {
+						
 						// Envoi du courriel de validation
-						Communication.envoyerCourriel(email, EMAIL_EXPEDITEUR, "Ré-initialisation du mot de passe", message); 
-						System.out.println("NEW PASSWORD : " + newPassword);
+						Communication.envoyerCourriel(email, EMAIL_EXPEDITEUR, "Ré-initialisation du mot de passe", message);
 						
 						// Enregistrement du nouveau mot de passe, dans le profil de l'usager
 						usager.setPassword(newPassword);

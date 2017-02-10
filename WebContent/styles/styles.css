@@ -2,27 +2,36 @@
 /* Feuille de styles additionnelle */
 /***********************************/
 
-/* Couleur de la barre de navigation */
+/* Thème */
+.panel-primary .panel-heading,
+.btn-primary {
+	background-color: #459D72;
+}
+
+.panel-info .panel-heading{
+	background-color: #90D26D;
+}
+
+.btn-primary:hover{
+	background-color: #90D26D;
+}
+
+/* La barre de navigation */
 .navbar {
-  background-color: #337AB7;/*Même couleur que les éléments contextuels "primary"*/
+  background-color: #90D26D;
+  margin-bottom: 20px;
 }
 
 /* Texte de la barre de navigation */
 .navbar-inverse .navbar-nav > li > a {
-	color: #FFFFFF;
+	color: #000000;
 }
 
-/* Style pour le foooter */
-footer {
-  background-color: #D9EDF7;/*Même couleur que les éléments contextuels "info"*/
+/* Le foooter */
+.footer {
+  background-color: #DEFBC2;
   color: black;
-  padding: 15px;
-  margin-top: 3%;
-}
-
-/* Pour empêcher le texte de sortir des panneaux */
-.panel-body{
-    word-break: break-all;
+  padding: 20px;
 }
 
 /* Couleurs pour les icones*/

@@ -17,6 +17,8 @@ public class Communication {
 	/**
 	 * Méthode pour envoyer un courriel
 	 * 
+	 * Source: http://www.mkyong.com/java/javamail-api-sending-email-via-gmail-smtp-example/
+	 * 
 	 * @param destinataire L'adresse courriel du destinataire
 	 * @param expediteur L'adresse courriel de l'expéditeur
 	 * @param sujet Le sujet du courriel
@@ -26,19 +28,19 @@ public class Communication {
 				
 		// Mise en place du serveur SMTP
 		Properties props = new Properties();
-		props.put("mail.smtp.host", "localhost");
+		props.put("mail.smtp.host", "gmail.com");
 		props.put("mail.smtp.port", "587");
-		props.put("mail.smtp.auth", "Container");
+		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.starttls.enable", "true");
 		
-		//Session session = Session.getDefaultInstance(props, null);
+		// Récupération de l'instance de session pour envoyer le message
 		Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+			// Classe anonyme pour l'authentificateur
 			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication("login", "password");// TODO
+				return new PasswordAuthentication("boite.a.ingredient@gmail.com", "tempbdeb");
 			}
 		  });
-		
-		session.setDebug(true);
+				
 		// Construction du message
 		Message msg = new MimeMessage(session);
 		msg.setFrom(new InternetAddress(expediteur));
@@ -48,7 +50,7 @@ public class Communication {
 		msg.setText(message);
 		
 		// Envoi du message
-		//Transport.send(msg);
+		Transport.send(msg);		
 	}	
 	
 }

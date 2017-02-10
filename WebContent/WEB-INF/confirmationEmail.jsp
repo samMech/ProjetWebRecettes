@@ -4,10 +4,14 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<%--Initialisation de la locale--%>
+<fmt:setLocale value="${sessionScope.langue}"/>
+<fmt:setBundle basename="ressources_i18n.Locale"/>
+
 <!DOCTYPE html>
 <html>
 <head>
-	<title>La Boîte à Ingrédients</title>
+	<title><fmt:message key="application.nom"/></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>

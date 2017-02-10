@@ -9,7 +9,7 @@
 <fmt:setBundle basename="ressources_i18n.Locale"/>
 
 <br/>
-<footer class="navbar-default">
+<footer class="navbar-default footer">
   <div class="container-fluid text-center">
     <p><span class="glyphicon glyphicon-copyright-mark"></span> <fmt:message key="footer.copyright"/></p>
   </div>

@@ -10,6 +10,12 @@
 	<jsp:forward page="/ConnexionServlet?action=BIENVENUE"></jsp:forward>
 </c:if>
 
+<%--On vérifie si la langue de la session a été initialisée--%>
+<c:if test="${sessionScope.langue == null}">
+	<%--Passage par la servlet pour initialiser la langue avant de revenir ici--%>
+	<jsp:forward page="/ConnexionServlet"></jsp:forward>
+</c:if>
+
 <%--Initialisation de la locale--%>
 <fmt:setLocale value="${sessionScope.langue != null ? sessionScope.langue : pageContext.request.locale.language}"/>
 <fmt:setBundle basename="ressources_i18n.Locale"/>

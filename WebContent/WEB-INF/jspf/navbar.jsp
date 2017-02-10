@@ -41,12 +41,14 @@
 			
 			<ul class="nav navbar-nav navbar-right">
 				<li>
-					<c:if test='${! sessionScope.langue.equals("fr")}'>					
-						<a href="I18nServlet?langue=fr"><span class="glyphicon glyphicon-globe"></span> Français</a>
-					</c:if>
-					<c:if test='${! sessionScope.langue.equals("en")}'>					
-						<a href="I18nServlet?langue=en"><span class="glyphicon glyphicon-globe"></span> English</a>
-					</c:if>				
+					<c:choose>
+						<c:when test='${! sessionScope.langue.equals("fr")}'>
+							<a href="I18nServlet?langue=fr"><span class="glyphicon glyphicon-globe"></span> Français</a>
+						</c:when>
+						<c:when test='${! sessionScope.langue.equals("en")}'>
+							<a href="I18nServlet?langue=en"><span class="glyphicon glyphicon-globe"></span> English</a>
+						</c:when>
+					</c:choose>			
 				</li>
 				<li>
 									
