@@ -41,10 +41,16 @@ public class CompteServlet extends HttpServlet {
     private static String PWD_CARACTERES_VALIDES = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%&";
     
     // L'adresse couriel de l'expéditeur pour l'envoi des email de confirmation
-    private static String EMAIL_EXPEDITEUR = "confirmation@boiteAingredients.com";
+    private static String EMAIL_EXPEDITEUR = "boite.a.ingredient@gmail.com";
         
+    // Le login pour l'authentification sur le serveur smtp
+    private static String SMTP_LOGIN = "boite.a.ingredient@gmail.com";
+    
+    // Le mot de passe pour l'authentification sur le serveur smtp
+    private static String SMTP_PASSWORD = "";
+    
     // Le message pour le courriel de confirmation pour la création d'un nouveau compte
-    private static String MSG_EMAIL_COMPTE = "Merci pour votre inscription\n Pour compléter la création de votre compte, copiez le code ci-dessous dans la zone du formulaire.";
+    private static String MSG_EMAIL_COMPTE = "Merci pour votre inscription\nPour compléter la création de votre compte, copiez le code ci-dessous dans la zone du formulaire.";
     		
     // Le message pour le courriel de confirmation pour la ré-initialisation du mot de passe    			
     private static String MSG_EMAIL_PASSWORD = "Votre mot de passe a été ré-initialisé. Votre nouveau mot de passe temporaire se trouve ci-dessous.";
@@ -113,7 +119,7 @@ public class CompteServlet extends HttpServlet {
 
 					try {
 						// Envoi du courriel de validation
-						Communication.envoyerCourriel(email, EMAIL_EXPEDITEUR, "Confirmation d'inscription", message);
+						Communication.envoyerCourriel(email, EMAIL_EXPEDITEUR, "Confirmation d'inscription", message, SMTP_LOGIN, SMTP_PASSWORD);
 						
 						// Redirection vers la page de confirmation
 						urlDestination = "/WEB-INF/confirmationEmail.jsp";	
@@ -173,7 +179,7 @@ public class CompteServlet extends HttpServlet {
 					try {
 						
 						// Envoi du courriel de validation
-						Communication.envoyerCourriel(email, EMAIL_EXPEDITEUR, "Ré-initialisation du mot de passe", message);
+						Communication.envoyerCourriel(email, EMAIL_EXPEDITEUR, "Ré-initialisation du mot de passe", message, SMTP_LOGIN, SMTP_PASSWORD);
 						
 						// Enregistrement du nouveau mot de passe, dans le profil de l'usager
 						usager.setPassword(newPassword);

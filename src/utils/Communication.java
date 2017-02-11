@@ -15,7 +15,7 @@ import javax.mail.internet.*;
 public class Communication {
 
 	/**
-	 * Méthode pour envoyer un courriel
+	 * Méthode pour envoyer un courriel via une connexion TLS au serveur SMTP de Gmail
 	 * 
 	 * Source: http://www.mkyong.com/java/javamail-api-sending-email-via-gmail-smtp-example/
 	 * 
@@ -23,24 +23,28 @@ public class Communication {
 	 * @param expediteur L'adresse courriel de l'expéditeur
 	 * @param sujet Le sujet du courriel
 	 * @param message Le message à envoyer
+	 * @param login L'identifiant du compte servant à l'envoi
+	 * @param password Le mot de passe du compte servant à l'envoi
 	 */
-	public static void envoyerCourriel(String destinataire, String expediteur, String sujet, String message) throws MessagingException {
+	public static void envoyerCourriel(String destinataire, String expediteur, String sujet, String message, String login, String password) throws MessagingException {
 				
 		// Mise en place du serveur SMTP
 		Properties props = new Properties();
-		props.put("mail.smtp.host", "gmail.com");
-		props.put("mail.smtp.port", "587");
 		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.port", "587");
+		props.put("mail.smtp.starttls.enable", "true"); 
 		
 		// Récupération de l'instance de session pour envoyer le message
-		Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
 			// Classe anonyme pour l'authentificateur
 			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication("boite.a.ingredient@gmail.com", "tempbdeb");
+				return new PasswordAuthentication(login, password);
 			}
 		  });
-				
+		
+		//session.setDebug(true);
+		
 		// Construction du message
 		Message msg = new MimeMessage(session);
 		msg.setFrom(new InternetAddress(expediteur));

@@ -3,18 +3,36 @@
 /***********************************/
 
 /* Thème */
+.panel-primary,
+.btn-primary {
+	border-color: #25A55F;	
+}
+
 .panel-primary .panel-heading,
 .btn-primary {
-	background-color: #459D72;
+	background-color: #25A55F;
 }
 
-.panel-info .panel-heading{
-	background-color: #90D26D;
+.panel-info,
+.btn-info { 
+	border-color: #A6ED8E;
 }
 
-.btn-primary:hover{
-	background-color: #90D26D;
+.panel-info .panel-heading,
+.btn-info {
+	background-color: #A6ED8E;
 }
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary:active:hover,
+.btn-primary:active:focus {
+	background-color: #90D26D;
+	border-color: #25A55F;
+}
+
+/***********************************/
 
 /* La barre de navigation */
 .navbar {
@@ -29,7 +47,6 @@
 
 /* Le foooter */
 .footer {
-  background-color: #DEFBC2;
   color: black;
   padding: 20px;
 }
