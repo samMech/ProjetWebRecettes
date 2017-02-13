@@ -38,16 +38,16 @@ public class Recette implements Serializable {
 	private Usager usager;
 	
 	//bi-directional many-to-one association to Instruction
-	@OneToMany(mappedBy="recette")
+	@OneToMany(mappedBy="recette", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Instruction> instructions;
 
 	//bi-directional many-to-one association to Mesure
-	@OneToMany(mappedBy="recette")
+	@OneToMany(mappedBy="recette", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Mesure> mesures;
 
 	//bi-directional many-to-one association to TypesRecette
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="ID_TYPE", nullable=false)
+	@JoinColumn(name="ID_TYPE", nullable=false)//, insertable=false, updatable=false
 	private TypesRecette typesRecette;
 
 	public Recette() {

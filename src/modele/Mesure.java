@@ -24,7 +24,7 @@ public class Mesure implements Serializable {
 	private double quantite;
 
 	//uni-directional many-to-one association to Ingredient
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name="ID_INGREDIENT", nullable=false)
 	private Ingredient ingredient;
 
@@ -34,7 +34,7 @@ public class Mesure implements Serializable {
 	private Recette recette;
 
 	//uni-directional many-to-one association to Unite
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name="ID_UNITE", nullable=false)
 	private Unite unite;
 

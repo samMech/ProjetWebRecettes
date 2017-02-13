@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import controle.Driver;
 import modele.DaoRecette;
 import modele.Ingredient;
 import modele.Instruction;
@@ -18,6 +20,7 @@ import modele.Recette;
 import modele.TypesRecette;
 import modele.Unite;
 import modele.Usager;
+import utils.Conversion;
 
 /**
  * Servlet implementation class RecetteServlet
@@ -47,7 +50,7 @@ public class RecetteServlet extends HttpServlet {
 		String requete = request.getParameter("action");
 		
 		//on recupere l'objet dao
-		DaoRecette dao  = new DaoRecette();
+		DaoRecette dao  = Driver.getDaoRecette();
 		
 		Recette recette = null;
 		//string contenant la page vers laquelle on redirige
@@ -56,6 +59,9 @@ public class RecetteServlet extends HttpServlet {
 		switch(requete){
 		
 		case "chargerFormulaire":
+			
+			List<TypesRecette> listeTypes = Driver.getTypesRecette();
+			request.setAttribute("typesRecette", listeTypes);
 			pageDestination = "/WEB-INF/FormRecette.jsp";
 			break;
 		case "ajouterRecette":
@@ -70,11 +76,14 @@ public class RecetteServlet extends HttpServlet {
 			int minute = Integer.parseInt(request.getParameter("minRecette"));
 			recette.setDureeRecette(utils.Conversion.convertirTemps(heure, minute));
 			
-			//TODO creer des types de recette dans la BD et les utiliser pour charger la liste d'options de type
-			TypesRecette type = new TypesRecette();
-			type.setTypeRecette(request.getParameter("typeRecette"));
+			//on ajoute le type de la recette dans l'objet recette
+			TypesRecette type = Driver.getDaoType().chercherTypesRecette(request.getParameter("typeRecette"));
+			
+				System.out.println("========================================");
+				System.out.println(type.getIdType() + type.getTypeRecette());
+				System.out.println("========================================");
+			
 			recette.setTypesRecette(type);
-
 			
 			//parcourir la liste des incredients et ajouter le nom, quantité et unité de mesure dans la recette
 			String[] ingredient;
@@ -126,7 +135,11 @@ public class RecetteServlet extends HttpServlet {
 		case "voirRecette":
 			long id = Long.parseLong(request.getParameter("idRecette"));
 			recette = dao.chercherRecette(id);
+			int heureRecette = Conversion.getHeure(recette.getDureeRecette());
+			int minuteRecette = Conversion.getMinute(recette.getDureeRecette());
 			request.setAttribute("recette", recette);
+			request.setAttribute("heureRecette", heureRecette);
+			request.setAttribute("minuteRecette", minuteRecette);
 			pageDestination = "/WEB-INF/ViewRecette.jsp";
 		}
 		

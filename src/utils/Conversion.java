@@ -19,7 +19,23 @@ public class Conversion {
 	 */
 	public static int convertirTemps(int heure, int minute){	
 		return (heure*60)+minute;
-		
-		
+	}
+	
+	/**
+	 * Methode permettant de convertir une duree en minutes en heure
+	 * @param temps nombre de minutes a convertir
+	 * @return Le nombre d'heure dans une durée en minutes
+	 */
+	public static int getHeure(int temps){
+		return temps/60;
+	}
+	
+	/**
+	 * Methode qui retourne le nombre de minutes restante apres conversion en heures
+	 * @param temps durée en minutes a convertir
+	 * @return Le nombre de minutes restantes apres une conversion de minutes en heures.
+	 */
+	public static int getMinute(int temps){
+		return temps%60;
 	}
 }

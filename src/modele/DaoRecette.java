@@ -149,6 +149,4 @@ public class DaoRecette extends DaoJPA<Recette> {
             fermerConnexion();
         }
 	}
-	
-
 }
