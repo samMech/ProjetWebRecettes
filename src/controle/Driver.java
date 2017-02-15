@@ -4,7 +4,9 @@ import java.util.List;
 
 import modele.DaoJPA;
 import modele.DaoRecette;
+import modele.DaoTypesRecette;
 import modele.Recette;
+import modele.TypesRecette;
 import modele.Usager;
 
 /**
@@ -69,5 +71,25 @@ public class Driver {
 	public static List<Recette> chargerRecettesBienvenue(Usager usager){
 		DaoRecette dao = new DaoRecette();
 		return dao.chercherRecettesRecentes(usager, 5);
-	}	
+	}
+	
+	/**
+	 * Méthode pour retourner la liste de tous les types de recettes
+	 * 
+	 * @return La liste de tous les types de recette ou une liste vide si aucun résultat
+	 */
+	public static List<TypesRecette> getTypesRecette(){
+		DaoTypesRecette dao = new DaoTypesRecette();
+		return dao.getTypesRecette();
+	}
+	
+	public static DaoRecette getDaoRecette(){
+		DaoRecette dao = new DaoRecette();
+		return dao;
+	}
+	
+	public static DaoTypesRecette getDaoType(){
+		DaoTypesRecette dao = new DaoTypesRecette();
+		return dao;
+	}
 }

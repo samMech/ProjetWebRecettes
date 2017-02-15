@@ -38,11 +38,11 @@ public class Recette implements Serializable {
 	private Usager usager;
 	
 	//bi-directional many-to-one association to Instruction
-	@OneToMany(mappedBy="recette")
+	@OneToMany(mappedBy="recette", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Instruction> instructions;
 
 	//bi-directional many-to-one association to Mesure
-	@OneToMany(mappedBy="recette")
+	@OneToMany(mappedBy="recette", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Mesure> mesures;
 
 	//bi-directional many-to-one association to TypesRecette
@@ -111,6 +111,9 @@ public class Recette implements Serializable {
 	}
 
 	public List<Mesure> getMesures() {
+		if(mesures == null){
+			mesures = new ArrayList<>();
+		}
 		return this.mesures;
 	}
 

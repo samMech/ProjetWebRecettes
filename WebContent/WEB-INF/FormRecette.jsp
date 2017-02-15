@@ -1,3 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+
+<%--Importation des librairies JSTL--%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,7 +64,9 @@
 								<label for="typeRecette">Type </label>
 								<div class="required-field-block">
 									<select	class="form-control form-control-inline" id="typeRecette" name="typeRecette">
-											<option>Dessert</option>		
+										<c:forEach var="type" items="${requestScope.typesRecette}">
+											<option value="${type.idType}">${type.typeRecette}</option>
+										</c:forEach>		
 									</select>
 								</div>
 							</div>
@@ -73,12 +82,10 @@
 							<div class="form-group">
 								<label for="tempsRecette">Temps de préparation</label>
 								<div class="form-inline" id="tempsRecette">
-									<input class="form-control form-control-inline" type="number"
-										min="0" step="1" max="99" id="heureRecette"
-										name="heureRecette" value="0"> <label for="heureRecette">
-										h</label> <input class="form-control form-control-inline"
-										type="number" min="0" step="1" max="59" id="minRecette"
-										name="minRecette" value="0"> <label for="minRecette"> m</label>
+									<input class="form-control form-control-inline" type="number" min="0" step="1" max="99" id="heureRecette" name="heureRecette" value="0">
+									<label for="heureRecette">h</label> 
+									<input class="form-control form-control-inline"	type="number" min="0" step="1" max="59" id="minRecette"	name="minRecette" value="0">
+									<label for="minRecette"> m</label>
 								</div>
 							</div>
 						</div>
@@ -89,16 +96,12 @@
 							<h3>Ingrédients</h3>
 						</div>
 						<div class="panel-body">
-							<ul class="list-group" name="listeIngredients" >
-								<li class="list-group-item noBorder media" name="ingredient1" >
+							<ul class="list-group">
+								<li class="list-group-item noBorder media">
 									<div class="form-group media-body autoWidth">
-										<input class="form-control form-control-inline" type="text"
-											size="22" placeholder="Ingrédient" id="ingredient1"
-											name="nomIngredient1" /> <input
-											class="form-control form-control-inline" type="text" size="5"
-											placeholder="Quantité" id="qte1" name="qte1" /> <select
-											class="form-control form-control-inline" id="unite1"
-											name="unite1">
+										<input class="form-control form-control-inline" type="text"	size="22" placeholder="Ingrédient" id="ingredient1"	name="nomIngredient1" /> 
+										<input class="form-control form-control-inline" type="text" size="5" placeholder="Quantité" id="qte1" name="qte1" />
+										<select	class="form-control form-control-inline" id="unite1" name="unite1">
 											<option>g</option>
 											<option>L</option>
 											<option>mL</option>
