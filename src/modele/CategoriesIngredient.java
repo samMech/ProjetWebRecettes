@@ -2,6 +2,8 @@ package modele;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -48,6 +50,9 @@ public class CategoriesIngredient implements Serializable {
 	}
 
 	public List<Ingredient> getIngredients() {
+		if(ingredients == null){
+			ingredients = new ArrayList<>();
+		}
 		return this.ingredients;
 	}
 

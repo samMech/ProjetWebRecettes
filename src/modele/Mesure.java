@@ -29,7 +29,7 @@ public class Mesure implements Serializable {
 	private Ingredient ingredient;
 
 	//bi-directional many-to-one association to Recette
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name="ID_RECETTE", nullable=false)
 	private Recette recette;
 

@@ -31,19 +31,19 @@ public class DaoTypesRecette extends DaoJPA<TypesRecette> {
 
 	
 	/**
-	 * Méthode pour trouver un type de Recette selon son nom
+	 * Méthode pour trouver un type de Recette selon son id
 	 * 
-	 * @param nomType Le nom du type dans la table
+	 * @param idType L'id du type dans la table
 	 * @return Le type trouvé ou null si n'existe pas
 	 */
-	public TypesRecette chercherTypesRecette(String nomType){
+	public TypesRecette chercherTypesRecette(long idType){
 		try{
             // Ouverture de la connexion
             ouvrirConnexion();
             
             // Construction de la requête
-            TypedQuery<TypesRecette> query = em.createQuery("SELECT t FROM TypesRecette t WHERE t.typeRecette = :nom", TypesRecette.class);
-            query.setParameter("nom", nomType);
+            TypedQuery<TypesRecette> query = em.createQuery("SELECT t FROM TypesRecette t WHERE t.idType = :idType", TypesRecette.class);
+            query.setParameter("idType", idType);
 
             // Recherche
             return query.getSingleResult();

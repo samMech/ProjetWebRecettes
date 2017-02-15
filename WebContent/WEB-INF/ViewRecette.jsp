@@ -8,13 +8,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>La Boîte à Ingrédients</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="styles.css">
+	<title>La Boîte à Ingrédients</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="styles/styles.css">
+	<script type="text/javascript" src="scripts/required-field.js"></script>
+	<link rel="stylesheet" type="text/css" href="styles/required-field-block.css">
+	<script type="text/javascript" src="scripts/dynamicList.js"></script>
 </head>
 <body>
 
@@ -36,7 +38,7 @@
 					</div>
 					<div class="panel-body">
 						<p>${recette.descriptionRecette}</p>
-						<h4><span class="label label-info">Temps de préparation: ${heureRecette}hr(s)${minuteRecette}min</span></h4>
+						<h4><span class="label label-info">Temps de préparation: ${RequestScope.heureRecette}hr(s)${RequestScope.minuteRecette}min</span></h4>
 					</div>
 				</div>
 
@@ -49,9 +51,10 @@
 							<div class="panel-body">
 								<div class="list-group">
 									<ul id="listeIngredients">
-										<c:forEach var="mesure" items="${recette.mesure}">
+										<c:forEach var="mesure" items="${recette.mesures}">
 											<li>${mesure.quantite}${mesure.unite.nomUnite}
 												${mesure.ingredient.nomIngredient}</li>
+												<br>
 										</c:forEach>
 									</ul>
 								</div>
@@ -69,6 +72,7 @@
 									
 										<c:forEach var="instruction" items="${recette.instructions}">
 											<li>${instruction.descInstruction}</li>
+											<br>
 										</c:forEach>										
 									</ul>
 								</div>

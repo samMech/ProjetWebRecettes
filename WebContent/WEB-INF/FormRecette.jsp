@@ -65,7 +65,7 @@
 								<div class="required-field-block">
 									<select	class="form-control form-control-inline" id="typeRecette" name="typeRecette">
 										<c:forEach var="type" items="${requestScope.typesRecette}">
-											<option>${type.typeRecette}</option>
+											<option value="${type.idType}">${type.typeRecette}</option>
 										</c:forEach>		
 									</select>
 								</div>
@@ -99,13 +99,9 @@
 							<ul class="list-group">
 								<li class="list-group-item noBorder media">
 									<div class="form-group media-body autoWidth">
-										<input class="form-control form-control-inline" type="text"
-											size="22" placeholder="Ingrédient" id="ingredient1"
-											name="nomIngredient1" /> <input
-											class="form-control form-control-inline" type="text" size="5"
-											placeholder="Quantité" id="qte1" name="qte1" /> <select
-											class="form-control form-control-inline" id="unite1"
-											name="unite1">
+										<input class="form-control form-control-inline" type="text"	size="22" placeholder="Ingrédient" id="ingredient1"	name="nomIngredient1" /> 
+										<input class="form-control form-control-inline" type="text" size="5" placeholder="Quantité" id="qte1" name="qte1" />
+										<select	class="form-control form-control-inline" id="unite1" name="unite1">
 											<option>g</option>
 											<option>L</option>
 											<option>mL</option>

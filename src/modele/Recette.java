@@ -47,7 +47,7 @@ public class Recette implements Serializable {
 
 	//bi-directional many-to-one association to TypesRecette
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="ID_TYPE", nullable=false)//, insertable=false, updatable=false
+	@JoinColumn(name="ID_TYPE", nullable=false)
 	private TypesRecette typesRecette;
 
 	public Recette() {
@@ -111,6 +111,9 @@ public class Recette implements Serializable {
 	}
 
 	public List<Mesure> getMesures() {
+		if(mesures == null){
+			mesures = new ArrayList<>();
+		}
 		return this.mesures;
 	}
 
