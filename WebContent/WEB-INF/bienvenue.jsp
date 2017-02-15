@@ -59,19 +59,19 @@
 				<c:choose>
 					<c:when test="${! requestScope.recettesRecentes.isEmpty()}">
 						<!--Le contenu-->
-						<div id="recettesRecentes">
+						<div id="recettesRecentes" class="text-center">
 							<ul class="nav nav-tabs nav-justified">
-								<c:forEach var="recette" items="${requestScope.recettesRecentes}">
-									<li ${index == 0 ? class="active" : ''}>
-										<h4><a data-toggle="tab" href="RecetteServlet?action=voirRecette&idRecette=${recette.idRecette}"><fmt:message key="application.recette"/> ${index + 1}</a></h4>
+								<c:forEach var="recette" items="${requestScope.recettesRecentes}" varStatus="status">
+									<li class="${status.index == 0 ? 'active' : ''}">
+										<h4><a data-toggle="tab" href="RecetteServlet?action=voirRecette&idRecette=${recette.idRecette}"><fmt:message key="application.recette"/> ${status.index + 1}</a></h4>
 									</li>
 								</c:forEach>
 							</ul>
 						</div>
 						<div class="panel panel-info">			
 							<div class="panel-body tab-content row">
-								<c:forEach var="recette" items="${requestScope.recettesRecentes}">
-									<div id="recette${index+1}" class="tab-pane fade in ${index == 0 ? active : ''}">
+								<c:forEach var="recette" items="${requestScope.recettesRecentes}" varStatus="status">
+									<div id="recette${status.index+1}" class="tab-pane fade in ${status.index == 0 ? 'active' : ''}">
 										<div class="col-sm-2 text-center">
 											<button class="btn btn-primary" onclick="document.location.href='RecetteServlet?action=voirRecette&idRecette=${recette.idRecette}'"><fmt:message key="bienvenue.panel.lienRecette"/></button>								
 										</div>

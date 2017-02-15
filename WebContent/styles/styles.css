@@ -106,5 +106,5 @@
 .nav-tabs > li.active > a,
 .nav-tabs > li > a:hover,
 .nav-tabs > li.active > a:focus {
-    background-color: #D9EDF7 ;/*Même couleur que les éléments contextuels "info"*/
+    background-color: #A6ED8E ;/*Même couleur que les éléments contextuels "info"*/
 }

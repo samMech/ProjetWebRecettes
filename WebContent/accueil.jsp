@@ -90,7 +90,7 @@
 										<a class="pull-right" href="resetPassword.jsp"><fmt:message key="accueil.form.passwordOublie"/></a><!--Password reset-->
 										<div class="input-group required-field-block">
 											<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-											<input type="password" class="form-control" id="pwd" name="pwd" required"/>
+											<input type="password" class="form-control" id="pwd" name="pwd" required/>
 											<div class="required-icon">
 												<div class="text">*</div>
 											</div>
