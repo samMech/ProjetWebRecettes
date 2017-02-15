@@ -51,10 +51,9 @@ public class RecetteServlet extends HttpServlet {
 		//on recupere le paramètre qui indique l'action à executer
 		String requete = request.getParameter("action");
 		
-		//on recupere l'objet dao
-		DaoRecette dao  = Driver.getDaoRecette();
-		
+		//on prepare un objet recette qui va etre utiliser pour toutes les operations de la servlet
 		Recette recette = null;
+		
 		//string contenant la page vers laquelle on redirige
 		String pageDestination = "";
 		
@@ -63,9 +62,14 @@ public class RecetteServlet extends HttpServlet {
 		case "chargerFormulaire":
 			
 			List<TypesRecette> listeTypes = Driver.getTypesRecette();
+			List<Unite> listeUnites = Driver.getUnites();
+			List<CategoriesIngredient> listeCategories = Driver.getCategories();
 			request.setAttribute("typesRecette", listeTypes);
+			request.setAttribute("unites", listeUnites);
+			request.setAttribute("categories", listeCategories);
 			pageDestination = "/WEB-INF/FormRecette.jsp";
 			break;
+			
 		case "ajouterRecette":
 			
 			//on crée un objet recette
@@ -78,41 +82,34 @@ public class RecetteServlet extends HttpServlet {
 			int minute = Integer.parseInt(request.getParameter("minRecette"));
 			recette.setDureeRecette(utils.Conversion.convertirTemps(heure, minute));
 			
-			//on ajoute le type de la recette dans l'objet recette
-
+			//on ajoute le type de la recette dans la recette
 			long idType = Long.parseLong(request.getParameter("typeRecette"));	
-			TypesRecette type = Driver.getDaoType().chercherTypesRecette(idType);
-			
+			TypesRecette type = Driver.getTypeRecette(idType);
 			recette.setTypesRecette(type);
 			
 			//parcourir la liste des ingredients et ajouter le nom, quantité et unité de mesure dans la recette
-			
 			int i = 1;
 			while(request.getParameter("nomIngredient" +i) != null){	
-				System.out.println(request.getParameter("nomIngredient"+i));
-				System.out.println(request.getParameter("qte"+i));
-				System.out.println(request.getParameter("unite"+i));
+
+				//recuperer l'ingredient, la quantité, l'unite de mesure et la categorie du formulaire
 				String nomIngredient = request.getParameter("nomIngredient"+i);
 				double qte = Double.parseDouble(request.getParameter("qte"+i));
 				String unite = request.getParameter("unite"+i);
-				//TODO creer des unites dans la BD et les utiliser pour charger la liste d'options d'unités
-				Unite unit = new Unite();
-				unit.setNomUnite(unite);
+				String categorieIng = request.getParameter("categorie"+i);
+				
+
+				Unite unit = Driver.getUnite(Long.parseLong(unite));
+				CategoriesIngredient categorie = Driver.getCategorie(Long.parseLong(categorieIng));
+				
 				Ingredient ing = new Ingredient();
 				ing.setNomIngredient(nomIngredient);
-				
-				//TODO: wtf is type d'unite???
-				unit.setTypeUnite("fakeTypeUnite");
-				//TODO: faire les categories reels
-				CategoriesIngredient fake = new CategoriesIngredient();
-				fake.setNomCategorieIng("fake");
-				ing.setCategoriesIngredient(fake);
+				ing.setCategoriesIngredient(categorie);
 				
 				Mesure mesure = new Mesure();
 				mesure.setQuantite(qte);
 				mesure.setIngredient(ing);
 				mesure.setUnite(unit);
-				System.out.println(mesure.getQuantite() + " " + mesure.getIngredient().getNomIngredient() + " " + mesure.getUnite().getNomUnite());
+				System.out.println("ingredients:" + i);
 				recette.addMesure(mesure);
 				i++;
 			}
@@ -122,6 +119,7 @@ public class RecetteServlet extends HttpServlet {
 				Instruction instruction = new Instruction();
 				instruction.setDescInstruction(request.getParameter("instruction" + i));
 				recette.addInstruction(instruction);
+				System.out.println("instruction:" + i);
 				i++;
 			}
 			
@@ -129,20 +127,20 @@ public class RecetteServlet extends HttpServlet {
 			Usager usager = (Usager) session.getAttribute("Usager");
 			recette.setUsager(usager);
 			
-			//on enregistre les mesures dans BD
-			for(Mesure mesure : recette.getMesures()) {
-				Driver.enregistrer(mesure.getIngredient(), Ingredient.class);
-				Driver.enregistrer(mesure.getUnite(), Unite.class);
-				Driver.enregistrer(mesure, Mesure.class);
-			}
-			
-			//on enregistre les instructions dans BD
-			for(Instruction inst : recette.getInstructions()){
-				Driver.enregistrer(inst, Instruction.class);
-			}
+//			//on enregistre les mesures dans BD
+//			for(Mesure mesure : recette.getMesures()) {
+//				Driver.enregistrer(mesure.getIngredient(), Ingredient.class);
+//				Driver.enregistrer(mesure.getUnite(), Unite.class);
+//				Driver.enregistrer(mesure, Mesure.class);
+//			}
+//			
+//			//on enregistre les instructions dans BD
+//			for(Instruction inst : recette.getInstructions()){
+//				Driver.enregistrer(inst, Instruction.class);
+//			}
 			
 			//on enregistre la recette dans BD
-			dao.enregistrer(recette);
+			Driver.enregistrer(recette, Recette.class);
 			
 			//on ajoute la recette dans la requete pour l'afficher dans la page viewRecette
 			request.setAttribute("recette", recette);
@@ -151,13 +149,13 @@ public class RecetteServlet extends HttpServlet {
 			
 		case "supprimerRecette":
 			recette = (Recette) request.getAttribute("recette");
-			dao.supprimer(recette);
+			Driver.supprimer(recette, Recette.class);
 			pageDestination = "/WEB-INF/Bienvenue.jsp";
 			break;
 		
 		case "voirRecette":
 			long id = Long.parseLong(request.getParameter("idRecette"));
-			recette = dao.chercherRecette(id);
+			recette = Driver.getRecette(id);
 			int heureRecette = Conversion.getHeure(recette.getDureeRecette());
 			int minuteRecette = Conversion.getMinute(recette.getDureeRecette());
 			request.setAttribute("recette", recette);

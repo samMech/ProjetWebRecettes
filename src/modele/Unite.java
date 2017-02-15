@@ -23,9 +23,6 @@ public class Unite implements Serializable {
 	@Column(name="NOM_UNITE", nullable=false, length=10)
 	private String nomUnite;
 
-	@Column(name="TYPE_UNITE", nullable=false, length=1)
-	private String typeUnite;
-
 	public Unite() {
 	}
 
@@ -44,13 +41,4 @@ public class Unite implements Serializable {
 	public void setNomUnite(String nomUnite) {
 		this.nomUnite = nomUnite;
 	}
-
-	public String getTypeUnite() {
-		return this.typeUnite;
-	}
-
-	public void setTypeUnite(String typeUnite) {
-		this.typeUnite = typeUnite;
-	}
-
 }

@@ -2,11 +2,12 @@ package controle;
 
 import java.util.List;
 
+import modele.CategoriesIngredient;
 import modele.DaoJPA;
 import modele.DaoRecette;
-import modele.DaoTypesRecette;
 import modele.Recette;
 import modele.TypesRecette;
+import modele.Unite;
 import modele.Usager;
 
 /**
@@ -26,6 +27,16 @@ public class Driver {
 	public static <T> void enregistrer(T objet, Class<T> type){
 		DaoJPA<T> dao = new DaoJPA<>(type);
 		dao.enregistrer(objet);
+	}
+	
+	/**
+	 * Methode pour supprimer un objet dans la BD
+	 * @param objet L'objet à supprimer
+	 * @param type Le type de l'objet a supprimer
+	 */
+	public static <T> void supprimer(T objet, Class<T> type){
+		DaoJPA<T> dao = new DaoJPA<>(type);
+		dao.supprimer(objet);
 	}
 	
 	/**
@@ -59,7 +70,7 @@ public class Driver {
 	 */
 	public static Usager trouverUsager(long id){
 		DaoRecette dao = new DaoRecette();
-		return dao.getUsager(id);		
+		return dao.chercherParId(id, "Usager", "idUsager", Usager.class);		
 	}
 	
 	/**
@@ -79,17 +90,72 @@ public class Driver {
 	 * @return La liste de tous les types de recette ou une liste vide si aucun résultat
 	 */
 	public static List<TypesRecette> getTypesRecette(){
-		DaoTypesRecette dao = new DaoTypesRecette();
-		return dao.getTypesRecette();
-	}
-	
-	public static DaoRecette getDaoRecette(){
 		DaoRecette dao = new DaoRecette();
-		return dao;
+		return dao.getAll("TypesRecette", TypesRecette.class);
 	}
 	
-	public static DaoTypesRecette getDaoType(){
-		DaoTypesRecette dao = new DaoTypesRecette();
-		return dao;
+	/**
+	 * Méthode pour retourner la liste de tous les unites
+	 * 
+	 * @return La liste de tous les unites de mesures ou une liste vide si aucun résultat
+	 */
+	public static List<Unite> getUnites(){
+		DaoRecette dao = new DaoRecette();
+		return dao.getAll("Unite", Unite.class);
+	}
+	
+	/**
+	 * Méthode pour trouver un type de recette selon son id
+	 * 
+	 * @param idType L'id du type dans la table
+	 * @return Le type de recette trouvé ou null si n'existe pas
+	 */
+	public static TypesRecette getTypeRecette(long idType){
+		DaoRecette dao = new DaoRecette();
+		TypesRecette type = dao.chercherParId(idType, "TypesRecette", "idType", TypesRecette.class);
+		return type;
+	}
+	
+	/**
+	 * Methode pour trouver une recette par son id
+	 *  @param idRecette l'ID de la recette
+	 *  @return La recette trouvé ou null si n'existe pas
+	 */
+	public static Recette getRecette(long idRecette){
+		DaoRecette dao = new DaoRecette();
+		Recette recette = dao.chercherParId(idRecette, "Recette", "idRecette", Recette.class);
+		return recette;
+	}
+
+	/**
+	 * Methode pour trouver une Unite de mesure par son id
+	 *  @param idUnite l'ID de l'unite
+	 *  @return L'unite trouvé ou null si n'existe pas
+	 */
+	public static Unite getUnite(long idUnite) {
+		DaoRecette dao = new DaoRecette();
+		Unite unite = dao.chercherParId(idUnite, "Unite", "idUnite", Unite.class);
+		return unite;
+	}
+	
+	/**
+	 * Methode pour trouver une recette par son id
+	 *  @param idRecette l'ID de la recette
+	 *  @return La recette trouvé ou null si n'existe pas
+	 */
+	public static CategoriesIngredient getCategorie(long idCategorie) {
+		DaoRecette dao = new DaoRecette();
+		CategoriesIngredient cat = dao.chercherParId(idCategorie, "CategoriesIngredient", "idCategorieIng", CategoriesIngredient.class);
+		return cat;
+	}
+
+		/**
+	 * Méthode pour retourner la liste de tous les unites
+	 * 
+	 * @return La liste de tous les unites de mesures ou une liste vide si aucun résultat
+	 */
+	public static List<CategoriesIngredient> getCategories(){
+		DaoRecette dao = new DaoRecette();
+		return dao.getAll("CategoriesIngredient", CategoriesIngredient.class);
 	}
 }

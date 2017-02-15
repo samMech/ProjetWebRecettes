@@ -9,14 +9,12 @@
  */
 
 // Fonction pour ajuster les numéros d'un ingrédient
-function ajusterNumerosIngredient(numero, li){
-	nom = li.getAttribute('name').replace(/[0-9]+$/g, '');// On enlève l'ancien numéro	
-	li.setAttribute('name', nom + numero);// On remplace par le bon numéro
-	
+function ajusterNumerosIngredient(numero, li){	
 	// On fait aussi les sous-élément pour les ingrédients
 	$(li).find('div input, div select').each(function(){	
 		nom = this.getAttribute('name').replace(/[0-9]+$/g, '');// On enlève l'ancien numéro	
-		this.setAttribute('name', nom + numero);// On remplace par le bon numéro	
+		this.setAttribute('name', nom + numero);// On remplace par le bon numéro
+		alert(this.getAttribute('name'));
 	});	
 }
 

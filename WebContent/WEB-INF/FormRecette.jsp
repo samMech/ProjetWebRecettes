@@ -99,18 +99,17 @@
 							<ul class="list-group">
 								<li class="list-group-item noBorder media">
 									<div class="form-group media-body autoWidth">
-										<input class="form-control form-control-inline" type="text"	size="22" placeholder="Ingrédient" id="ingredient1"	name="nomIngredient1" /> 
-										<input class="form-control form-control-inline" type="text" size="5" placeholder="Quantité" id="qte1" name="qte1" />
-										<select	class="form-control form-control-inline" id="unite1" name="unite1">
-											<option>g</option>
-											<option>L</option>
-											<option>mL</option>
-											<option>g</option>
-											<option>tasse(s)</option>
-											<option>tbsp</option>
-											<option>oz</option>
-											<option>tsp</option>
-											<optgroup>Tbs</optgroup>
+										<select	class="form-control form-control-inline" name="categorie1">
+											<c:forEach var="categorie" items="${requestScope.categories}">
+											<option value="${categorie.idCategorieIng}">${categorie.nomCategorieIng}</option>
+										</c:forEach>
+										</select>
+										<input class="form-control form-control-inline" type="text"	size="22" placeholder="Ingrédient"	name="nomIngredient1" /> 
+										<input class="form-control form-control-inline" type="text" size="5" placeholder="Quantité" name="qte1" />
+										<select	class="form-control form-control-inline" name="unite1">
+											<c:forEach var="unit" items="${requestScope.unites}">
+											<option value="${unit.idUnite}">${unit.nomUnite}</option>
+										</c:forEach>
 										</select>
 									</div>
 									<div class="media-right media-middle">
@@ -134,7 +133,7 @@
 									</div>
 									<div class="media-body autoWidth">
 										<textarea cols="100" placeholder="Instruction"
-											class="form-control" id="instruction1" name="instruction1"></textarea>
+											class="form-control" name="instruction1"></textarea>
 									</div>
 									<div class="media-right media-middle">
 										<span

@@ -9,8 +9,9 @@ import javax.persistence.TypedQuery;
 /**
  * Classe pour un DAO sur des Recettes
  * 
- * @version 1.00 (19 janvier 2017)
+ * @version 1.10 (15 février 2017)
  * @author Marc-André Malouin
+ * @author Samy Mecheddal
  */
 public class DaoRecette extends DaoJPA<Recette> {
 
@@ -24,34 +25,7 @@ public class DaoRecette extends DaoJPA<Recette> {
 	//////////////
 	// Méthodes //
 	//////////////
-	
-	/**
-	 * Méthode pour retourner un usager selon son login unique
-	 * 
-	 * @param id L'identifiant unique de l'usager
-	 * @return L'usager correspondant ou null si inexistant
-	 */
-	public Usager getUsager(long id){
-		try{
-            // Ouverture de la connexion
-            ouvrirConnexion();
-            
-            // Construction de la requête
-            TypedQuery<Usager> query = em.createQuery("SELECT u FROM Usager u WHERE u.idUsager = :id", Usager.class);
-            query.setParameter("id", id);
-
-            // Recherche
-            return query.getSingleResult();
-		}
-        catch(NoResultException e){
-        	return null;
-        }	            
-        finally{
-            // Fermeture de la connexion
-            fermerConnexion();
-        }
-	}
-	
+		
 	/**
 	 * Méthode pour retourner un usager selon son login unique
 	 * 
@@ -82,15 +56,6 @@ public class DaoRecette extends DaoJPA<Recette> {
 		else{
 			return null;
 		}
-	}
-	
-	/**
-	 * Méthode pour retourner la liste de toutes les recettes
-	 * 
-	 * @return La liste de toutes les recettes ou une liste vide si aucun résultat
-	 */
-	public List<Recette> getRecettes(){
-		return lancerRequete("SELECT r FROM Recette r");
 	}
 	
 	/**
@@ -127,19 +92,44 @@ public class DaoRecette extends DaoJPA<Recette> {
 	}
 	
 	/**
-	 * Méthode pour trouver une recette selon son id
-	 * 
-	 * @param idRecette L'id de la recette dans la table
-	 * @return La recette trouvée ou null si inexistante
+	 * Methode pour retourner la liste de tous les enregistrements d'une table
+	 * @return La liste de tous les enregistrements ou une liste vide si aucun resultat
 	 */
-	public Recette chercherRecette(long idRecette){
+	public <T> List<T> getAll(String table, Class<T> type){
+		
 		try{
             // Ouverture de la connexion
             ouvrirConnexion();
             
             // Construction de la requête
-            TypedQuery<Recette> query = em.createQuery("SELECT r FROM Recette r WHERE idRecette = :id", Recette.class);
-            query.setParameter("id", idRecette);
+            TypedQuery<T> query = em.createQuery("SELECT t FROM "+table+" t", type);
+
+            // Recherche
+            return query.getResultList();
+            
+        }finally{
+            // Fermeture de la connexion
+            fermerConnexion();
+        }
+	}
+
+	
+	/**
+	 * Méthode pour trouver un enregistrement selon son id
+	 * 
+	 * @param id L'id de l'enregistrement dans la table
+	 * @return L'enregistrement trouvé ou null si n'existe pas
+	 */
+	
+	public <T> T chercherParId(long id, String table, String typeId, Class<T> type){
+		try{
+            // Ouverture de la connexion
+            ouvrirConnexion();
+            
+            // Construction de la requête
+            TypedQuery<T> query = em.createQuery("SELECT t FROM "+table+ " t WHERE t."+typeId+" = :id", type);
+
+            query.setParameter("id", id);
 
             // Recherche
             return query.getSingleResult();

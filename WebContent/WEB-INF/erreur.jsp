@@ -49,7 +49,7 @@
 								<h3><span class="label label-danger">Oups, une erreur est survenue !</span></h3>
 							</div>
 							<div class="panel-footer">
-								<a href="ConnexionServlet"/>Retour à l'accueil</a>
+								<a href="ConnexionServlet">Retour à l'accueil</a>
 							</div>												
 						</div>
 					</div>

@@ -18,7 +18,7 @@ public class Recette implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="RECETTES_IDRECETTE_GENERATOR", sequenceName="SEQ_RECETTES")
+	@SequenceGenerator(name="RECETTES_IDRECETTE_GENERATOR", sequenceName="SEQ_RECETTES", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="RECETTES_IDRECETTE_GENERATOR")
 	@Column(name="ID_RECETTE", unique=true, nullable=false, precision=8)
 	private long idRecette;
