@@ -69,7 +69,7 @@
 					<div class="col-sm-5">
 						<div class="panel panel-primary">
 							<div class="panel-heading">
-								<h2><fmt:message key="accueil.form.connexion"/></h2>
+								<h2><fmt:message key="accueil.form.titre"/></h2>
 							</div>
 							<div class="panel-body">
 								<form id="formConnexion" method="POST" action="ConnexionServlet">
@@ -90,7 +90,7 @@
 										<a class="pull-right" href="resetPassword.jsp"><fmt:message key="accueil.form.passwordOublie"/></a><!--Password reset-->
 										<div class="input-group required-field-block">
 											<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-											<input type="password" class="form-control" id="pwd" name="pwd" required pattern="[0-9a-zA-Z!@#$%&]{8}"/>
+											<input type="password" class="form-control" id="pwd" name="pwd" required"/>
 											<div class="required-icon">
 												<div class="text">*</div>
 											</div>

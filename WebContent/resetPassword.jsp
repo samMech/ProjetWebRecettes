@@ -39,7 +39,7 @@
 				<!--Titre de la page-->
 				<div class="panel panel-primary text-center">
 					<div class="panel-heading">
-						<h1>La Boîte à Ingrédients</h1>
+						<h1><fmt:message key="application.nom"/></h1>
 					</div>
 				</div>
 				
@@ -50,12 +50,12 @@
 					<div class="col-sm-6">
 						<div class="panel panel-primary">
 							<div class="panel-heading">
-								<h2>Réinitialiser votre compte</h2>
+								<h2><fmt:message key="password.form.titre"/></h2>
 							</div>
 							<div class="panel-body">
 								<form id="formConnexion" method="POST" action="CompteServlet">
 									<div class="form-group">
-										<label for="email">Adresse courriel:</label>
+										<label for="email"><fmt:message key="password.form.email"/></label>
 										<div class="input-group">
 											<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 											<input type="email" class="form-control" id="email" name="email" required/>
@@ -65,20 +65,20 @@
 									<c:if test="${requestScope.usagerInexistant == true}">
 									<!--Erreur-->
 									<div class="form-group text-center">
-										<h3 class="text-center"><span class="label label-warning">L'adresse courriel fournie ne correspond à aucun usager existant !</span></h3><br />
+										<h3 class="text-center"><span class="label label-warning"><fmt:message key="password.form.erreurEmail"/></span></h3><br />
 									</div>									
 									</c:if>	
 									
 									<!--Enter-->
 									<div class="form-group text-center">
 										<input type="hidden" name="action" value="RESET_PASSWORD" />
-									    <button type="submit" class="btn btn-primary btn-block" id="connexion"><span class="glyphicon glyphicon-log-in"></span> Réinitialiser</button>
+									    <button type="submit" class="btn btn-primary btn-block" id="connexion"><span class="glyphicon glyphicon-log-in"></span> <fmt:message key="password.form.submit"/></button>
 									</div>
 								</form>
 								<!--Nouveau compte-->
 								<div class="panel-footer text-center">
-									<label class="small">---Cliquez ici pour retourner à la page d'accueil---</label>
-									<button type="button" class="btn btn-default btn-block" onClick="document.location.href='ConnexionServlet?action=CANCEL'">Se Connecter</button>
+									<label class="small">---<fmt:message key="password.retour.titre"/>---</label>
+									<button type="button" class="btn btn-default btn-block" onClick="document.location.href='ConnexionServlet?action=CANCEL'"><fmt:message key="password.retour.bouton"/></button>
 								</div>
 							</div>
 						</div>
@@ -88,20 +88,20 @@
 					<div class="col-sm-6">
 						<div class="panel panel-info">
 							<div class="panel-heading">
-								<h3>Instructions</h3>
+								<h3><fmt:message key="password.panel.titre"/></h3>
 							</div>
 							<div class="panel-body">
 								<ul>
-									<li>Pour réinitialiser votre mot de passe, entrez votre adresse courriel.</li>
-									<li>Un courriel vous sera envoyé avec un nouveau mot de passe.</li>
+									<li><fmt:message key="password.panel.instruction1"/></li>
+									<li><fmt:message key="password.panel.instruction2"/></li>
 								</ul>
 								
 								<c:choose>
 									<c:when test="${requestScope.erreurEnvoiEmail == true}">
-										<h3 class="text-center"><span id="messageConfirmation" class="label label-danger">Une erreur est survenue, veuillez ré-essayer plus tard.</span></h3>
+										<h3 class="text-center"><span id="messageConfirmation" class="label label-danger"><fmt:message key="password.panel.erreur"/></span></h3>
 									</c:when>
 									<c:when test="${requestScope.confirmationEmail == true }">
-										<h3 class="text-center"><span id="messageConfirmation" class="label label-success">Un courriel contenant votre nouveau mot de passe vous a été envoyé.</span></h3>
+										<h3 class="text-center"><span id="messageConfirmation" class="label label-success"><fmt:message key="password.panel.succes"/></span></h3>
 									</c:when>
 								</c:choose>
 																								

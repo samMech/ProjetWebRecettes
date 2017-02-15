@@ -45,7 +45,7 @@
 				<!--Titre de la page-->
 				<div class="panel panel-primary text-center">
 					<div class="panel-heading">
-						<h1>La Boîte à Ingrédients</h1>
+						<h1><fmt:message key="application.nom"/></h1>
 					</div>
 				</div>
 				
@@ -56,13 +56,13 @@
 					<div class="col-sm-5">
 						<div class="panel panel-primary">
 							<div class="panel-heading">
-								<h2>Créer un compte</h2>
+								<h2><fmt:message key="compte.form.titre"/></h2>
 							</div>
 							<div class="panel-body">
 								<form id="formConnexion" method="POST" action="CompteServlet">
 									<!--Login-->
 									<div class="form-group">
-										<label for="userName">Nom d'utilisateur: </label>
+										<label for="userName"><fmt:message key="compte.form.nom"/></label>
 										<div class="input-group required-field-block col-lg-12">
 											<input type="text" class="form-control " id="userName" name="userName" required/>
 											<div class="required-icon">
@@ -71,7 +71,7 @@
 										</div>
 									</div>
 									<div class="form-group">
-										<label for="email">Adresse courriel:</label>
+										<label for="email"><fmt:message key="compte.form.email"/></label>
 										<div class="input-group required-field-block">
 											<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 											<input type="email" class="form-control" id="email" name="email" required/>
@@ -82,7 +82,7 @@
 									</div>
 									<!--Password-->
 									<div class="form-group">
-										<label for="pwd">Mot de passe:</label>
+										<label for="pwd"><fmt:message key="compte.form.password"/></label>
 										<div class="input-group required-field-block">
 											<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
 											<input type="password" class="form-control" id="pwd" name="pwd" required pattern="[0-9a-zA-Z!@#$%&]{8}" onchange="comparerPasswords();"/>
@@ -93,7 +93,7 @@
 									</div>
 									<!--Confirm Password-->
 									<div class="form-group">
-										<label for="pwd">Confirmer le mot de passe: </label>
+										<label for="pwd"><fmt:message key="compte.form.password2"/></label>
 										<div class="input-group required-field-block">
 											<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
 											<input type="password" class="form-control" id="pwd2" name="pwd2" required pattern="[0-9a-zA-Z!@#$%&]{8}" onkeyup="comparerPasswords();"/>
@@ -107,19 +107,19 @@
 										<c:when test="${requestScope.usagerExistant == true}">
 											<!--Erreur-->
 											<div class="form-group text-center">
-												<h3 class="text-center"><span class="label label-warning">Cette adresse courriel est déjà utilisée par un autre usager !</span></h3><br />
+												<h3 class="text-center"><span class="label label-warning"><fmt:message key="compte.form.erreurEmailExistant"/></span></h3><br />
 											</div>									
 										</c:when>
 										<c:when test="${requestScope.pwdInvalide == true}">
 											<!--Erreur-->
 											<div class="form-group text-center">
-												<h3 class="text-center"><span class="label label-warning">Ce mot de passe est invalide !</span></h3><br />
+												<h3 class="text-center"><span class="label label-warning"><fmt:message key="compte.form.erreurPasswordInvalide"/></span></h3><br />
 											</div>									
 										</c:when>
 										<c:when test="${requestScope.erreurEnvoiEmail == true}">
 											<!--Erreur-->
 											<div class="form-group text-center">
-												<h3 class="text-center"><span class="label label-danger">Une erreur est survenue, veuillez ré-essayer plus tard.</span></h3><br />
+												<h3 class="text-center"><span class="label label-danger"><fmt:message key="compte.form.erreurCreation"/></span></h3><br />
 											</div>									
 										</c:when>
 										<c:otherwise>											
@@ -130,13 +130,13 @@
 									<div class="form-group text-center">
 										<input type="hidden" name="action" value="CREATE_ACCOUNT" />
 										<input type="hidden" id="msgErreurPasswordsDifferents" value="<fmt:message key="compte.form.erreurPwdDifferents"/>" />
-									    <button type="submit" class="btn btn-primary btn-block" id="connexion"><span class="glyphicon glyphicon-log-in"></span> Créer un compte</button>
+									    <button type="submit" class="btn btn-primary btn-block" id="connexion"><span class="glyphicon glyphicon-log-in"></span> <fmt:message key="compte.form.submit"/></button>
 									</div>
 								</form>
 								<!--Nouveau compte-->
 								<div class="panel-footer text-center">
-									<label class="small">---Vous avez déjà un compte ?---</label>
-									<button type="button" class="btn btn-default btn-block" onClick="document.location.href='ConnexionServlet?action=CANCEL'">Se connecter</button>
+									<label class="small">---<fmt:message key="compte.retour.titre"/>---</label>
+									<button type="button" class="btn btn-default btn-block" onClick="document.location.href='ConnexionServlet?action=CANCEL'"><fmt:message key="compte.retour.bouton"/></button>
 								</div>
 							</div>
 						</div>
@@ -146,17 +146,13 @@
 					<div class="col-sm-7">
 						<div class="panel panel-info">
 							<div class="panel-heading">
-								<h3>Instructions</h3>
+								<h3><fmt:message key="compte.panel.titre"/></h3>
 							</div>
 							<div class="panel-body">
 								<ul>
-									<li>Tous les champs sont obligatoires</li>
-									<li>L'adresse courriel doit être valide. Un code de confirmation vous sera envoyez par courriel pour compléter le processus d'inscription</li>
-									<li>
-										Le mot de passe doit contenir exactement 8 caractères (lettres et/ou chiffres)<br />
-									    Seul les caractères spéciaux suivant sont autorisés: ! @ # $ % & <br />
-									    Les caractères accentués ne sont pas autorisés
-									</li>
+									<li><fmt:message key="compte.panel.instruction1"/></li>
+									<li><fmt:message key="compte.panel.instruction2"/></li>
+									<li><fmt:message key="compte.panel.instruction3"/></li>
 								</ul>
 							</div>							
 						</div>
