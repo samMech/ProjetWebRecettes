@@ -32,16 +32,6 @@ public class Driver {
 	}
 	
 	/**
-	 * Methode pour supprimer un objet dans la BD
-	 * @param objet L'objet à supprimer
-	 * @param type Le type de l'objet a supprimer
-	 */
-	public static <T> void supprimer(T objet, Class<T> type){
-		DaoJPA<T> dao = new DaoJPA<>(type);
-		dao.supprimer(objet);
-	}
-	
-	/**
 	 * Méthode pour créer un nouvel usager
 	 * 
 	 * @param nom Le nom de l'usager
@@ -114,7 +104,7 @@ public class Driver {
 	 */
 	public static TypesRecette getTypeRecette(long idType){
 		DaoRecette dao = new DaoRecette();
-		TypesRecette type = dao.chercherParId(idType, "TypesRecette", "idType", TypesRecette.class);
+		TypesRecette type = dao.chercherParId(idType, TypesRecette.class);
 		return type;
 	}
 	
@@ -125,7 +115,7 @@ public class Driver {
 	 */
 	public static Recette getRecette(long idRecette){
 		DaoRecette dao = new DaoRecette();
-		Recette recette = dao.chercherParId(idRecette, "Recette", "idRecette", Recette.class);
+		Recette recette = dao.chercherParId(idRecette, Recette.class);
 		return recette;
 	}
 
@@ -136,7 +126,7 @@ public class Driver {
 	 */
 	public static Unite getUnite(long idUnite) {
 		DaoRecette dao = new DaoRecette();
-		Unite unite = dao.chercherParId(idUnite, "Unite", "idUnite", Unite.class);
+		Unite unite = dao.chercherParId(idUnite, Unite.class);
 		return unite;
 	}
 	
@@ -147,7 +137,7 @@ public class Driver {
 	 */
 	public static CategoriesIngredient getCategorie(long idCategorie) {
 		DaoRecette dao = new DaoRecette();
-		CategoriesIngredient cat = dao.chercherParId(idCategorie, "CategoriesIngredient", "idCategorieIng", CategoriesIngredient.class);
+		CategoriesIngredient cat = dao.chercherParId(idCategorie, CategoriesIngredient.class);
 		return cat;
 	}
 
@@ -184,6 +174,16 @@ public class Driver {
 		System.out.println("REQUETE = '" + requete + "'");
 		
 		return null;
+	}	
+
+	public static Recette getRecetteParId(long id){
+		DaoRecette dao = new DaoRecette();
+		return (Recette)dao.chercherParId(id, Recette.class);
 	}
 	
+	public static void supprimerRecette(long id){
+		DaoRecette dao = new DaoRecette();
+		dao.supprimer(Recette.class, id);
+	}
+
 }

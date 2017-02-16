@@ -104,13 +104,13 @@ public class DaoJPA<T> {
      *
      * @param objet L'objet à supprimer
      */
-    public final void supprimer(T objet) {
+    public final void supprimer(Class<T>type, long id) {
         try{
             // Ouverture de la connexion
             ouvrirConnexion();
             
-            // Sauvegarde
-            em.remove(objet);
+            // Suppression
+            em.remove(em.find(type, id));
             
             // Validation
             validerChangements();

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
@@ -133,12 +134,27 @@ public class DaoRecette extends DaoJPA<Recette> {
             ouvrirConnexion();
             
             // Construction de la requête
-            TypedQuery<T> query = em.createQuery("SELECT t FROM " + table +  " t WHERE t." + typeId + " = :id", type);
-
-            query.setParameter("id", id);
-
-            // Recherche
-            return query.getSingleResult();
+//            TypedQuery<T> query = em.createQuery("SELECT t FROM " + table +  " t WHERE t." + typeId + " = :id", type);
+//
+//            query.setParameter("id", id);
+            
+            return (T)em.find(type, id);
+//
+//            // Recherche
+//            return query.getSingleResult();
+            
+        }finally{
+            // Fermeture de la connexion
+            fermerConnexion();
+        }
+	}
+	
+	public <T> T chercherParId(long id, Class<T> type){
+		try{
+            // Ouverture de la connexion
+            ouvrirConnexion();
+            
+            return (T) em.find(type, id);
             
         }finally{
             // Fermeture de la connexion
