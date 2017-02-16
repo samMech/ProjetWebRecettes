@@ -30,7 +30,7 @@
 <body>
 
 	<!--La barre de navigation-->
-	<jsp:include page="WEB-INF/jspf/navbar.jsp"></jsp:include>
+	<jsp:include page="jspf/navbar.jsp"></jsp:include>
 
 	<!--Le contenu central-->  
 	<div class="container-fluid">
@@ -152,7 +152,11 @@
 								<ul>
 									<li><fmt:message key="compte.panel.instruction1"/></li>
 									<li><fmt:message key="compte.panel.instruction2"/></li>
-									<li><fmt:message key="compte.panel.instruction3"/></li>
+									<li>
+										<fmt:message key="compte.panel.instruction3a"/><br />
+										<fmt:message key="compte.panel.instruction3b"/><br />
+										<fmt:message key="compte.panel.instruction3c"/>
+									</li>
 								</ul>
 							</div>							
 						</div>
@@ -168,7 +172,7 @@
 	</div>
 
 	<!--Le bas de page-->
-	<jsp:include page="WEB-INF/jspf/footer.jsp"></jsp:include>
+	<jsp:include page="jspf/footer.jsp"></jsp:include>
 
 </body>
 </html>

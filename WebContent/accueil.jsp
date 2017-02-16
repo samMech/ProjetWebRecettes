@@ -4,16 +4,16 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<%--On vérifie si la langue de la session a été initialisée--%>
+<c:if test="${sessionScope.langue == null}">
+	<%--Passage par la servlet pour initialiser la langue avant de revenir ici--%>
+	<jsp:forward page="/I18nServlet"></jsp:forward>
+</c:if>
+
 <%--On vérifie si l'usager est déjà connecté--%>
 <c:if test="${sessionScope.Usager != null}">
 	<%--Redirection vers la page de bienvenue--%>
 	<jsp:forward page="/ConnexionServlet?action=BIENVENUE"></jsp:forward>
-</c:if>
-
-<%--On vérifie si la langue de la session a été initialisée--%>
-<c:if test="${sessionScope.langue == null}">
-	<%--Passage par la servlet pour initialiser la langue avant de revenir ici--%>
-	<jsp:forward page="/ConnexionServlet"></jsp:forward>
 </c:if>
 
 <%--Initialisation de la locale--%>
@@ -87,7 +87,7 @@
 									<!--Password-->
 									<div class="form-group">
 										<label for="pwd"><fmt:message key="accueil.form.password"/></label>
-										<a class="pull-right" href="resetPassword.jsp"><fmt:message key="accueil.form.passwordOublie"/></a><!--Password reset-->
+										<a class="pull-right" href="WEB-INF/resetPassword.jsp"><fmt:message key="accueil.form.passwordOublie"/></a><!--Password reset-->
 										<div class="input-group required-field-block">
 											<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
 											<input type="password" class="form-control" id="pwd" name="pwd" required/>
@@ -117,7 +117,7 @@
 								<!--Nouveau compte-->
 								<div class="panel-footer text-center">
 									<label class="small">---<fmt:message key="accueil.form.compte"/>---</label>
-									<button type="button" class="btn btn-default btn-block" onclick="document.location.href='creerCompte.jsp'"><fmt:message key="accueil.form.creerCompte"/></button>
+									<button type="button" class="btn btn-default btn-block" onclick="document.location.href='WEB-INF/creerCompte.jsp'"><fmt:message key="accueil.form.creerCompte"/></button>
 								</div>
 							</div>
 						</div>
@@ -130,7 +130,11 @@
 								<h3><fmt:message key="accueil.panel.bienvenue"/></h3>
 							</div>
 							<div class="panel-body">
-								<p><fmt:message key="accueil.panel.message"/></p>	
+								<p>
+									<fmt:message key="accueil.panel.message1"/>
+									<br /><br />
+									<fmt:message key="accueil.panel.message2"/>
+								</p>	
 							</div>							
 						</div>
 					</div>

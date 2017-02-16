@@ -37,19 +37,6 @@ public class ConnexionServlet extends HttpServlet {
 		// Récupération de la session
 		HttpSession session = request.getSession();
 		
-		// Récupération du cookie pour le choix de la langue
-		Cookie cookieLangue = Utilitaire.trouverCookie(request.getCookies(), "langue");
- 		if(cookieLangue == null){
- 			cookieLangue = new Cookie("langue", request.getLocale().getLanguage());
- 		}
- 		
- 		// Renouvellement de la date d'expiration du cookie
- 		cookieLangue.setMaxAge(60*60*24*365);// Expire après 1 ans
-		response.addCookie(cookieLangue); 		
- 		
-		// On met la langue du cookie dans la session
-        session.setAttribute("langue", cookieLangue.getValue());
-		
 		// Récupération de l'action demandée
 		String action = (String) request.getParameter("action");
 		if(action == null){

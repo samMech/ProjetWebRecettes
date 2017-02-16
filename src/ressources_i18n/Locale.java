@@ -27,8 +27,8 @@ public class Locale extends ListResourceBundle {
 	    {"accueil.form.compte", "Pas encore de compte ?"},
 	    {"accueil.form.creerCompte", "Créer un nouveau compte"},
 	    {"accueil.panel.bienvenue", "Bienvenue !"},
-	    {"accueil.panel.message", "Ce site vous permet de créer et modifier une liste d'épicerie en fonction des recettes que vous voulez cuisinez.<br /><br />"
-	    	+ "Connectez-vous ou créez un nouveau compte dès maintenant pour gérer votre propre livre de recettes en ligne."},
+	    {"accueil.panel.message1", "Ce site vous permet de créer et modifier une liste d'épicerie en fonction des recettes que vous voulez cuisinez."},
+	    {"accueil.panel.message2", "Connectez-vous ou créez un nouveau compte dès maintenant pour gérer votre propre livre de recettes en ligne."},
 	    /////////////////////////////////////////////////////////
 	    {"compte.form.titre", "Créer un compte"},
 	    {"compte.form.nom", "Nom:"},
@@ -45,9 +45,9 @@ public class Locale extends ListResourceBundle {
 	    {"compte.panel.titre", "Instructions"},
 	    {"compte.panel.instruction1","Tous les champs sont obligatoires."},
 	    {"compte.panel.instruction2","L'adresse courriel doit être valide. Un code de confirmation vous sera envoyez par courriel pour compléter le processus d'inscription."},
-	    {"compte.panel.instruction3","Le mot de passe doit contenir exactement 8 caractères (lettres et/ou chiffres).<br />"
-	    							+"Seul les caractères spéciaux suivant sont autorisés: ! @ # $ % & <br />"
-	    							+"Les caractères accentués ne sont pas autorisés."},
+	    {"compte.panel.instruction3a", "Le mot de passe doit contenir exactement 8 caractères (lettres et/ou chiffres)."},
+	    {"compte.panel.instruction3b", "Seul les caractères spéciaux suivant sont autorisés: ! @ # $ % &"},
+	    {"compte.panel.instruction3c", "Les caractères accentués ne sont pas autorisés."},
 	    ///////////////////////////////////////////////////////
 	    {"password.form.titre", "Réinitialiser votre mot de passe"},
 	    {"password.form.email", "Adresse courriel:"},

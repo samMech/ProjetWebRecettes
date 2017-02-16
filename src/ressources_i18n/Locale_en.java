@@ -27,8 +27,8 @@ public class Locale_en extends ListResourceBundle {
 	    {"accueil.form.compte", "No account yet ?"},
 	    {"accueil.form.creerCompte", "Sign up"},
 	    {"accueil.panel.bienvenue", "Welcome !"},
-	    {"accueil.panel.message", "This site allows you to create and edit a grocery list based on the recipes you want to cook.<br /><br />"
-		    	+ "Log in or sign up to a new account now to manage your own online cookbook."},
+	    {"accueil.panel.message1", "This site allows you to create and edit a grocery list based on the recipes you want to cook.."},
+	    {"accueil.panel.message2", "Log in or sign up to a new account now to manage your own online cookbook."},
 	    /////////////////////////////////////////////////////////
 	    {"compte.form.titre", "Sign up"},
 	    {"compte.form.nom", "Name:"},
@@ -45,9 +45,9 @@ public class Locale_en extends ListResourceBundle {
 	    {"compte.panel.titre", "Instructions"},
 	    {"compte.panel.instruction1","All fields are mandatory."},
 	    {"compte.panel.instruction2","The email address must be valid. A confirmation code will be emailed to you to complete the registration process."},
-	    {"compte.panel.instruction3","The password must contain exactly 8 characters (letters and/or numbers).<br />"
-	    							+"Only the following special characters are allowed: ! @ # $ % & <br />"
-	    							+"Accented characters are not allowed."},
+	    {"compte.panel.instruction3a", "The password must contain exactly 8 characters (letters and/or numbers)."},
+	    {"compte.panel.instruction3b", "Only the following special characters are allowed: ! @ # $ % &"},
+	    {"compte.panel.instruction3c", "Accented characters are not allowed."},
 	    ///////////////////////////////////////////////////////
 	    {"password.form.titre", "Reset your password"},
 	    {"password.form.email", "Email:"},
