@@ -9,7 +9,15 @@ package utils;
  */
 public class Conversion {
 
-	// Conversion objet en xml / json
+	/**
+	 * Constante pour le format de l'heure
+	 */
+	public static final String FORMAT_HEURE = "%2dh%2dmin";
+	
+	/**
+	 * Constante pour le format de l'heure avec seulement des minutes
+	 */
+	public static final String FORMAT_MINUTES = "%2dmin";
 	
 	/**
 	 * Methode permettant la conversion d'un temps en minutes
@@ -22,9 +30,20 @@ public class Conversion {
 	}
 	
 	/**
-	 * Methode permettant de convertir une duree en minutes en heure
+	 * Méthode pour convertir un temps en minutes en chaîne de format h :mm
+	 * @param  Le temps en minutes
+	 * @return La durée formattée
+	 */
+	public static String convertirTemps(int minutes){
+		int h = getHeure(minutes);
+		int m = getMinute(minutes);		
+	    return h == 0 ? String.format(FORMAT_MINUTES, m) : String.format(FORMAT_HEURE, h, m);
+	}
+	
+	/**
+	 * Methode permettant de convertir un nombre de minutes en heure
 	 * @param temps nombre de minutes a convertir
-	 * @return Le nombre d'heure dans une durée en minutes
+	 * @return Le nombre d'heures entières
 	 */
 	public static int getHeure(int temps){
 		return temps/60;

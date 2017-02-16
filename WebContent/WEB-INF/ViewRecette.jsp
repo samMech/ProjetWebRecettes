@@ -38,7 +38,7 @@
 					</div>
 					<div class="panel-body">
 						<p>${recette.descriptionRecette}</p>
-						<h4><span class="label label-info">Temps de préparation: ${RequestScope.heureRecette}hr(s) ${RequestScope.minuteRecette}min</span></h4>
+						<h4><span class="label label-info">Temps de préparation: ${requestScope.dureeRecette}</span></h4>
 					</div>
 				</div>
 

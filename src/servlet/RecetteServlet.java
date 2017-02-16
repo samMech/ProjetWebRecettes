@@ -154,11 +154,9 @@ public class RecetteServlet extends HttpServlet {
 		case "voirRecette":
 			long id = Long.parseLong(request.getParameter("idRecette"));
 			recette = Driver.getRecette(id);
-			int heureRecette = Conversion.getHeure(recette.getDureeRecette());
-			int minuteRecette = Conversion.getMinute(recette.getDureeRecette());
+			String duree = Conversion.convertirTemps(recette.getDureeRecette());
 			request.setAttribute("recette", recette);
-			request.setAttribute("heureRecette", heureRecette);
-			request.setAttribute("minuteRecette", minuteRecette);
+			request.setAttribute("dureeRecette", duree);
 			pageDestination = "/WEB-INF/ViewRecette.jsp";
 		}
 		
