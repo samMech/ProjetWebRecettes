@@ -54,9 +54,15 @@ public class I18nServlet extends HttpServlet {
 	 	
         // On met la langue dans la session
         session.setAttribute("langue", cookieLangue.getValue());
-                	 	
-        // Redirection vers la page d'où la requête a été envoyée
-	 	response.sendRedirect(request.getHeader("referer")); 	
+        
+        // Redirection vers la page d'où la requête a été envoyée (ou la page d'accueil si null)
+        String pageSource = request.getHeader("referer");
+	 	if(pageSource != null){
+	 		response.sendRedirect(pageSource);
+	 	}
+	 	else{
+	 		response.sendRedirect("accueil.jsp");
+	 	}
 	}
 
 	/**

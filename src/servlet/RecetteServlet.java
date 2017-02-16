@@ -129,6 +129,7 @@ public class RecetteServlet extends HttpServlet {
 			
 			//on ajoute la recette dans la requete pour l'afficher dans la page viewRecette
 			request.setAttribute("recette", recette);
+			request.setAttribute("dureeRecette", Conversion.convertirTemps(recette.getDureeRecette()));
 			pageDestination = "/WEB-INF/ViewRecette.jsp";
 			break;
 			
@@ -141,9 +142,8 @@ public class RecetteServlet extends HttpServlet {
 		case "voirRecette":
 			long id = Long.parseLong(request.getParameter("idRecette"));
 			recette = Driver.getRecette(id);
-			String duree = Conversion.convertirTemps(recette.getDureeRecette());
 			request.setAttribute("recette", recette);
-			request.setAttribute("dureeRecette", duree);
+			request.setAttribute("dureeRecette", Conversion.convertirTemps(recette.getDureeRecette()));
 			pageDestination = "/WEB-INF/ViewRecette.jsp";
 		}
 		

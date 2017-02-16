@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import controle.Driver;
 import modele.CategoriesIngredient;
+import modele.Recette;
 import modele.TypesRecette;
 import modele.Usager;
 
@@ -37,9 +38,6 @@ public class RechercheServlet extends HttpServlet {
 		
 		// Récupération de la session
 		HttpSession session = request.getSession();
-		if(session == null){
-			response.sendRedirect("accueil.jsp");
-		}
 		
 		// Récupération de l'usagé connecté
 		Usager user = (Usager) session.getAttribute("Usager");
@@ -56,15 +54,19 @@ public class RechercheServlet extends HttpServlet {
 		request.setAttribute("typesRecette", types);
 		request.setAttribute("categoriesIngredient", categories);
 				
+		// Création de la liste des recettes
+		List<Recette> recettesTrouvees = null;
+		
 		// Aiguillage selon l'action
 		String urlDestination = "/WEB-INF/rechercheRecette.jsp";
 		switch(action){			
-			case "QUICK_SEARCH" :
-				
+			case "QUICK_SEARCH" :				
 				// On récupère les critères de la recherche libre					
 				String chaine = (String) request.getAttribute("texteRecherche");				
+				request.setAttribute("quickSearch", chaine);
 				
-				// TODO: séparé en mot et faire recherche avec nouvelles méthodes DAO				
+				// On récupère la liste des recettes trouvées
+				recettesTrouvees = Driver.rechercheLibre(user, chaine);
 				
 				break;
 			case "SEARCH" :
@@ -79,6 +81,8 @@ public class RechercheServlet extends HttpServlet {
 			default :
 				break;
 		}
+		
+		// TODO: ajax sur la liste des résulats !!!!
 		
 		// Forward
 		RequestDispatcher rd = request.getRequestDispatcher(urlDestination);

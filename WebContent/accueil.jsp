@@ -4,16 +4,16 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%--On vérifie si la langue de la session a été initialisée--%>
-<c:if test="${sessionScope.langue == null}">
-	<%--Passage par la servlet pour initialiser la langue avant de revenir ici--%>
-	<jsp:forward page="/I18nServlet"></jsp:forward>
-</c:if>
-
 <%--On vérifie si l'usager est déjà connecté--%>
 <c:if test="${sessionScope.Usager != null}">
 	<%--Redirection vers la page de bienvenue--%>
 	<jsp:forward page="/ConnexionServlet?action=BIENVENUE"></jsp:forward>
+</c:if>
+
+<%--On vérifie si la langue de la session a été initialisée--%>
+<c:if test="${sessionScope.langue == null}">
+	<%--Passage par la servlet pour initialiser la langue avant de revenir ici--%>
+	<jsp:forward page="/I18nServlet"></jsp:forward>
 </c:if>
 
 <%--Initialisation de la locale--%>

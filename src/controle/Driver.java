@@ -1,8 +1,10 @@
 package controle;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import modele.CategoriesIngredient;
+import modele.CritereRecherche;
 import modele.DaoJPA;
 import modele.DaoRecette;
 import modele.Recette;
@@ -149,7 +151,7 @@ public class Driver {
 		return cat;
 	}
 
-		/**
+	/**
 	 * Méthode pour retourner la liste de tous les unites
 	 * 
 	 * @return La liste de tous les unites de mesures ou une liste vide si aucun résultat
@@ -158,4 +160,30 @@ public class Driver {
 		DaoRecette dao = new DaoRecette();
 		return dao.getAll("CategoriesIngredient", CategoriesIngredient.class);
 	}
+	
+	/**
+	 * Méthode pour rechercher des recettes d'après des mots clés
+	 * 
+	 * @param chaine La chaîne contenant la recherche libre
+	 * @return La liste des recettes trouvées
+	 */
+	public static List<Recette> rechercheLibre(Usager usager, String chaine){
+	
+		// Découpage de la chaîne en critères
+		String[] motsCle = chaine.trim().split("\\s+");
+		
+		// Initialisation de la liste des critères
+		List<CritereRecherche> criteres = new ArrayList<>();
+		for(int i=0; i < motsCle.length; i++){
+			criteres.add(CritereRecherche.TEXTE);
+		}
+		
+		// Construction de la requête
+		String requete = DaoRecette.construireRequetteRecette(usager, criteres);
+		
+		System.out.println("REQUETE = '" + requete + "'");
+		
+		return null;
+	}
+	
 }
