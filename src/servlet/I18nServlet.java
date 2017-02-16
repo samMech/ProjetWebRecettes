@@ -33,25 +33,28 @@ public class I18nServlet extends HttpServlet {
 		
 		// Récupération de la session
         HttpSession session = request.getSession();
-         
-        // Récupération de la langue choisie
+         		
+		// Récupération du cookie pour la langue
+		Cookie cookieLangue = Utilitaire.trouverCookie(request.getCookies(), "langue");
+		if(cookieLangue == null){
+ 			cookieLangue = new Cookie("langue", request.getLocale().getLanguage());
+ 		}
+		
+		// Renouvellement du cookie
+		cookieLangue.setMaxAge(60*60*24*365);// Expire après 1 ans
+		
+		// Récupération de la langue choisie
         String langueChoisie = request.getParameter("langue");
-        
-        // On met la langue choisie dans la session
-        session.setAttribute("langue", langueChoisie);
-        
-        // On met à jour le cookie pour le choix de la langue
-     	Cookie cookieLangue = Utilitaire.trouverCookie(request.getCookies(), "langue");
- 		if(cookieLangue == null){
- 			cookieLangue = new Cookie("langue", langueChoisie);
- 			cookieLangue.setMaxAge(60*60*24*365);// Expire après 1 ans
- 		}
- 		else{
- 			// Mise à jour du cookie existant
- 			cookieLangue.setValue(langueChoisie);
- 		}
+        if(langueChoisie != null && langueChoisie.isEmpty() == false){
+        	cookieLangue.setValue(langueChoisie);
+        }        
+
+ 		// On renvoie le cookie mis à jour avec la réponse
 	 	response.addCookie(cookieLangue);
-        	 	
+	 	
+        // On met la langue dans la session
+        session.setAttribute("langue", cookieLangue.getValue());
+                	 	
         // Redirection vers la page d'où la requête a été envoyée
 	 	response.sendRedirect(request.getHeader("referer")); 	
 	}

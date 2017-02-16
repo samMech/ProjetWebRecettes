@@ -46,7 +46,7 @@ public class CompteServlet extends HttpServlet {
     private static String SMTP_LOGIN = "boite.a.ingredient@gmail.com";
     
     // Le mot de passe pour l'authentification sur le serveur smtp
-    private static String SMTP_PASSWORD = "";
+    private static String SMTP_PASSWORD = "********";// Je l'ai enlevé du code en attendant de faire l'encription...
     
     // Le message pour le courriel de confirmation pour la création d'un nouveau compte
     private static String MSG_EMAIL_COMPTE = "Merci pour votre inscription\nPour compléter la création de votre compte, copiez le code ci-dessous dans la zone du formulaire.";
@@ -94,12 +94,12 @@ public class CompteServlet extends HttpServlet {
 				if(Driver.trouverUsager(email) != null){
 					// Erreur : l'usager existe déjà
 					request.setAttribute("usagerExistant", true);
-					urlDestination = "/creerCompte.jsp";
+					urlDestination = "/WEB-INF/creerCompte.jsp";
 				}
 				else if(Utilitaire.validerMotDePasse(password, PWD_NB_CHARS, PWD_CARACTERES_VALIDES) == false){
 					// Mot de passe invalide
 					request.setAttribute("pwdInvalide", true);
-					urlDestination = "/creerCompte.jsp";
+					urlDestination = "/WEB-INF/creerCompte.jsp";
 				}
 				else{					
 					// Génération d'un code aléatoire
@@ -126,7 +126,7 @@ public class CompteServlet extends HttpServlet {
 						e.printStackTrace();
 						// Affichage d'un message d'erreur					
 						request.setAttribute("erreurEnvoiEmail", true);
-						urlDestination = "/creerCompte.jsp";
+						urlDestination = "//WEB-INF/creerCompte.jsp";
 					}	
 				}
 				
@@ -196,7 +196,7 @@ public class CompteServlet extends HttpServlet {
 					request.setAttribute("usagerInexistant", true);
 				}
 								
-				urlDestination = "/resetPassword.jsp";
+				urlDestination = "/WEB-INF/resetPassword.jsp";
 				
 				break;
 			case "CANCEL" :

@@ -4,6 +4,12 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<%--On vérifie si l'usager est toujours connecté--%>
+<c:if test="${sessionScope.Usager == null}">
+	<%--Redirection vers la page de bienvenue--%>
+	<jsp:forward page="/ConnexionServlet"></jsp:forward>
+</c:if>
+
 <%--Initialisation de la locale--%>
 <fmt:setLocale value="${sessionScope.langue}"/>
 <fmt:setBundle basename="ressources_i18n.Locale"/>

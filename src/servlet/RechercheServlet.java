@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import controle.Driver;
+import modele.CategoriesIngredient;
+import modele.TypesRecette;
+import modele.Usager;
 
 /**
  * Servlet implementation class RechercheServlet
@@ -31,6 +37,12 @@ public class RechercheServlet extends HttpServlet {
 		
 		// Récupération de la session
 		HttpSession session = request.getSession();
+		if(session == null){
+			response.sendRedirect("accueil.jsp");
+		}
+		
+		// Récupération de l'usagé connecté
+		Usager user = (Usager) session.getAttribute("Usager");
 		
 		// Récupération de l'action demandée
 		String action = (String) request.getParameter("action");
@@ -38,8 +50,12 @@ public class RechercheServlet extends HttpServlet {
 			action = "NONE";// Chargement initial
 		}
 		
-		// TODO: récupération des critères de recherche....
-		System.out.println("HELLOR !!!!");
+		// Récupération des critères de recherche....
+		List<TypesRecette> types = Driver.getTypesRecette();
+		List<CategoriesIngredient> categories = Driver.getCategories();
+		request.setAttribute("typesRecette", types);
+		request.setAttribute("categoriesIngredient", categories);
+				
 		// Aiguillage selon l'action
 		String urlDestination = "/WEB-INF/rechercheRecette.jsp";
 		switch(action){			

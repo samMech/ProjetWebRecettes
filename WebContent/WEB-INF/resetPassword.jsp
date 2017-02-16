@@ -24,7 +24,7 @@
 <body>
 
 	<!--La barre de navigation-->
-	<jsp:include page="WEB-INF/jspf/navbar.jsp"></jsp:include>
+	<jsp:include page="jspf/navbar.jsp"></jsp:include>
 
 	<!--Le contenu central-->  
 	<div class="container-fluid">
@@ -119,7 +119,7 @@
 	</div>
 
 	<!--Le bas de page-->
-	<jsp:include page="WEB-INF/jspf/footer.jsp"></jsp:include>
+	<jsp:include page="jspf/footer.jsp"></jsp:include>
 
 </body>
 </html>

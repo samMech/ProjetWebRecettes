@@ -4,6 +4,12 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<%--On vérifie si l'usager est toujours connecté--%>
+<c:if test="${sessionScope.Usager == null}">
+	<%--Redirection vers la page de bienvenue--%>
+	<jsp:forward page="/ConnexionServlet"></jsp:forward>
+</c:if>
+
 <%--Initialisation de la locale--%>
 <fmt:setLocale value="${sessionScope.langue}"/>
 <fmt:setBundle basename="ressources_i18n.Locale"/>
@@ -202,10 +208,10 @@
 								<form id="formRecettes" method="POST" action="modificationListe.html">
 									<div class="list-group">						
 									
-										<div class="list-group-item noBorder" id="recette1" name="recette1">
+										<div class="list-group-item noBorder" id="recette1">
 											<div class="media">												
 												<div class="media-body">
-													<a href="viewRecette.html" id="nomRecette1" name="nomRecette1" class="list-group-item-heading"><h4>Nom de la recette 1</h4></a>
+													<h4><a href="viewRecette.html" id="nomRecette1" class="list-group-item-heading">Nom de la recette 1</a></h4>
 												</div>
 												<div class="media-left media-middle">
 													<span class="badge alert-info" id="nbSelections">x2</span>
@@ -219,10 +225,10 @@
 											</div>
 										</div>
 										
-										<div class="list-group-item noBorder" id="recette2" name="recette2">
+										<div class="list-group-item noBorder" id="recette2">
 											<div class="media">												
 												<div class="media-body">
-													<a href="viewRecette.html" id="nomRecette2" name="nomRecette2" class="list-group-item-heading"><h4>Nom de la recette 2</h4></a>
+													<h4><a href="viewRecette.html" id="nomRecette2" class="list-group-item-heading">Nom de la recette 2</a></h4>
 												</div>												
 												<div class="media-right media-middle">
 													<span class="mouseIcon glyphicon glyphicon-plus-sign green"></span>
