@@ -23,10 +23,10 @@
 				<li><a href="ConnexionServlet"><span class="glyphicon glyphicon-home"></span> <fmt:message key="navbar.accueil"/></a></li>
 				
 				<c:if test="${sessionScope.Usager != null}">
-					<li class="active"><a href="RechercheServlet?action=chargerPage"><fmt:message key="navbar.nouvelleListe"/></a></li>
+					<li class="active"><a href="RechercheServlet"><fmt:message key="navbar.nouvelleListe"/></a></li>
 					<li><a href="RecetteServlet?action=chargerFormulaire"><fmt:message key="navbar.nouvelleRecette"/></a></li>
 					<li>
-						<form class="navbar-form" id="formRechercheRapide" action="RechercheServlet?action=SEARCH">
+						<form class="navbar-form" id="formRechercheRapide" action="RechercheServlet?action=QUICK_SEARCH">
 							<div class="form-group input-group">
 								<input type="text" class="form-control" placeholder="<fmt:message key="navbar.rechercheRapide"/>" name="texteRecherche" id="texteRecherche">
 								<div class="input-group-btn">
