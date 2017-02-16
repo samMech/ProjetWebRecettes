@@ -102,7 +102,7 @@
 							<form method="POST" action="RecetteServlet">
 								<button type="submit" class="btn btn-primary" id="Supprimer">
 								<span class="glyphicon glyphicon-trash"></span>
-								Supprimer${recette.idRecette}
+								Supprimer
 								</button>
 								<input type="hidden" name="idRecetteToDelete" value="${recette.idRecette}">
 								<input type="hidden" name="action" value="supprimerRecette">

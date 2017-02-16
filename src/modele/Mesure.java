@@ -29,12 +29,12 @@ public class Mesure implements Serializable {
 	private Ingredient ingredient;
 
 	//bi-directional many-to-one association to Recette
-	@ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="ID_RECETTE", nullable=false)
 	private Recette recette;
 
 	//uni-directional many-to-one association to Unite
-	@ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="ID_UNITE", nullable=false)
 	private Unite unite;
 

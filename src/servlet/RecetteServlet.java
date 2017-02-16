@@ -107,7 +107,6 @@ public class RecetteServlet extends HttpServlet {
 				mesure.setQuantite(qte);
 				mesure.setIngredient(ing);
 				mesure.setUnite(unit);
-				System.out.println("ingredients:" + i);
 				recette.addMesure(mesure);
 				i++;
 			}
@@ -134,8 +133,8 @@ public class RecetteServlet extends HttpServlet {
 			
 		case "supprimerRecette":
 			long idRecette = Long.parseLong(request.getParameter("idRecetteToDelete"));
-			Driver.supprimer(Driver.getRecette(idRecette), Recette.class);
-			pageDestination = "/WEB-INF/Bienvenue.jsp";
+			Driver.supprimerRecette(idRecette);
+			pageDestination = "/ConnexionServlet?action=BIENVENUE";
 			break;
 		
 		case "voirRecette":
