@@ -30,7 +30,7 @@
 							<div class="form-group input-group">
 								<input type="text" class="form-control" placeholder="<fmt:message key="navbar.rechercheRapide"/>" name="texteRecherche" id="texteRecherche">
 								<div class="input-group-btn">
-									<button class="btn btn-info" type="submit" id="rechercheRapide"><i class="glyphicon glyphicon-search"></i></button>
+									<button class="btn btn-primary" type="submit" id="rechercheRapide"><i class="glyphicon glyphicon-search"></i></button>
 								</div>
 							</div>
 						</form>

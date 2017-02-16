@@ -13,8 +13,6 @@ import javax.servlet.http.HttpSession;
 
 import controle.Driver;
 import modele.CategoriesIngredient;
-import modele.DaoJPA;
-import modele.DaoRecette;
 import modele.Ingredient;
 import modele.Instruction;
 import modele.Mesure;

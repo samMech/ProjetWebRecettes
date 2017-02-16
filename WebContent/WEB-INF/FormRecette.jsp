@@ -126,7 +126,7 @@
 							<h3>Instructions</h3>
 						</div>
 						<div class="panel-body">
-							<ul class="list-group" name="listeInstructions">
+							<ul class="list-group">
 								<li class="list-group-item noBorder media">
 									<div class="media-left media-top">
 										<label for="instruction1">1.</label>

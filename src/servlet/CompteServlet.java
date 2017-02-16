@@ -3,7 +3,6 @@ package servlet;
 import java.io.IOException;
 
 import javax.mail.MessagingException;
-import javax.persistence.PersistenceException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

@@ -11,16 +11,18 @@
 .panel-primary .panel-heading,
 .btn-primary {
 	background-color: #25A55F;
+	border-color: #25A55F; 
 }
 
 .panel-info,
 .btn-info { 
-	border-color: #A6ED8E;
+	border-color: #25A55F;
 }
 
 .panel-info .panel-heading,
 .btn-info {
 	background-color: #A6ED8E;
+	border-color: #A6ED8E;
 }
 
 .btn-primary:hover,
@@ -107,4 +109,11 @@
 .nav-tabs > li > a:hover,
 .nav-tabs > li.active > a:focus {
     background-color: #A6ED8E ;/*Même couleur que les éléments contextuels "info"*/
+    border: 1px solid #25A55F;
+    border-radius: 4px 4px 0 0;
+    color: #337ab7;
+}
+.nav-tabs > li.active {
+	border: 1px solid #25A55F;
+	border-radius: 4px 4px 0 0;
 }

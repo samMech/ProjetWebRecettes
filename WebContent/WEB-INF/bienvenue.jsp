@@ -63,15 +63,15 @@
 							<ul class="nav nav-tabs nav-justified">
 								<c:forEach var="recette" items="${requestScope.recettesRecentes}" varStatus="status">
 									<li class="${status.index == 0 ? 'active' : ''}">
-										<h4><a data-toggle="tab" href="RecetteServlet?action=voirRecette&idRecette=${recette.idRecette}"><fmt:message key="application.recette"/> ${status.index + 1}</a></h4>
-									</li>
+										<a data-toggle="tab" href="#recette${status.index+1}"><h4><fmt:message key="application.recette"/> ${status.index + 1}</h4></a>
+									</li>       									
 								</c:forEach>
 							</ul>
 						</div>
 						<div class="panel panel-info">			
 							<div class="panel-body tab-content row">
 								<c:forEach var="recette" items="${requestScope.recettesRecentes}" varStatus="status">
-									<div id="recette${status.index+1}" class="tab-pane fade in ${status.index == 0 ? 'active' : ''}">
+									<div id="recette${status.index+1}" class="tab-pane fade${status.index == 0 ? ' in active' : ''}">
 										<div class="col-sm-2 text-center">
 											<button class="btn btn-primary" onclick="document.location.href='RecetteServlet?action=voirRecette&idRecette=${recette.idRecette}'"><fmt:message key="bienvenue.panel.lienRecette"/></button>								
 										</div>
