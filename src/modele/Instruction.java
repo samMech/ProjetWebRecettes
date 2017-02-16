@@ -15,7 +15,7 @@ public class Instruction implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="INSTRUCTIONS_IDINSTRUCTION_GENERATOR", sequenceName="SEQ_INSTRUCTIONS")
+	@SequenceGenerator(name="INSTRUCTIONS_IDINSTRUCTION_GENERATOR", sequenceName="SEQ_INSTRUCTIONS", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="INSTRUCTIONS_IDINSTRUCTION_GENERATOR")
 	@Column(name="ID_INSTRUCTION", unique=true, nullable=false, precision=20)
 	private long idInstruction;

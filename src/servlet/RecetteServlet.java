@@ -117,7 +117,6 @@ public class RecetteServlet extends HttpServlet {
 				Instruction instruction = new Instruction();
 				instruction.setDescInstruction(request.getParameter("instruction" + i));
 				recette.addInstruction(instruction);
-				System.out.println("instruction:" + i);
 				i++;
 			}
 			
@@ -125,20 +124,8 @@ public class RecetteServlet extends HttpServlet {
 			Usager usager = (Usager) session.getAttribute("Usager");
 			recette.setUsager(usager);
 			
-//			//on enregistre les mesures dans BD
-//			for(Mesure mesure : recette.getMesures()) {
-//				Driver.enregistrer(mesure.getIngredient(), Ingredient.class);
-//				Driver.enregistrer(mesure.getUnite(), Unite.class);
-//				Driver.enregistrer(mesure, Mesure.class);
-//			}
-//			
-//			//on enregistre les instructions dans BD
-//			for(Instruction inst : recette.getInstructions()){
-//				Driver.enregistrer(inst, Instruction.class);
-//			}
-			
 			//on enregistre la recette dans BD
-			Driver.enregistrer(recette, Recette.class);
+			recette = Driver.enregistrer(recette, Recette.class);
 			
 			//on ajoute la recette dans la requete pour l'afficher dans la page viewRecette
 			request.setAttribute("recette", recette);
@@ -146,8 +133,8 @@ public class RecetteServlet extends HttpServlet {
 			break;
 			
 		case "supprimerRecette":
-			recette = (Recette) request.getAttribute("recette");
-			Driver.supprimer(recette, Recette.class);
+			long idRecette = Long.parseLong(request.getParameter("idRecetteToDelete"));
+			Driver.supprimer(Driver.getRecette(idRecette), Recette.class);
 			pageDestination = "/WEB-INF/Bienvenue.jsp";
 			break;
 		

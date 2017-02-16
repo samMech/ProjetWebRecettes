@@ -77,16 +77,17 @@ public class DaoJPA<T> {
      *
      * @param objet L'objet à sauvegarder
      */
-    public final void enregistrer(T objet) {
+    public final T enregistrer(T objet) {
         try{
             // Ouverture de la connexion
             ouvrirConnexion();
             
             // Sauvegarde
-            em.merge(objet);
+            T t = em.merge(objet);
             
             // Validation
             validerChangements();
+            return t;
             
         }catch(PersistenceException e){
             // Annulation
@@ -153,7 +154,8 @@ public class DaoJPA<T> {
      */
     protected final void validerChangements() {
         if(et != null && et.isActive()){
-            et.commit();
+        	et.commit();
+
         }
     }
     

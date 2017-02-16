@@ -89,10 +89,15 @@
 
 						</li>
 						<li>
-							<button type="submit" class="btn btn-primary" id="Supprimer">
+							<form method="POST" action="RecetteServlet">
+								<button type="submit" class="btn btn-primary" id="Supprimer">
 								<span class="glyphicon glyphicon-trash"></span>
-								Supprimer
-							</button>
+								Supprimer${recette.idRecette}
+								</button>
+								<input type="hidden" name="idRecetteToDelete" value="${recette.idRecette}">
+								<input type="hidden" name="action" value="supprimerRecette">
+							</form>
+							
 						</li>
 						</ul>
 					</div>

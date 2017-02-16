@@ -24,9 +24,9 @@ public class Driver {
 	 * @param objet L'objet à persister
 	 * @param type Le type de l'objet à persister
 	 */
-	public static <T> void enregistrer(T objet, Class<T> type){
+	public static <T> T enregistrer(T objet, Class<T> type){
 		DaoJPA<T> dao = new DaoJPA<>(type);
-		dao.enregistrer(objet);
+		return dao.enregistrer(objet);
 	}
 	
 	/**
