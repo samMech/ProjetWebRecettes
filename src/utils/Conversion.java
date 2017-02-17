@@ -1,10 +1,5 @@
 package utils;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import modele.DureeMax;
-
 /**
  * Classe utilitaire pour des méthodes de conversion de données
  * 

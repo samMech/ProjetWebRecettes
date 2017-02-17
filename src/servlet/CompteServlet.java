@@ -63,6 +63,10 @@ public class CompteServlet extends HttpServlet {
 		
 		// Récupération de la session
 		HttpSession session = request.getSession();
+		if(session == null){
+			response.sendRedirect("accueil.jsp");
+			return;
+		}
 		
 		// Récupération de l'action demandée
 		String action = (String) request.getParameter("action");

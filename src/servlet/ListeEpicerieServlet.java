@@ -6,6 +6,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import modele.Usager;
 
 /**
  * Servlet implementation class ListeEpicerieServlet
@@ -26,7 +29,25 @@ public class ListeEpicerieServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-	
+		// Récupération de la session
+		HttpSession session = request.getSession();
+		if(session == null){
+			response.sendRedirect("accueil.jsp");
+			return;
+		}
+		
+		// Récupération de l'usagé connecté
+		Usager user = (Usager) session.getAttribute("Usager");
+		if(user == null){
+			response.sendRedirect("accueil.jsp");
+			return;
+		}
+		
+		// Récupération de l'action demandée
+		String action = (String) request.getParameter("action");
+		if(action == null){
+			action = "NONE";// Chargement initial
+		}
 	
 	
 	

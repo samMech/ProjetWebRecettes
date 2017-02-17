@@ -45,6 +45,17 @@ public class RecetteServlet extends HttpServlet {
 		
 		// on recupere la session
 		HttpSession session = request.getSession();
+		if(session == null){
+			response.sendRedirect("accueil.jsp");
+			return;
+		}
+		
+		// Récupération de l'usagé connecté
+		Usager user = (Usager) session.getAttribute("Usager");
+		if(user == null){
+			response.sendRedirect("accueil.jsp");
+			return;
+		}
 		
 		//on recupere le paramètre qui indique l'action à executer
 		String requete = request.getParameter("action");
@@ -119,9 +130,8 @@ public class RecetteServlet extends HttpServlet {
 				i++;
 			}
 			
-			//on ajoute l'id de l'usager dans la recette
-			Usager usager = (Usager) session.getAttribute("Usager");
-			recette.setUsager(usager);
+			//on associe la recette à l'usager connecté
+			recette.setUsager(user);
 			
 			//on enregistre la recette dans BD
 			recette = Driver.enregistrer(recette, Recette.class);

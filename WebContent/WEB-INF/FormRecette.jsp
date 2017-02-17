@@ -18,7 +18,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>La Boîte à Ingrédients</title>
+	<title><fmt:message key="application.nom"/></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -34,7 +34,7 @@
 	<jsp:include page="jspf/navbar.jsp"></jsp:include>
 
 	<!--Le contenu central-->
-	<div class="container-fluid wrapText">
+	<div class="container-fluid">
 		<div class="row content">
 
 			<!--La barre de navigation gauche-->
@@ -75,7 +75,7 @@
 								<div class="required-field-block">
 									<select	class="form-control form-control-inline" id="typeRecette" name="typeRecette">
 										<c:forEach var="type" items="${requestScope.typesRecette}">
-											<option value="${type.idType}">${type.typeRecette}</option>
+											<option value="${type.idType}"><fmt:message key="application.typeRecette.${type.typeRecette}"/></option>
 										</c:forEach>		
 									</select>
 								</div>
@@ -111,15 +111,16 @@
 									<div class="form-group media-body autoWidth">
 										<select	class="form-control form-control-inline" name="categorie1">
 											<c:forEach var="categorie" items="${requestScope.categories}">
-											<option value="${categorie.idCategorieIng}">${categorie.nomCategorieIng}</option>
+											<option value="${categorie.idCategorieIng}"><fmt:message key="application.categorieIngredient.${categorie.nomCategorieIng}"/></option>
 										</c:forEach>
 										</select>
 										<input class="form-control form-control-inline" type="text"	size="22" placeholder="Ingrédient"	name="nomIngredient1" /> 
 										<input class="form-control form-control-inline" type="text" size="5" placeholder="Quantité" name="qte1" />
 										<select	class="form-control form-control-inline" name="unite1">
+											<option value="0">---</option>
 											<c:forEach var="unit" items="${requestScope.unites}">
-											<option value="${unit.idUnite}">${unit.nomUnite}</option>
-										</c:forEach>
+												<option value="${unit.idUnite}"><fmt:message key="application.unites.${unit.nomUnite}"/></option>
+											</c:forEach>
 										</select>
 									</div>
 									<div class="media-right media-middle">

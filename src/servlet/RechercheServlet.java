@@ -17,7 +17,6 @@ import modele.DureeMax;
 import modele.Recette;
 import modele.TypesRecette;
 import modele.Usager;
-import utils.Conversion;
 
 /**
  * Servlet implementation class RechercheServlet
@@ -40,9 +39,17 @@ public class RechercheServlet extends HttpServlet {
 		
 		// Récupération de la session
 		HttpSession session = request.getSession();
+		if(session == null){
+			response.sendRedirect("accueil.jsp");
+			return;
+		}
 		
 		// Récupération de l'usagé connecté
 		Usager user = (Usager) session.getAttribute("Usager");
+		if(user == null){
+			response.sendRedirect("accueil.jsp");
+			return;
+		}
 		
 		// Récupération de l'action demandée
 		String action = (String) request.getParameter("action");
@@ -57,7 +64,7 @@ public class RechercheServlet extends HttpServlet {
 		request.setAttribute("typesRecette", types);
 		request.setAttribute("categoriesIngredient", categories);
 		request.setAttribute("dureesMax", dureesMax);
-		
+				
 		// Création de la liste des recettes
 		List<Recette> recettesTrouvees = null;
 		

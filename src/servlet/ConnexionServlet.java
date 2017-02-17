@@ -12,7 +12,6 @@ import javax.servlet.http.HttpSession;
 
 import controle.Driver;
 import modele.Usager;
-import utils.Utilitaire;
 
 /**
  * Servlet implementation class ConnexionServlet
@@ -35,7 +34,11 @@ public class ConnexionServlet extends HttpServlet {
 
 		// Récupération de la session
 		HttpSession session = request.getSession();
-		
+		if(session == null){
+			response.sendRedirect("accueil.jsp");
+			return;
+		}		
+
 		// Récupération de l'action demandée
 		String action = (String) request.getParameter("action");
 		if(action == null){
@@ -92,13 +95,13 @@ public class ConnexionServlet extends HttpServlet {
 				break;
 			case "DECONNEXION" :
 				
-				// On efface les infos de l'usager de la session				
-				session.removeAttribute("Usager");
+				// On invalide la session				
+				session.invalidate();
 				
-				// On remet l'expiration de la session à la valeur normale
-				session.setMaxInactiveInterval(Utilitaire.getDefaultSessionTimeOut(getServletContext()));
+				// On retourne à la page d'accueil
+				response.sendRedirect("accueil.jsp");
+				return;
 				
-				break;				
 			default :
 				break;
 		}

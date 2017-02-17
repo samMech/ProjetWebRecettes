@@ -32,7 +32,7 @@
 	<jsp:include page="jspf/navbar.jsp"></jsp:include>
 	
 	<!--Le contenu central-->  
-	<div class="container-fluid wrapText">
+	<div class="container-fluid">
 		<div class="row content">
 	  					
 			<!--La barre de navigation gauche-->
@@ -72,7 +72,7 @@
 										<div class="panel-body">
 											<ul class="form-group liste-recherche">		
 												<c:forEach var="type" items="${requestScope.typesRecette}" varStatus="status">
-													<li><input type="checkbox" name="types" value="${type.idType}"><span class="espacement">   </span>${type.typeRecette}</li>
+													<li><input type="checkbox" name="types" value="${type.idType}"><span class="espacement">   </span><fmt:message key="application.typeRecette.${type.typeRecette}"/></li>
 												</c:forEach>
 											</ul>
 										</div>
@@ -84,7 +84,7 @@
 										<div class="panel-body">
 											<ul class="form-group liste-recherche">
 												<c:forEach var="categorie" items="${requestScope.categoriesIngredient}">											
-													<li><input type="checkbox" name="categories" value="${categorie.idCategorieIng}"><span class="espacement">   </span>${categorie.nomCategorieIng}</li>
+													<li><input type="checkbox" name="categories" value="${categorie.idCategorieIng}"><span class="espacement">   </span><fmt:message key="application.categorieIngredient.${categorie.nomCategorieIng}"/></li>
 												</c:forEach>
 											</ul>
 										</div>

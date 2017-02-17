@@ -7,7 +7,6 @@ import modele.CategoriesIngredient;
 import modele.CritereRecherche;
 import modele.DaoJPA;
 import modele.DaoRecette;
-import modele.DureeMax;
 import modele.Recette;
 import modele.TypesRecette;
 import modele.Unite;

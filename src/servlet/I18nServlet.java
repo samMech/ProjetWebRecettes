@@ -33,7 +33,11 @@ public class I18nServlet extends HttpServlet {
 		
 		// Récupération de la session
         HttpSession session = request.getSession();
-         		
+        if(session == null){
+			response.sendRedirect("accueil.jsp");
+			return;
+		} 	
+        
 		// Récupération du cookie pour la langue
 		Cookie cookieLangue = Utilitaire.trouverCookie(request.getCookies(), "langue");
 		if(cookieLangue == null){

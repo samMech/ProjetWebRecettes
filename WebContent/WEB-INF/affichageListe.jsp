@@ -31,7 +31,7 @@
 	<jsp:include page="jspf/navbar.jsp"></jsp:include>
 	
 	<!--Le contenu central-->  
-	<div class="container-fluid wrapText">
+	<div class="container-fluid">
 		<div class="row content">
 	  					
 			<!--La barre de navigation gauche-->
@@ -58,56 +58,14 @@
 								<!--Liste d'épicerie-->
 								<div class="col-xs-8 col-sm-10">
 									
-									<ul id="listeIngredients">
+									<div class="list-group-item-text col-xs-offset-1">
 										<h4 class="list-group-item-heading page-header">Liste d'épicerie</h4>
-										<div class="list-group-item-text col-xs-offset-1">
-											<li><h5>qte1 unite1 de ingredient1</h5></li>
-											<li><h5>qte1 unite1 de ingredient2</h5></li>
-											<li><h5>qte1 unite1 de ingredient3</h5></li>
-											<li><h5>qte1 unite1 de ingredient4</h5></li>
-											<li><h5>qte1 unite1 de ingredient5</h5></li>
-											<li><h5>qte1 unite1 de ingredient6</h5></li>
-											<li><h5>qte1 unite1 de ingredient7</h5></li>
-											<li><h5>qte1 unite1 de ingredient8</h5></li>
-											<li><h5>qte1 unite1 de ingredient9</h5></li>
-											<li><h5>qte1 unite1 de ingredient1</h5></li>
-											<li><h5>qte1 unite1 de ingredient2</h5></li>
-											<li><h5>qte1 unite1 de ingredient3</h5></li>
-											<li><h5>qte1 unite1 de ingredient4</h5></li>
-											<li><h5>qte1 unite1 de ingredient5</h5></li>
-											<li><h5>qte1 unite1 de ingredient6</h5></li>
-											<li><h5>qte1 unite1 de ingredient7</h5></li>
-											<li><h5>qte1 unite1 de ingredient8</h5></li>
-											<li><h5>qte1 unite1 de ingredient9</h5></li>
-											<li><h5>qte1 unite1 de ingredient1</h5></li>
-											<li><h5>qte1 unite1 de ingredient2</h5></li>
-											<li><h5>qte1 unite1 de ingredient3</h5></li>
-											<li><h5>qte1 unite1 de ingredient4</h5></li>
-											<li><h5>qte1 unite1 de ingredient5</h5></li>
-											<li><h5>qte1 unite1 de ingredient6</h5></li>
-											<li><h5>qte1 unite1 de ingredient7</h5></li>
-											<li><h5>qte1 unite1 de ingredient8</h5></li>
-											<li><h5>qte1 unite1 de ingredient9</h5></li>
-											<li><h5>qte1 unite1 de ingredient1</h5></li>
-											<li><h5>qte1 unite1 de ingredient2</h5></li>
-											<li><h5>qte1 unite1 de ingredient3</h5></li>
-											<li><h5>qte1 unite1 de ingredient4</h5></li>
-											<li><h5>qte1 unite1 de ingredient5</h5></li>
-											<li><h5>qte1 unite1 de ingredient6</h5></li>
-											<li><h5>qte1 unite1 de ingredient7</h5></li>
-											<li><h5>qte1 unite1 de ingredient8</h5></li>
-											<li><h5>qte1 unite1 de ingredient9</h5></li>
-											<li><h5>qte1 unite1 de ingredient1</h5></li>
-											<li><h5>qte1 unite1 de ingredient2</h5></li>
-											<li><h5>qte1 unite1 de ingredient3</h5></li>
-											<li><h5>qte1 unite1 de ingredient4</h5></li>
-											<li><h5>qte1 unite1 de ingredient5</h5></li>
-											<li><h5>qte1 unite1 de ingredient6</h5></li>
-											<li><h5>qte1 unite1 de ingredient7</h5></li>
-											<li><h5>qte1 unite1 de ingredient8</h5></li>
-											<li><h5>qte1 unite1 de ingredient9</h5></li>
-										</div>
-									</ul>
+										<ul id="listeIngredients">
+											<c:forEach var="mesure" items="${recette.mesures}">
+												<li>${mesure.ingredient.nomIngredient} : ${mesure.quantite}<fmt:message key="application.unites.${mesure.unite.nomUnite}"/></li><br />
+											</c:forEach>
+										</ul>
+									</div>
 								</div>
 								
 								<!--Menu de navigation-->

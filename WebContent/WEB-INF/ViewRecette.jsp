@@ -18,7 +18,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>La Boîte à Ingrédients</title>
+	<title><fmt:message key="application.nom"/></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -34,7 +34,7 @@
 	<jsp:include page="jspf/navbar.jsp"></jsp:include>
 
 	<!--Le contenu central-->  
-	<div class="container-fluid textWrap">
+	<div class="container-fluid">
 		<div class="row content">
 	  					
 			<!--La barre de navigation gauche-->
@@ -51,9 +51,37 @@
 						<h4><span class="label label-info">Temps de préparation: ${requestScope.dureeRecette}</span></h4>
 					</div>
 				</div>
-
-				<div class="panel-body text-left">
-					<div class="col-sm-4">
+				
+				<div class="row">
+				
+					<!--Menu de navigation-->
+					<div class="col-sm-2 col-sm-push-10 text-center">	
+						<ul class="nav nav-pills nav-stacked" data-spy="affix" data-offset-top="160">
+							<li>
+								<form method="POST" action="RecetteServlet">
+									<input type="hidden" name="idRecetteToDelete" value="${recette.idRecette}">
+									<input type="hidden" name="action" value="modifierRecette">	
+									<button type="submit" class="btn btn-primary" id="modifier">
+										<span class="glyphicon glyphicon-edit"></span> <span class="espacement">Modifier    </span>
+									</button>
+								</form>	
+							</li>
+							<br />
+							<li>
+								<form method="POST" action="RecetteServlet">
+									<input type="hidden" name="idRecetteToDelete" value="${recette.idRecette}">
+									<input type="hidden" name="action" value="supprimerRecette">
+									<button type="submit" class="btn btn-primary" id="Supprimer">
+										<span class="glyphicon glyphicon-trash"></span> <span class="espacement">Supprimer</span>
+									</button>
+								</form>							
+							</li>							
+						</ul>
+						<br />
+					</div>
+				
+					<!--Les ingrédient-->				
+					<div class="col-sm-4 col-sm-pull-2">
 						<div class="panel panel-info">
 							<div class="panel-heading">
 								<h3>Ingrédients</h3>
@@ -62,60 +90,39 @@
 								<div class="list-group">
 									<ul id="listeIngredients">
 										<c:forEach var="mesure" items="${recette.mesures}">
-											<li>${mesure.quantite}${mesure.unite.nomUnite}
-												${mesure.ingredient.nomIngredient}</li>
-												<br>
+											<li>${mesure.ingredient.nomIngredient} : ${mesure.quantite}<fmt:message key="application.unites.${mesure.unite.nomUnite}"/></li><br />
 										</c:forEach>
 									</ul>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="col-sm-6">
+				
+					<!--Les instructions-->
+					<div class="col-sm-6 col-sm-pull-2">
 						<div class="panel panel-info">
 							<div class="panel-heading">
 								<h3>Instructions</h3>
 							</div>
 							<div class="panel-body">
 								<div class="list-group">
-									<ul id="listeInstructions">
-									
+									<ol id="listeInstructions">									
 										<c:forEach var="instruction" items="${recette.instructions}">
 											<li>${instruction.descInstruction}</li>
 											<br>
 										</c:forEach>										
-									</ul>
+									</ol>
 								</div>
 							</div>
 						</div>
 					</div>
-					<!--Menu de navigation-->
-					<div class="col-sm-2">		
-						<ul class="nav nav-pills nav-stacked" data-spy="affix" data-offset-top="160">
-						<li>
-							<button class="btn btn-primary" id="modifier" onclick="document.location.href='FormRecettes.html'">
-									<span class="glyphicon glyphicon-edit"></span> Modifier
-							</button>
-
-						</li>
-						<li>
-							<form method="POST" action="RecetteServlet">
-								<button type="submit" class="btn btn-primary" id="Supprimer">
-								<span class="glyphicon glyphicon-trash"></span>
-								Supprimer
-								</button>
-								<input type="hidden" name="idRecetteToDelete" value="${recette.idRecette}">
-								<input type="hidden" name="action" value="supprimerRecette">
-							</form>
-							
-						</li>
-						</ul>
-					</div>
+				
+				</div>
 			</div>
+			
 			<!--La barre de navigation droite-->
 			<div class="col-lg-2 hidden-xs"></div>	
 		</div>
-	</div>
 	</div>
 
 	<!--Le bas de page-->
