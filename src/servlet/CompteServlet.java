@@ -74,10 +74,19 @@ public class CompteServlet extends HttpServlet {
 			action = "CANCEL";
 		}
 		
+		// On vérifie si on veut une simple redirection	
+		String url = request.getParameter("url");
+		if(url != null){
+			action = "REDIRECTION";
+		}
+		
 		// Aiguillage selon l'action
-		String nomUsager, email, password, codeConfirmation, message;
 		String urlDestination = "/ConnexionServlet?action=none";
+		String nomUsager, email, password, codeConfirmation, message;
 		switch(action){
+			case "REDIRECTION" :
+				urlDestination = "/WEB-INF/" + url;
+				break;
 			case "BIENVENUE" :
 				// Chargement des recettes pour la page de bienvenue					
 				request.setAttribute("recettesCarousel", Driver.chargerRecettesBienvenue(user));				

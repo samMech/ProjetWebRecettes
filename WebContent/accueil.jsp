@@ -87,7 +87,7 @@
 									<!--Password-->
 									<div class="form-group">
 										<label for="pwd"><fmt:message key="accueil.form.password"/></label>
-										<a class="pull-right" href="WEB-INF/resetPassword.jsp"><fmt:message key="accueil.form.passwordOublie"/></a><!--Password reset-->
+										<a class="pull-right" href="CompteServlet?url=resetPassword.jsp"><fmt:message key="accueil.form.passwordOublie"/></a><!--Password reset-->
 										<div class="input-group required-field-block">
 											<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
 											<input type="password" class="form-control" id="pwd" name="pwd" required/>
@@ -117,7 +117,7 @@
 								<!--Nouveau compte-->
 								<div class="panel-footer text-center">
 									<label class="small">---<fmt:message key="accueil.form.compte"/>---</label>
-									<button type="button" class="btn btn-default btn-block" onclick="document.location.href='WEB-INF/creerCompte.jsp'"><fmt:message key="accueil.form.creerCompte"/></button>
+									<button type="button" class="btn btn-default btn-block" onclick="document.location.href='CompteServlet?url=creerCompte.jsp'"><fmt:message key="accueil.form.creerCompte"/></button>
 								</div>
 							</div>
 						</div>

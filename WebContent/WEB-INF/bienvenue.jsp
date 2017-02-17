@@ -69,7 +69,7 @@
 							<ul class="nav nav-tabs nav-justified">
 								<c:forEach var="recette" items="${requestScope.recettesRecentes}" varStatus="status">
 									<li class="${status.index == 0 ? 'active' : ''}">
-										<a data-toggle="tab" href="#recette${status.index+1}"><h4><fmt:message key="application.recette"/> ${status.index + 1}</h4></a>
+										<a data-toggle="tab" href="#recette${status.index+1}"><h4>${recette.nomRecette}</h4></a>
 									</li>       									
 								</c:forEach>
 							</ul>
@@ -92,8 +92,10 @@
 						</div>
 					</c:when>
 					<c:otherwise>
-						<div class="panel-footer text-center">
-							<fmt:message key="bienvenue.panel.vide"/>
+						<div class="panel panel-info">		
+							<div class="panel-heading text-center">
+								<fmt:message key="bienvenue.panel.vide"/>
+							</div>
 						</div>		
 					</c:otherwise>
 				</c:choose>

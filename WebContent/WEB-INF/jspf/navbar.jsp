@@ -26,10 +26,11 @@
 					<li class="active"><a href="RechercheServlet"><fmt:message key="navbar.nouvelleListe"/></a></li>
 					<li><a href="RecetteServlet?action=chargerFormulaire"><fmt:message key="navbar.nouvelleRecette"/></a></li>
 					<li>
-						<form class="navbar-form" id="formRechercheRapide" action="RechercheServlet?action=QUICK_SEARCH">
+						<form class="navbar-form" id="formRechercheRapide" action="RechercheServlet" method="POST">
 							<div class="form-group input-group">
 								<input type="text" class="form-control" placeholder="<fmt:message key="navbar.rechercheRapide"/>" name="texteRecherche" id="texteRecherche">
 								<div class="input-group-btn">
+									<input type="hidden" name="action" value="QUICK_SEARCH"/>
 									<button class="btn btn-primary" type="submit" id="rechercheRapide"><i class="glyphicon glyphicon-search"></i></button>
 								</div>
 							</div>

@@ -13,9 +13,11 @@ import javax.servlet.http.HttpSession;
 
 import controle.Driver;
 import modele.CategoriesIngredient;
+import modele.DureeMax;
 import modele.Recette;
 import modele.TypesRecette;
 import modele.Usager;
+import utils.Conversion;
 
 /**
  * Servlet implementation class RechercheServlet
@@ -51,9 +53,11 @@ public class RechercheServlet extends HttpServlet {
 		// Récupération des critères de recherche....
 		List<TypesRecette> types = Driver.getTypesRecette();
 		List<CategoriesIngredient> categories = Driver.getCategories();
+		DureeMax[] dureesMax = DureeMax.values();
 		request.setAttribute("typesRecette", types);
 		request.setAttribute("categoriesIngredient", categories);
-				
+		request.setAttribute("dureesMax", dureesMax);
+		
 		// Création de la liste des recettes
 		List<Recette> recettesTrouvees = null;
 		
@@ -62,8 +66,8 @@ public class RechercheServlet extends HttpServlet {
 		switch(action){			
 			case "QUICK_SEARCH" :				
 				// On récupère les critères de la recherche libre					
-				String chaine = (String) request.getAttribute("texteRecherche");				
-				request.setAttribute("quickSearch", chaine);
+				String chaine = (String) request.getParameter("texteRecherche");				
+				request.setAttribute("texteRecherche", chaine);
 				
 				// On récupère la liste des recettes trouvées
 				recettesTrouvees = Driver.rechercheLibre(user, chaine);

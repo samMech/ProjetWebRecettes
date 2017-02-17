@@ -7,6 +7,7 @@ import modele.CategoriesIngredient;
 import modele.CritereRecherche;
 import modele.DaoJPA;
 import modele.DaoRecette;
+import modele.DureeMax;
 import modele.Recette;
 import modele.TypesRecette;
 import modele.Unite;
@@ -158,32 +159,43 @@ public class Driver {
 	 * @return La liste des recettes trouvées
 	 */
 	public static List<Recette> rechercheLibre(Usager usager, String chaine){
-	
+			
 		// Découpage de la chaîne en critères
 		String[] motsCle = chaine.trim().split("\\s+");
-		
-		// Initialisation de la liste des critères
+				
+		// Initialisation de la liste des critères et des paramètres
+		List<Object> params = new ArrayList<>();
 		List<CritereRecherche> criteres = new ArrayList<>();
 		for(int i=0; i < motsCle.length; i++){
+			params.add(motsCle[i]);
 			criteres.add(CritereRecherche.TEXTE);
 		}
 		
 		// Construction de la requête
 		String requete = DaoRecette.construireRequetteRecette(usager, criteres);
 		
-		System.out.println("REQUETE = '" + requete + "'");
-		
-		return null;
+		DaoRecette dao = new DaoRecette();
+		return dao.chercherRecette(requete, usager, params);
 	}	
 
+	/**
+	 * Méthode pour récupérer une recette par son id
+	 * 
+	 * @param id L'id de la recette
+	 * @return La recette correspondante
+	 */
 	public static Recette getRecetteParId(long id){
 		DaoRecette dao = new DaoRecette();
-		return (Recette)dao.chercherParId(id, Recette.class);
+		return dao.chercherParId(id, Recette.class);
 	}
 	
+	/**
+	 * Méthode pour supprimer une recette par son id
+	 * 
+	 * @param id L'id de la recette à supprimer
+	 */
 	public static void supprimerRecette(long id){
 		DaoRecette dao = new DaoRecette();
 		dao.supprimer(Recette.class, id);
 	}
-
 }

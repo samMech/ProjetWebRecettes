@@ -52,33 +52,57 @@
 				<div class="row">
 				
 					<!--Le panneau de recherche-->
-					<div class="col-sm-5 col-md-4">
+					<div class="col-sm-4 col-md-3">
 						<div class="panel panel-primary">
 							<div class="panel-heading">
-								<h2>Paramètres de recherche</h2>
+								<h2>Recherche</h2>
 							</div>
 							<div class="panel-body">
 								<form id="formRecherche" method="POST">
-									<!--Recherche par recette-->
+								
+									<!--Recherche libre-->
 									<div class="form-group">
-										<label for="nomRecette">Recettes:</label>
-										<input type="text" class="form-control" id="nomRecette" name="nomRecette">
+										<label for="texteRecherche">Recettes / Instruction / Ingrédient:</label>
+										<input type="text" class="form-control" id="texteRecherche" name="texteRecherche" value="${requestScope.texteRecherche}"/>
 									</div>
-									<!--Recherche par ingrédient-->
-									<div class="form-group">
-										<label for="ingredientRecette">Ingrédients:</label>
-										<input type="text" class="form-control" id="ingredientRecette" name="ingredientRecette">
+																		
+									<!--Recherche par types de recette-->
+									<div class="panel panel-info">
+										<div class="panel-heading"><label>Type de recette:</label></div>
+										<div class="panel-body">
+											<ul class="form-group liste-recherche">		
+												<c:forEach var="type" items="${requestScope.typesRecette}" varStatus="status">
+													<li><input type="checkbox" name="types" value="${type.idType}"><span class="espacement">   </span>${type.typeRecette}</li>
+												</c:forEach>
+											</ul>
+										</div>
 									</div>
+									
+									<!--Recherche par catégorie d'ingrédients-->
+									<div class="panel panel-info">
+										<div class="panel-heading" style="margin: 0;"><label>Catégorie d'ingrédient:</label></div>
+										<div class="panel-body">
+											<ul class="form-group liste-recherche">
+												<c:forEach var="categorie" items="${requestScope.categoriesIngredient}">											
+													<li><input type="checkbox" name="categories" value="${categorie.idCategorieIng}"><span class="espacement">   </span>${categorie.nomCategorieIng}</li>
+												</c:forEach>
+											</ul>
+										</div>
+									</div>
+									
 									<!--Recherche par temps de préparation-->
-									<div class="form-group">
-										<label for="tempsMaxRecette">Temps de préparation max:</label>
-										<div class="form-inline" id="tempsMaxRecette">
-											<input id="hMax" name="hMax" class="form-control form-control-inline" type="number" min="0" step="1" max="99"/>
-											<label for="hMax">h</label>
-											<input id="mMax" name="mMax" class="form-control form-control-inline" type="number" min="0" step="1" max="59"/>
-											<label for="mMax">m</label>
-										</div>	
+									<div class="panel panel-info">
+										<div class="panel-heading"><label>Temps de préparation:</label></div>
+										<div class="panel-body">
+											<ul class="form-group liste-recherche">
+												<li><input type="radio" name="durees" value="NONE" checked><span class="espacement">   </span><fmt:message key="recherche.duree"/></li>
+												<c:forEach var="dureeMax" items="${requestScope.dureesMax}">											
+													<li><input type="radio" name="durees" value="${dureeMax}"><span class="espacement">   </span><fmt:message key="recherche.duree${dureeMax.value}"/></li>
+												</c:forEach>
+											</ul>
+										</div>
 									</div>
+									
 									<!--Boutons-->
 									<div class="form-group row text-center">								
 										<div class="col-xs-7">
@@ -94,107 +118,42 @@
 					</div>
 				
 					<!--Le panneau des résultats-->	
-					<div class="col-sm-4 col-md-5">
+					<div class="col-sm-5 col-md-6">
 						<div class="panel panel-info">
 							<div class="panel-heading">
 								<h3>Recettes trouvées   <span class="badge" id="nbResultats">28</span></h3>								
 							</div>
 							<div class="panel-body">
 								<div class="list-group" id="listeResultats">
-
-									<div class="list-group-item topBorder media">
-										<div class="media-body">
-											<h4 class="list-group-item-heading"><a href="viewRecette.html" id="resultat1">Nom de la recette 1</a></h4>
+									
+									<div class="list-group-item topBorder media">										
+										<div class="media-body">		
+											<h4 class="list-group-item-heading"><a href="viewRecette.html" id="resultat1">Nom de la recette 1</a></h4>							
 											<h5><span class="label label-info">Temps de préparation: 25min</span></h5>
 											<p class="list-group-item-text">
 												Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque et molestie est, ut commodo sapien. Integer non metus ac orci.
 											</p> 
 										</div>
 										<div class="media-right media-top">
-											<span class="mouseIcon glyphicon glyphicon-plus-sign green"></span>
+											<h3><label class="label label-success mouseIcon" id="101">Choisir</label></h3>
 										</div>
 									</div>
 									
-									<div class="list-group-item topBorder media">
-										<div class="media-body">
-											<h4 class="list-group-item-heading"><a href="viewRecette.html" id="resultat2">Nom de la recette 2</a></h4>
+									<div class="list-group-item topBorder media">										
+										<div class="media-body">		
+											<h4 class="list-group-item-heading"><a href="viewRecette.html" id="resultat1">Nom de la recette 2</a></h4>							
 											<h5><span class="label label-info">Temps de préparation: 15min</span></h5>
 											<p class="list-group-item-text">
 												Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque et molestie est, ut commodo sapien. Integer non metus ac orci.
 											</p> 
 										</div>
 										<div class="media-right media-top">
-											<span class="mouseIcon glyphicon glyphicon-plus-sign green"></span>
-										</div>
-									</div>
-									
-									<div class="list-group-item topBorder media">
-										<div class="media-body">
-											<h4 class="list-group-item-heading"><a href="viewRecette.html" id="resultat3">Nom de la recette 3</a></h4>
-											<h5><span class="label label-info">Temps de préparation: 40min</span></h5>
-											<p class="list-group-item-text">
-												Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque et molestie est, ut commodo sapien. Integer non metus ac orci.
-											</p> 
-										</div>
-										<div class="media-right media-top">
-											<span class="mouseIcon glyphicon glyphicon-plus-sign green"></span>
-										</div>
-									</div>
-									
-									<div class="list-group-item topBorder media">
-										<div class="media-body">
-											<h4 class="list-group-item-heading"><a href="viewRecette.html" id="resultat4">Nom de la recette 4</a></h4>
-											<h5><span class="label label-info">Temps de préparation: 60min</span></h5>
-											<p class="list-group-item-text">
-												Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque et molestie est, ut commodo sapien. Integer non metus ac orci.
-											</p> 
-										</div>
-										<div class="media-right media-top">
-											<span class="mouseIcon glyphicon glyphicon-plus-sign green"></span>
-										</div>
-									</div>
-									
-									<div class="list-group-item topBorder media">
-										<div class="media-body">
-											<h4 class="list-group-item-heading"><a href="viewRecette.html" id="resultat5">Nom de la recette 5</a></h4>
-											<h5><span class="label label-info">Temps de préparation: 30min</span></h5>
-											<p class="list-group-item-text">
-												Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque et molestie est, ut commodo sapien. Integer non metus ac orci.
-											</p> 
-										</div>
-										<div class="media-right media-top">
-											<span class="mouseIcon glyphicon glyphicon-plus-sign green"></span>
-										</div>
-									</div>
-									
-									<div class="list-group-item topBorder media">
-										<div class="media-body">
-											<h4 class="list-group-item-heading"><a href="viewRecette.html" id="resultat6">Nom de la recette 6</a></h4>
-											<h5><span class="label label-info">Temps de préparation: 95min</span></h5>
-											<p class="list-group-item-text">
-												Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque et molestie est, ut commodo sapien. Integer non metus ac orci.
-											</p> 
-										</div>
-										<div class="media-right media-top">
-											<span class="mouseIcon glyphicon glyphicon-plus-sign green"></span>
+											<h3><label class="label label-success mouseIcon" id="103">Choisir</label></h3>
 										</div>
 									</div>
 									
 								</div>													
-							</div>
-							<div class="panel-footer">
-								<div class="text-center">
-									<ul id="pagesBas" class="pagination pagination-sm">
-										<li class="disabled"><a href="#" rel="previous">&laquo;</a></li>
-										<li class="active"><a href="#">1</a></li>
-										<li><a href="#">2</a></li>
-										<li><a href="#">3</a></li>
-										<li><a href="#">4</a></li>
-										<li><a href="#">5</a></li>
-										<li><a href="#" rel="next">&raquo;</a></li>
-									</ul>
-								</div>
-							</div>							
+							</div>			
 						</div>
 					</div>
 					

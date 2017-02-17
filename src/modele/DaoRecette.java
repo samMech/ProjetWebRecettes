@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.NoResultException;
-import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
@@ -68,29 +67,28 @@ public class DaoRecette extends DaoJPA<Recette> {
 	 * @return La liste des n plus récentes recettes ou une liste vide si aucun résultat
 	 */
 	public List<Recette> chercherRecettesRecentes(Usager usager, int nbRecettes){
-		if(nbRecettes > 0){
-			try{
-	            // Ouverture de la connexion
-	            ouvrirConnexion();
-	            
-	            // Construction de la requête
-	            TypedQuery<Recette> query = em.createQuery("SELECT r FROM Recette r WHERE r.usager = :user ORDER BY r.idRecette DESC", Recette.class);
-	            query.setParameter("user",  usager);
-	            
-	            // Recherche
-	            return query.setMaxResults(nbRecettes).getResultList();
-	            
-	        }catch(NoResultException e){
-            	return new ArrayList<>();
-            }	 
-			finally{
-	            // Fermeture de la connexion
-	            fermerConnexion();
-	        }
+		if(nbRecettes <= 0){
+			return new ArrayList<>();
 		}
-		else{
-			return new ArrayList<Recette>();
-		}		
+		
+		try{
+            // Ouverture de la connexion
+            ouvrirConnexion();
+            
+            // Construction de la requête
+            TypedQuery<Recette> query = em.createQuery("SELECT r FROM Recette r WHERE r.usager = :user ORDER BY r.idRecette DESC", Recette.class);
+            query.setParameter("user",  usager);
+            
+            // Recherche
+            return query.setMaxResults(nbRecettes).getResultList();
+            
+        }catch(NoResultException e){
+        	return new ArrayList<>();
+        }	 
+		finally{
+            // Fermeture de la connexion
+            fermerConnexion();
+        }			
 	}
 			
 	/**
@@ -163,6 +161,40 @@ public class DaoRecette extends DaoJPA<Recette> {
 	}
 	
 	/**
+	 * Méthode pour chercher des recettes
+	 * 
+	 * @param requete La requête paramétrée (:c1, :c2, :c3)
+	 * @param usager L'usager connecté
+	 * @param params La liste des paramètres
+	 * @return La liste des recettes trouvées
+	 */
+	public List<Recette> chercherRecette(String requete, Usager usager, List<Object> params){
+		if(params.isEmpty()){
+			return new ArrayList<>();
+		}
+		
+		try{
+            // Ouverture de la connexion
+            ouvrirConnexion();
+            
+            // Construction de la requête
+            TypedQuery<Recette> query = em.createQuery(requete, Recette.class);
+            query.setParameter("user",  usager);
+            ajouterParametres(query, params);	
+            
+            // Recherche
+            return query.getResultList();
+            
+        }catch(NoResultException e){
+        	return new ArrayList<>();
+        }	 
+		finally{
+            // Fermeture de la connexion
+            fermerConnexion();
+        }
+	}
+	
+	/**
 	 * Méthode pour construire une requête paramétrée pour rechercher des recettes
 	 * 
 	 * @param params La liste des critères de recherche à utiliser
@@ -176,13 +208,13 @@ public class DaoRecette extends DaoJPA<Recette> {
 		}
 		
 		// Construction de la requête
-		String requete = "SELECT r FROM Recette r"
-					   + "JOIN r.instructions o"
-					   + "JOIN r.typesRecette t"
-					   + "JOIN r.mesures m"
-					   + "JOIN m.ingredient i"
-					   + "JOIN i.categoriesIngredient c"
-					   + "WHERE r.usager = :user";
+		String requete = "SELECT r FROM Recette r "
+					   + "JOIN r.instructions o "
+					   + "JOIN r.typesRecette t "
+					   + "JOIN r.mesures m "
+					   + "JOIN m.ingredient i "
+					   + "JOIN i.categoriesIngredient c "
+					   + "WHERE r.usager = :user AND ";
 		
 		// Ajout des conditions paramétrées d'après les critères
 		int i = 1;
@@ -201,9 +233,7 @@ public class DaoRecette extends DaoJPA<Recette> {
 				requete += "(r.nomRecette like :" + nomParam
 						+ " OR r.descriptionRecette like :" + nomParam
 						+ " OR o.descInstruction like :" + nomParam
-						+ " OR t.typeRecette like :" + nomParam
-						+ " OR i.nomIngredient like :" + nomParam
-						+ " OR c.nomCategorieIng like :" + nomParam + ")";
+						+ " OR i.nomIngredient like :" + nomParam + ")";
 				break;
 			case TYPE:
 				// Recherche par type de recette
@@ -215,7 +245,7 @@ public class DaoRecette extends DaoJPA<Recette> {
 				break;
 			case DUREE_MAX:
 				// Recherche par durée maximale
-				requete += "(r.dureeRecette < " + nomParam + ")";
+				requete += "(r.dureeRecette <= " + nomParam + ")";
 				break;
 			case NB_INGREDIENTS:
 				// Recherche par nombre d'ingrédients
