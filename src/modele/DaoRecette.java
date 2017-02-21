@@ -222,7 +222,7 @@ public class DaoRecette extends DaoJPA<Recette> {
 		for (CritereRecherche c : criteres) {
 			
 			// Recherche inclusive (tout ce qui est bon est gardé)
-			requete += " OR ";
+			requete += (i == 1) ? " AND " : " OR ";
 			
 			// Ajout de la condition
 			nomParam = "c" + i;
@@ -258,7 +258,7 @@ public class DaoRecette extends DaoJPA<Recette> {
 		}
 		
 		// On ordonne les résultats
-		requete += " ORDER BY r.nomRecette ASC";
+		requete += " GROUP BY r ORDER BY r.nomRecette ASC";
 		
 		return requete;
 	}

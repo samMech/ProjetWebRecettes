@@ -76,11 +76,8 @@ public class RechercheServlet extends HttpServlet {
 				// On récupère la liste des recettes trouvées
 				recettesTrouvees = Driver.rechercheLibre(user, chaine);
 				
-				// AJout des résultats à la réponse
-				ajouterResultats(response, recettesTrouvees);
 				break;
-			case "SEARCH" :
-				
+			case "SEARCH" :				
 				// Récupération des critères de recherche
 				String sType = request.getParameter("type");
 				String sDuree = request.getParameter("duree"); 
@@ -89,23 +86,37 @@ public class RechercheServlet extends HttpServlet {
 				// On récupère la liste des recettes trouvées
 				recettesTrouvees = Driver.recherche(user, sType, sDuree, sCategories);
 				
-				// AJout des résultats à la réponse
-				ajouterResultats(response, recettesTrouvees);
+				break;
+			case "ALL" :
+			case "NONE" :
+				// On récupère la liste de toutes les recettes de l'usager
+				recettesTrouvees = Driver.getRecettesUsager(user);	
 				
-				break;				
+				break;
 			default :
-				// Récupération des critères de recherche...
-				initCriteres(request);
 				break;
 		}		
-
 		
 		System.out.println("ACTION = " + action);
 		System.out.println("NB RÉSULTATS = " + recettesTrouvees.size());
+
+		// Ajout des résultats à la réponse
+		ajouterResultats(response, recettesTrouvees);
+		
+		// Si on vient d'une autre page
+		switch(action){
+			case "NONE":
+			case "QUICK_SEARCH" :
 				
-		if(! action.equals("SEARCH")){
-			RequestDispatcher rd = request.getRequestDispatcher(urlDestination);
-			rd.forward(request, response);
+				// Récupération des critères de recherche...
+				initCriteres(request);	
+				
+				// Forward vers la page de recherche
+				RequestDispatcher rd = request.getRequestDispatcher(urlDestination);
+				rd.forward(request, response);				
+				break;
+			default:
+				break;
 		}		
 	}
 	
@@ -116,7 +127,7 @@ public class RechercheServlet extends HttpServlet {
 		DureeMax[] dureesMax = DureeMax.values();
 		request.setAttribute("typesRecette", types);
 		request.setAttribute("categoriesIngredient", categories);
-		request.setAttribute("dureesMax", dureesMax);			
+		request.setAttribute("dureesMax", dureesMax);
 	}
 
 	// Méthode pour charger la réponse

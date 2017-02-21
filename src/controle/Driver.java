@@ -69,12 +69,23 @@ public class Driver {
 	/**
 	 * Méthode pour récupérer la liste des recettes à afficher sur la page de bienvenue
 	 * 
-	 * @param usager L'usagé présentement connecté
+	 * @param usager L'usagé
 	 * @return La liste des recettes à afficher
 	 */
 	public static List<Recette> chargerRecettesBienvenue(Usager usager){
 		DaoRecette dao = new DaoRecette();
 		return dao.chercherRecettesRecentes(usager, 5);
+	}
+	
+	/**
+	 * Méthode pour obtenir la liste de toutes les recettes de l'usager
+	 * 
+	 * @param usager L'usagé
+	 * @return La liste des recettes de l'usager
+	 */
+	public static List<Recette> getRecettesUsager(Usager usager){
+		DaoRecette dao = new DaoRecette();
+		return dao.getAll("Recette", Recette.class);		
 	}
 	
 	/**
@@ -175,6 +186,8 @@ public class Driver {
 		// Construction de la requête
 		String requete = DaoRecette.construireRequetteRecette(usager, criteres);
 		
+		System.out.println("================================\nREQUETE LIBRE:\n" + requete + "\n======================================");
+		
 		DaoRecette dao = new DaoRecette();
 		return dao.chercherRecette(requete, usager, params);
 	}	
@@ -204,15 +217,13 @@ public class Driver {
 		}
 		
 		// Durée maximale
-		if(sDuree != null){
+		if(sDuree != null){			
+			duree = Integer.parseInt(sDuree);
+			params.add(duree);
 			if(sDuree.equals(DureeMax.CENT_VINGTS_PLUS.getValue())){
-				duree = Integer.parseInt(sDuree);
-				params.add(duree);
 				criteres.add(CritereRecherche.DUREE_MIN);
 			}
 			else{
-				duree = Integer.parseInt(sDuree);
-				params.add(duree);
 				criteres.add(CritereRecherche.DUREE_MAX);
 			}			
 		}
@@ -228,6 +239,8 @@ public class Driver {
 		
 		// Construction de la requête
 		String requete = DaoRecette.construireRequetteRecette(usager, criteres);
+		
+		System.out.println("================================\nREQUETE:\n" + requete + "\n======================================");
 		
 		DaoRecette dao = new DaoRecette();
 		return dao.chercherRecette(requete, usager, params);

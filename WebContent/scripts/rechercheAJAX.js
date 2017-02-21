@@ -47,15 +47,18 @@ function lancerRecherche() {
     	url += "&duree=" + duree;
     }
         
-    if(nbCriteres != 0){
-        // Initialisation de la requête
-        req = initRequest();    
-        req.open("GET", url, true);    
-        req.onreadystatechange = afficherResultats;// Fonction pour utiliser les résultats    
-        
-        // Envoie
-        req.send(null);
+    // Si aucun critère, on affiche toute les recettes
+    if(nbCriteres == 0){
+        url = "RechercheServlet?action=ALL";
     }
+    
+    // Initialisation de la requête
+    req = initRequest();    
+    req.open("GET", url, true);    
+    req.onreadystatechange = afficherResultats;// Fonction pour utiliser les résultats    
+    
+    // Envoie
+    req.send(null);
 }
 
 // Fonction pour afficher les résultats de la recherche
@@ -63,11 +66,15 @@ function afficherResultats() {
     
 	// On efface les anciens résultats
 	listeResultats = $("#listeResultats").empty();
-
+	document.getElementById("nbResultats").innerHTML = "0";
+	
 	// On affiche les nouveaux résultats
     if (req.readyState == 4) {
         if (req.status == 200) {           
             parseMessages(req.responseXML);            
+        }
+        else if (req.status == 500){
+        	alert("Erreur !");// Pour débogguer (afficher un message d'erreur ???)
         }
     }
 }
@@ -75,34 +82,39 @@ function afficherResultats() {
 // Fonction pour parcourir la réponse serveur
 function parseMessages(responseXML) {
     
-    // Aucun résultat
+	// On vérifie si on a reçu une réponse
     if (responseXML == null) {
-        return false;
+    	return false;
     }
-    else {
-
-    	// On récupère la liste des recettes
-        var recettes = responseXML.getElementsByTagName("recettes")[0];
-
-        // On ajoute chaque recette dans la liste des résultats sur la page
-        var listeResultats = document.getElementById("listeResultats");
+	
+	// Récupération de la liste des résultats
+    var listeResultats = document.getElementById("listeResultats");
+    
+    // On récupère la liste des recettes
+    var recettes = responseXML.getElementsByTagName("recettes")[0];
+    
+    // On compte le nombre de résultats
+    var nbRecettes = recettes.childNodes.length;
         
-        var recette; var id; var nom; var duree; var description;
-        for (var i=0; i < recettes.childNodes.length; i++){
-        	
-        	// Récupération de la recette courante
-        	recette = recettes.childNodes[i];
-        	id = recette.getElementsByTagName("id")[0];
-        	nom = recette.getElementsByTagName("nom")[0];
-        	duree = recette.getElementsByTagName("duree")[0];
-        	description = recette.getElementsByTagName("description")[0];
-        	
-        	// Ajout de la recette à la liste
-        	ajouterRecette(id.childNodes[0].nodeValue,
-        				   nom.childNodes[0].nodeValue,
-        				   duree.childNodes[0].nodeValue,
-        				   description.childNodes[0].nodeValue, listeResultats);
-        }
+    // Modification du nombre de résultats affiché
+    document.getElementById("nbResultats").innerHTML = nbRecettes;
+    
+	// On ajoute chaque recette dans la liste des résultats sur la page
+    var recette; var id; var nom; var duree; var description;
+    for (var i=0; i < nbRecettes; i++){
+    	
+    	// Récupération de la recette courante
+    	recette = recettes.childNodes[i];
+    	id = recette.getElementsByTagName("id")[0];
+    	nom = recette.getElementsByTagName("nom")[0];
+    	duree = recette.getElementsByTagName("duree")[0];
+    	description = recette.getElementsByTagName("description")[0];
+    	
+    	// Ajout de la recette à la liste
+    	ajouterRecette(id.childNodes[0].nodeValue,
+    				   nom.childNodes[0].nodeValue,
+    				   duree.childNodes[0].nodeValue,
+    				   description.childNodes[0].nodeValue, listeResultats);
     }
 }
 

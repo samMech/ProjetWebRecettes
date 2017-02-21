@@ -27,7 +27,7 @@
 	<script type="text/javascript" src="scripts/dynamicList.js"></script>
 	<script type="text/javascript" src="scripts/rechercheAJAX.js"></script>
 </head>
-<body>
+<body onload="lancerRecherche();">
 
 	<!--La barre de navigation-->
 	<jsp:include page="jspf/navbar.jsp"></jsp:include>
@@ -98,7 +98,7 @@
 											<ul class="form-group liste-recherche" id="dureeRecherche">
 												<li><input type="radio" name="durees" value="NONE" checked><span class="espacement">   </span><fmt:message key="recherche.duree"/></li>
 												<c:forEach var="dureeMax" items="${requestScope.dureesMax}">											
-													<li><input type="radio" name="durees" value="${dureeMax}" onchange="lancerRecherche()"><span class="espacement">   </span><fmt:message key="recherche.duree${dureeMax.value}"/></li>
+													<li><input type="radio" name="durees" value="${dureeMax.value}" onchange="lancerRecherche()"><span class="espacement">   </span><fmt:message key="recherche.duree${dureeMax.value}"/></li>
 												</c:forEach>
 											</ul>
 										</div>
@@ -112,7 +112,7 @@
 					<div class="col-sm-5 col-md-6">
 						<div class="panel panel-info">
 							<div class="panel-heading">
-								<h3>Recettes trouvées   <span class="badge" id="nbResultats">28</span></h3>								
+								<h3>Recettes trouvées   <span class="badge" id="nbResultats">0</span></h3>								
 							</div>
 							<div class="panel-body">
 								<div class="list-group" id="listeResultats">
