@@ -59,8 +59,6 @@ public class RechercheServlet extends HttpServlet {
 			action = "NONE";
 		}
 				
-		System.out.println("ACTION = " + action);
-				
 		// Création de la liste des recettes
 		List<Recette> recettesTrouvees = new ArrayList<>();
 		
@@ -100,9 +98,11 @@ public class RechercheServlet extends HttpServlet {
 				initCriteres(request);
 				break;
 		}		
-			
+
+		
+		System.out.println("ACTION = " + action);
 		System.out.println("NB RÉSULTATS = " + recettesTrouvees.size());
-			
+				
 		if(! action.equals("SEARCH")){
 			RequestDispatcher rd = request.getRequestDispatcher(urlDestination);
 			rd.forward(request, response);

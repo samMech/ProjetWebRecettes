@@ -221,8 +221,8 @@ public class DaoRecette extends DaoJPA<Recette> {
 		String nomParam = "";
 		for (CritereRecherche c : criteres) {
 			
-			// Ajout du AND si plus d'un critère
-			requete += " AND ";
+			// Recherche inclusive (tout ce qui est bon est gardé)
+			requete += " OR ";
 			
 			// Ajout de la condition
 			nomParam = "c" + i;

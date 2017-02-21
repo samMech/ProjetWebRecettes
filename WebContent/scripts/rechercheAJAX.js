@@ -85,7 +85,7 @@ function parseMessages(responseXML) {
         var recettes = responseXML.getElementsByTagName("recettes")[0];
 
         // On ajoute chaque recette dans la liste des résultats sur la page
-        var listeResultats = $("#listeResultats");
+        var listeResultats = document.getElementById("listeResultats");
         
         var recette; var id; var nom; var duree; var description;
         for (var i=0; i < recettes.childNodes.length; i++){
@@ -107,7 +107,7 @@ function parseMessages(responseXML) {
 }
 
 // Fonction pour ajouter une recette à la liste des résultats
-function appendComposer(id, nom, duree, description, listeResultats) {
+function ajouterRecette(id, nom, duree, description, listeResultats) {
 
 	// Création du div principal
 	var div = document.createElement('div');
