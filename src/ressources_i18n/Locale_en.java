@@ -14,7 +14,7 @@ public class Locale_en extends ListResourceBundle {
 	    {"application.typeRecette.T02", "Entry"},
 	    {"application.typeRecette.T03", "Soup"},
 	    {"application.typeRecette.T04", "Salad"},
-	    {"application.typeRecette.T05", "Brewage"},
+	    {"application.typeRecette.T05", "Drinks"},
 	    {"application.typeRecette.T06", "Dessert"},
 	    {"application.typeRecette.T07", "Vegetarian"},
 	    {"application.typeRecette.T08", "Lunch"},
@@ -41,6 +41,7 @@ public class Locale_en extends ListResourceBundle {
 	    {"application.unites.U09", "oz"},
 	    {"application.unites.U10", "mL"},
 	    {"application.unites.U11", "L"},
+	    {"application.unites.", ""},
 	    /////////////////////////////////////////////////////////
 	    {"recherche.duree", "Unspecified"},
 	    {"recherche.duree5", "Less than 5 minutes"},
@@ -110,7 +111,23 @@ public class Locale_en extends ListResourceBundle {
 	    {"bienvenue.panel.dureeRecette", "Preparation time:"},
 	    {"bienvenue.panel.vide", "No recipe yet? Add one to your own cookbook now!"},
 	    /////////////////////////////////////////////////////////
-	    {"footer.copyright", "2016-2017 The Ingredient Box"}
+	    {"footer.copyright", "2016-2017 The Ingredient Box"},
+	    /////////////////////////////////////////////////////////
+	    {"formrecette.titre", "New Recipe"},
+	    {"formrecette.info.titre","General Information"},
+	    {"formrecette.info.nom","Name"},
+	    {"formrecette.info.type","Type"},
+	    {"formrecette.info.desc","Description"},
+	    {"formrecette.info.prepTime","Preparation Time"},
+	    {"formrecette.ingredients.titre","Ingredients"},
+	    {"formrecette.instructions.titre","Instructions"},
+	    {"formrecette.enregistrer.button","Save"},
+	    /////////////////////////////////////////////////////////
+	    {"viewrecette.info.prepTime","Preparation Time: "},
+	    {"viewrecette.ingredients.titre","Ingredients"},
+	    {"viewrecette.instructions.titre","Instructions"},
+	    {"viewrecette.modifier.button","Modify"},
+	    {"viewrecette.supprimer.button","  Delete  "}	    
 	};
 	 
 	/**

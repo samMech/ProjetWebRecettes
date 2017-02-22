@@ -48,7 +48,7 @@
 					</div>
 					<div class="panel-body">
 						<p>${recette.descriptionRecette}</p>
-						<h4><span class="label label-info">Temps de préparation: ${requestScope.dureeRecette}</span></h4>
+						<h4><span class="label label-info"><fmt:message key="viewrecette.info.prepTime"/> ${requestScope.dureeRecette}</span></h4>
 					</div>
 				</div>
 				
@@ -59,20 +59,20 @@
 						<ul class="nav nav-pills nav-stacked" data-spy="affix" data-offset-top="160">
 							<li>
 								<form method="POST" action="RecetteServlet">
-									<input type="hidden" name="idRecetteToDelete" value="${recette.idRecette}">
+									<input type="hidden" name="idRecetteToModify" value="${recette.idRecette}">
 									<input type="hidden" name="action" value="modifierRecette">	
 									<button type="submit" class="btn btn-primary" id="modifier">
-										<span class="glyphicon glyphicon-edit"></span> <span class="espacement">Modifier    </span>
+										<span class="glyphicon glyphicon-edit"></span> <span class="espacement"><fmt:message key="viewrecette.modifier.button"/>    </span>
 									</button>
 								</form>	
 							</li>
-							<br />
+							<br>
 							<li>
 								<form method="POST" action="RecetteServlet">
 									<input type="hidden" name="idRecetteToDelete" value="${recette.idRecette}">
 									<input type="hidden" name="action" value="supprimerRecette">
 									<button type="submit" class="btn btn-primary" id="Supprimer">
-										<span class="glyphicon glyphicon-trash"></span> <span class="espacement">Supprimer</span>
+										<span class="glyphicon glyphicon-trash"></span> <span class="espacement"><fmt:message key="viewrecette.supprimer.button"/></span>
 									</button>
 								</form>							
 							</li>							
@@ -84,7 +84,7 @@
 					<div class="col-sm-4 col-sm-pull-2">
 						<div class="panel panel-info">
 							<div class="panel-heading">
-								<h3>Ingrédients</h3>
+								<h3><fmt:message key="viewrecette.ingredients.titre"/></h3>
 							</div>
 							<div class="panel-body">
 								<div class="list-group">
@@ -102,7 +102,7 @@
 					<div class="col-sm-6 col-sm-pull-2">
 						<div class="panel panel-info">
 							<div class="panel-heading">
-								<h3>Instructions</h3>
+								<h3><fmt:message key="viewrecette.instructions.titre"/></h3>
 							</div>
 							<div class="panel-body">
 								<div class="list-group">
