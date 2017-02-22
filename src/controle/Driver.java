@@ -7,6 +7,7 @@ import modele.CategoriesIngredient;
 import modele.CritereRecherche;
 import modele.DaoJPA;
 import modele.DaoRecette;
+import modele.DureeMax;
 import modele.Recette;
 import modele.TypesRecette;
 import modele.Unite;
@@ -68,12 +69,23 @@ public class Driver {
 	/**
 	 * Méthode pour récupérer la liste des recettes à afficher sur la page de bienvenue
 	 * 
-	 * @param usager L'usagé présentement connecté
+	 * @param usager L'usagé
 	 * @return La liste des recettes à afficher
 	 */
 	public static List<Recette> chargerRecettesBienvenue(Usager usager){
 		DaoRecette dao = new DaoRecette();
 		return dao.chercherRecettesRecentes(usager, 5);
+	}
+	
+	/**
+	 * Méthode pour obtenir la liste de toutes les recettes de l'usager
+	 * 
+	 * @param usager L'usagé
+	 * @return La liste des recettes de l'usager
+	 */
+	public static List<Recette> getRecettesUsager(Usager usager){
+		DaoRecette dao = new DaoRecette();
+		return dao.getAll("Recette", Recette.class);		
 	}
 	
 	/**
@@ -154,6 +166,7 @@ public class Driver {
 	/**
 	 * Méthode pour rechercher des recettes d'après des mots clés
 	 * 
+	 * @param usager L'usager connecté
 	 * @param chaine La chaîne contenant la recherche libre
 	 * @return La liste des recettes trouvées
 	 */
@@ -172,6 +185,62 @@ public class Driver {
 		
 		// Construction de la requête
 		String requete = DaoRecette.construireRequetteRecette(usager, criteres);
+		
+		System.out.println("================================\nREQUETE LIBRE:\n" + requete + "\n======================================");
+		
+		DaoRecette dao = new DaoRecette();
+		return dao.chercherRecette(requete, usager, params);
+	}	
+	
+	/**
+	 * Méthode pour rechercher des recettes d'après des mots clés
+	 * 
+	 * @param usager L'usager connecté
+	 * @param sType La chaîne contenant le id du type de recette
+	 * @param sDuree La chaîne contenant la durée maximale
+	 * @param sCategories Le tableau contenant les id des catégories d'ingrédient
+	 * @return La liste des recettes trouvées
+	 */
+	public static List<Recette> recherche(Usager usager, String sType, String sDuree, String[] sCategories){
+		
+		// Déclaration des variables	
+		long id;
+		int duree;
+		List<Object> params = new ArrayList<>();
+		List<CritereRecherche> criteres = new ArrayList<>();
+		
+		// Type de recette	
+		if(sType != null){
+			id = Long.parseLong(sType);
+			params.add(id);
+			criteres.add(CritereRecherche.TYPE);
+		}
+		
+		// Durée maximale
+		if(sDuree != null){			
+			duree = Integer.parseInt(sDuree);
+			params.add(duree);
+			if(sDuree.equals(DureeMax.CENT_VINGTS_PLUS.getValue())){
+				criteres.add(CritereRecherche.DUREE_MIN);
+			}
+			else{
+				criteres.add(CritereRecherche.DUREE_MAX);
+			}			
+		}
+		
+		// Catégories d'ingrédients
+		if(sCategories != null){
+			for(int i=0; i < sCategories.length; i++){
+				id = Integer.parseInt(sCategories[i]);
+				params.add(id);
+				criteres.add(CritereRecherche.CATEGORIE);
+			}
+		}
+		
+		// Construction de la requête
+		String requete = DaoRecette.construireRequetteRecette(usager, criteres);
+		
+		System.out.println("================================\nREQUETE:\n" + requete + "\n======================================");
 		
 		DaoRecette dao = new DaoRecette();
 		return dao.chercherRecette(requete, usager, params);

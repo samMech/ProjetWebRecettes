@@ -10,5 +10,6 @@ public enum CritereRecherche {
 	TYPE,
 	CATEGORIE,
 	DUREE_MAX,
+	DUREE_MIN,
 	NB_INGREDIENTS
 }

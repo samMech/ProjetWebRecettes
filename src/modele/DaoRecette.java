@@ -204,7 +204,7 @@ public class DaoRecette extends DaoJPA<Recette> {
 		
 		// Si on n'a aucun critères, on retourne toutes les recettes
 		if(criteres == null || criteres.isEmpty()){
-			return "SELECT r FROM Recette r";
+			return "SELECT r FROM Recette r WHERE r.usager = :user";
 		}
 		
 		// Construction de la requête
@@ -214,16 +214,15 @@ public class DaoRecette extends DaoJPA<Recette> {
 					   + "JOIN r.mesures m "
 					   + "JOIN m.ingredient i "
 					   + "JOIN i.categoriesIngredient c "
-					   + "WHERE r.usager = :user AND ";
+					   + "WHERE r.usager = :user";
 		
 		// Ajout des conditions paramétrées d'après les critères
 		int i = 1;
 		String nomParam = "";
-		boolean premierCritere = true;
 		for (CritereRecherche c : criteres) {
 			
-			// Ajout du AND si plus d'un critère
-			requete += premierCritere ? "" : " AND ";
+			// Recherche inclusive (tout ce qui est bon est gardé)
+			requete += (i == 1) ? " AND " : " OR ";
 			
 			// Ajout de la condition
 			nomParam = "c" + i;
@@ -237,19 +236,19 @@ public class DaoRecette extends DaoJPA<Recette> {
 				break;
 			case TYPE:
 				// Recherche par type de recette
-				requete += "(t.typeRecette = " + nomParam + ")";
+				requete += "(t.idType = :" + nomParam + ")";
 				break;
 			case CATEGORIE:
 				// Recherche par catégorie d'ingrédient
-				requete += "(c.nomCategorieIng = " + nomParam + ")";
+				requete += "(c.idCategorieIng = :" + nomParam + ")";
 				break;
 			case DUREE_MAX:
 				// Recherche par durée maximale
-				requete += "(r.dureeRecette <= " + nomParam + ")";
+				requete += "(r.dureeRecette <= :" + nomParam + ")";
 				break;
 			case NB_INGREDIENTS:
 				// Recherche par nombre d'ingrédients
-				requete += "(SELECT count(z) FROM Recette y JOIN y.mesures x JOIN x.ingredient z) = " + nomParam + ")";
+				requete += "(SELECT count(z) FROM Recette y JOIN y.mesures x JOIN x.ingredient z) = :" + nomParam + ")";
 				break;
 			default:
 				break;
@@ -259,7 +258,7 @@ public class DaoRecette extends DaoJPA<Recette> {
 		}
 		
 		// On ordonne les résultats
-		requete += "ORDER BY r.nomRecette ASC";
+		requete += " GROUP BY r ORDER BY r.nomRecette ASC";
 		
 		return requete;
 	}

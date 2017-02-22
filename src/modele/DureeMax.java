@@ -15,7 +15,7 @@ public enum DureeMax {
 	SOIXANTE("60"),
 	QUATRE_VINGTS_DIX("90"),
 	CENT_VINGTS("120"),
-	CENT_VINGTS_PLUS("120+");
+	CENT_VINGTS_PLUS("121");
 		
 	private String value;
 

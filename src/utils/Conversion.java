@@ -1,5 +1,9 @@
 package utils;
 
+import java.util.List;
+
+import modele.Recette;
+
 /**
  * Classe utilitaire pour des méthodes de conversion de données
  * 
@@ -57,4 +61,22 @@ public class Conversion {
 	public static int getMinute(int temps){
 		return temps%60;
 	}
+	
+	/**
+	 * Méthode pour convertir une liste de recette en fichier XML;
+	 * @param sb
+	 * @param listeRecettes
+	 */
+	public static void convertirRecettesEnXML(StringBuffer sb, List<Recette> listeRecettes){		
+		// Ajout des recettes
+		for(Recette r : listeRecettes){
+			sb.append("<recette>");
+			sb.append("<id>" + r.getIdRecette() + "</id>");
+			sb.append("<nom>" + r.getNomRecette() + "</nom>");
+			sb.append("<duree>" + convertirTemps(r.getDureeRecette()) + "</duree>");
+			sb.append("<description>" + r.getDescriptionRecette() + "</description>");
+			sb.append("</recette>");
+		}
+	}
+	
 }

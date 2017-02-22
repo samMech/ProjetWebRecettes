@@ -24,9 +24,10 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="styles/styles.css">
-	<script type="text/javascript" src="scripts/dynamicList.js"></script>	
+	<script type="text/javascript" src="scripts/dynamicList.js"></script>
+	<script type="text/javascript" src="scripts/rechercheAJAX.js"></script>
 </head>
-<body>
+<body onload="lancerRecherche();">
 
 	<!--La barre de navigation-->
 	<jsp:include page="jspf/navbar.jsp"></jsp:include>
@@ -58,7 +59,6 @@
 								<h2>Recherche</h2>
 							</div>
 							<div class="panel-body">
-								<form id="formRecherche" method="POST">
 								
 									<!--Recherche libre-->
 									<div class="form-group">
@@ -70,11 +70,12 @@
 									<div class="panel panel-info">
 										<div class="panel-heading"><label>Type de recette:</label></div>
 										<div class="panel-body">
-											<ul class="form-group liste-recherche">		
-												<c:forEach var="type" items="${requestScope.typesRecette}" varStatus="status">
-													<li><input type="checkbox" name="types" value="${type.idType}"><span class="espacement">   </span><fmt:message key="application.typeRecette.${type.typeRecette}"/></li>
-												</c:forEach>
-											</ul>
+											<select	class="form-group" id="typeRecherche" name="typeRecette" onchange="lancerRecherche()">
+												<option value="-1" class="text-center">---</option>
+												<c:forEach var="type" items="${requestScope.typesRecette}">
+													<option value="${type.idType}"><fmt:message key="application.typeRecette.${type.typeRecette}"/></option>
+												</c:forEach>		
+											</select>
 										</div>
 									</div>
 									
@@ -82,9 +83,9 @@
 									<div class="panel panel-info">
 										<div class="panel-heading" style="margin: 0;"><label>Catégorie d'ingrédient:</label></div>
 										<div class="panel-body">
-											<ul class="form-group liste-recherche">
+											<ul class="form-group liste-recherche" id="categoriesRecherche">
 												<c:forEach var="categorie" items="${requestScope.categoriesIngredient}">											
-													<li><input type="checkbox" name="categories" value="${categorie.idCategorieIng}"><span class="espacement">   </span><fmt:message key="application.categorieIngredient.${categorie.nomCategorieIng}"/></li>
+													<li><input type="checkbox" name="categories" value="${categorie.idCategorieIng}" onchange="lancerRecherche()"><span class="espacement">   </span><fmt:message key="application.categorieIngredient.${categorie.nomCategorieIng}"/></li>
 												</c:forEach>
 											</ul>
 										</div>
@@ -94,25 +95,15 @@
 									<div class="panel panel-info">
 										<div class="panel-heading"><label>Temps de préparation:</label></div>
 										<div class="panel-body">
-											<ul class="form-group liste-recherche">
+											<ul class="form-group liste-recherche" id="dureeRecherche">
 												<li><input type="radio" name="durees" value="NONE" checked><span class="espacement">   </span><fmt:message key="recherche.duree"/></li>
 												<c:forEach var="dureeMax" items="${requestScope.dureesMax}">											
-													<li><input type="radio" name="durees" value="${dureeMax}"><span class="espacement">   </span><fmt:message key="recherche.duree${dureeMax.value}"/></li>
+													<li><input type="radio" name="durees" value="${dureeMax.value}" onchange="lancerRecherche()"><span class="espacement">   </span><fmt:message key="recherche.duree${dureeMax.value}"/></li>
 												</c:forEach>
 											</ul>
 										</div>
 									</div>
 									
-									<!--Boutons-->
-									<div class="form-group row text-center">								
-										<div class="col-xs-7">
-											<button type="submit" class="btn btn-primary btn-block" id="recherche"><span class="glyphicon glyphicon-search"></span> Rechercher</button>
-										</div>
-										<div class="col-xs-5">
-											<button type="reset" class="btn btn-primary btn-block" id="efface">Effacer</button>
-										</div>										
-									</div>
-								</form>
 							</div>
 						</div>
 					</div>
@@ -121,36 +112,10 @@
 					<div class="col-sm-5 col-md-6">
 						<div class="panel panel-info">
 							<div class="panel-heading">
-								<h3>Recettes trouvées   <span class="badge" id="nbResultats">28</span></h3>								
+								<h3>Recettes trouvées   <span class="badge" id="nbResultats">0</span></h3>								
 							</div>
 							<div class="panel-body">
 								<div class="list-group" id="listeResultats">
-									
-									<div class="list-group-item topBorder media">										
-										<div class="media-body">		
-											<h4 class="list-group-item-heading"><a href="viewRecette.html" id="resultat1">Nom de la recette 1</a></h4>							
-											<h5><span class="label label-info">Temps de préparation: 25min</span></h5>
-											<p class="list-group-item-text">
-												Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque et molestie est, ut commodo sapien. Integer non metus ac orci.
-											</p> 
-										</div>
-										<div class="media-right media-top">
-											<h3><label class="label label-success mouseIcon" id="101">Choisir</label></h3>
-										</div>
-									</div>
-									
-									<div class="list-group-item topBorder media">										
-										<div class="media-body">		
-											<h4 class="list-group-item-heading"><a href="viewRecette.html" id="resultat1">Nom de la recette 2</a></h4>							
-											<h5><span class="label label-info">Temps de préparation: 15min</span></h5>
-											<p class="list-group-item-text">
-												Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque et molestie est, ut commodo sapien. Integer non metus ac orci.
-											</p> 
-										</div>
-										<div class="media-right media-top">
-											<h3><label class="label label-success mouseIcon" id="103">Choisir</label></h3>
-										</div>
-									</div>
 									
 								</div>													
 							</div>			

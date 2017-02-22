@@ -51,7 +51,7 @@ public class Locale_en extends ListResourceBundle {
 	    {"recherche.duree60", "Less than 60 minutes"},
 	    {"recherche.duree90", "Less than 90 minutes"},
 	    {"recherche.duree120", "Less than 120 minutes"},
-	    {"recherche.duree120+", "More than 120 minutes"},
+	    {"recherche.duree121", "More than 120 minutes"},
 	    /////////////////////////////////////////////////////////
 	    {"navbar.accueil", "Home"},
 	    {"navbar.nouvelleListe", "New grocery list"},
