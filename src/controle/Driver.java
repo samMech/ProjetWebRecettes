@@ -8,6 +8,7 @@ import modele.CritereRecherche;
 import modele.DaoJPA;
 import modele.DaoRecette;
 import modele.DureeMax;
+import modele.PanierRecettes;
 import modele.Recette;
 import modele.TypesRecette;
 import modele.Unite;
@@ -265,5 +266,14 @@ public class Driver {
 	public static void supprimerRecette(long id){
 		DaoRecette dao = new DaoRecette();
 		dao.supprimer(Recette.class, id);
+	}
+	
+	/**
+	 * Méthode pour créer un panier de recettes
+	 * 
+	 * @return Le panier de recettes créé
+	 */
+	public static PanierRecettes creerPanier(){
+		return new PanierRecettes();
 	}
 }

@@ -118,53 +118,42 @@
 								<div class="list-group" id="listeResultats">
 									
 								</div>													
-							</div>			
+							</div>							
+							<input type="hidden" id="titreBoutonChoisir" value="<fmt:message key="recherche.boutonChoisir.titre"/>"/>										
 						</div>
 					</div>
 					
-					<!--Le panneau des sélections-->	
+					<!--Le panneau des sélections (panier)-->	
 					<div class="col-sm-3">
 						<div class="panel panel-info">
 							<div class="panel-heading">
 								<h3>Recettes choisies   <span class="badge" id="nbSelections">2</span></h3>
 							</div>
 							<div class="panel-body">
-								<form id="formRecettes" method="POST" action="modificationListe.html">
-									<div class="list-group">						
-									
-										<div class="list-group-item noBorder" id="recette1">
-											<div class="media">												
-												<div class="media-body">
-													<h4><a href="viewRecette.html" id="nomRecette1" class="list-group-item-heading">Nom de la recette 1</a></h4>
+								<form id="formRecettes" method="POST" action="ListeEpicerieServlet">
+									<div class="list-group" id="panierRecette">
+										<c:forEach var="recette" items="${sessionScope.panierRecettes.recettes}" varStatus="status">
+											<div class="list-group-item noBorder" id="recettePanier${recette.idRecette}">
+												<div class="media">												
+													<div class="media-body">
+														<h4><a href="RecetteServlet?voirRecette&idRecette=${recette.idRecette}" class="list-group-item-heading">${recette.nomRecette}</a></h4>
+													</div>
+													<div class="media-left media-middle">
+														<span class="badge alert-info" id="nbRecettes${recette.idRecette}">${panierRecettes.getQuantite(${status.index})}</span>
+													</div>
+													<div class="media-right media-middle">
+														<span class="mouseIcon glyphicon glyphicon-plus-sign green" onclick="ajouterRecette(${recette.idRecette},'${recette.nomRecette}')"></span>
+													</div>
+													<div class="media-right media-middle">
+														<span class="mouseIcon glyphicon glyphicon-minus-sign red" onclick="retirerRecette(${recette.idRecette})"></span>
+													</div>
 												</div>
-												<div class="media-left media-middle">
-													<span class="badge alert-info" id="nbSelections">x2</span>
-												</div>
-												<div class="media-right media-middle">
-													<span class="mouseIcon glyphicon glyphicon-plus-sign green"></span>
-												</div>
-												<div class="media-right media-middle">
-													<span class="mouseIcon glyphicon glyphicon-minus-sign red"></span>
-												</div>
-											</div>
-										</div>
-										
-										<div class="list-group-item noBorder" id="recette2">
-											<div class="media">												
-												<div class="media-body">
-													<h4><a href="viewRecette.html" id="nomRecette2" class="list-group-item-heading">Nom de la recette 2</a></h4>
-												</div>												
-												<div class="media-right media-middle">
-													<span class="mouseIcon glyphicon glyphicon-plus-sign green"></span>
-												</div>
-												<div class="media-right media-middle">
-													<span class="mouseIcon glyphicon glyphicon-minus-sign red"></span>
-												</div>
-											</div>
-										</div>	
-										
+												<input type="hidden" name="recettePanier" value="${recette.idRecette}"/>
+											</div>											
+										</c:forEach>										
 									</div>
 									<div class="text-center">
+										<input type="hidden" name="action" value="CREER_LISTE"/>
 										<button type="submit" class="btn btn-primary btn-block" id="creerListe">Créer la liste d'épicerie</button>
 									</div>
 								</form>

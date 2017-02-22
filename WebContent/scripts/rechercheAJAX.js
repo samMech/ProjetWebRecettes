@@ -1,5 +1,5 @@
 /**
- * SCript pour le AJAX de la page de recherche
+ * Script pour le AJAX de la page de recherche
  */
 
 var req;
@@ -73,8 +73,8 @@ function afficherResultats() {
         if (req.status == 200) {           
             parseMessages(req.responseXML);            
         }
-        else if (req.status == 500){
-        	alert("Erreur !");// Pour débogguer (afficher un message d'erreur ???)
+        else{
+        	alert("Erreur ! (" + req.readyState + ")");// Pour débogguer
         }
     }
 }
@@ -158,8 +158,9 @@ function ajouterRecette(id, nom, duree, description, listeResultats) {
 	var h3 = document.createElement('h3');
 	var h3label = document.createElement('label');
 	h3label.setAttribute("class", "label label-success mouseIcon");
-	h3label.setAttribute("id", id);
-	h3label.innerHTML = "Choisir";	
+	h3label.setAttribute("id", "recette" + id);
+	h3label.innerHTML = document.getElementById("titreBoutonChoisir").value;
+	h3label.setAttribute("onclick","ajouterRecette(" + id + ",'" + nom + "');");
 	h3.appendChild(h3label);
 	div2b.appendChild(h3);	
 	
