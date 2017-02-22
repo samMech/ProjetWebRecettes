@@ -41,6 +41,7 @@ public class Locale extends ListResourceBundle {
 	    {"application.unites.U09", "oz"},
 	    {"application.unites.U10", "mL"},
 	    {"application.unites.U11", "L"},
+	    {"application.unites.", ""},
 	    /////////////////////////////////////////////////////////
 	    {"recherche.duree", "Non spécifié"},
 	    {"recherche.duree5", "Moins de 5 minutes"},
@@ -110,7 +111,23 @@ public class Locale extends ListResourceBundle {
 	    {"bienvenue.panel.dureeRecette", "Temps de préparation:"},
 	    {"bienvenue.panel.vide", "Pas encore de recette ? Ajoutez-en une à votre propre livre de recettes dès maintenant !"},
 	    /////////////////////////////////////////////////////////
-	    {"footer.copyright", "2016-2017 La Boîtes à Ingrédients"}
+	    {"footer.copyright", "2016-2017 La Boîtes à Ingrédients"},
+	    /////////////////////////////////////////////////////////
+	    {"formrecette.titre", "Nouvelle Recette"},
+	    {"formrecette.info.titre","Informations générales"},
+	    {"formrecette.info.nom","Nom"},
+	    {"formrecette.info.type","Type"},
+	    {"formrecette.info.desc","Description"},
+	    {"formrecette.info.prepTime","Temps de préparation"},
+	    {"formrecette.ingredients.titre","Ingrédients"},
+	    {"formrecette.instructions.titre","Instructions"},
+	    {"formrecette.enregistrer.button","Enregistrer"},
+	    /////////////////////////////////////////////////////////
+	    {"viewrecette.info.prepTime","Temps de préparation: "},
+	    {"viewrecette.ingredients.titre","Ingrédients"},
+	    {"viewrecette.instructions.titre","Instructions"},
+	    {"viewrecette.modifier.button","Modifier"},
+	    {"viewrecette.supprimer.button","Supprimer"}
 	    };
 	
 	/**

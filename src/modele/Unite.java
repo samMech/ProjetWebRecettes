@@ -20,7 +20,7 @@ public class Unite implements Serializable {
 	@Column(name="ID_UNITE", unique=true, nullable=false, precision=3)
 	private long idUnite;
 
-	@Column(name="NOM_UNITE", nullable=false, length=10)
+	@Column(name="NOM_UNITE", nullable=true, length=10)
 	private String nomUnite;
 
 	public Unite() {

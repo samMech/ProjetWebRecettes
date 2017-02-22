@@ -84,6 +84,13 @@ public class RecetteServlet extends HttpServlet {
 			//on crée un objet recette
 			recette = new Recette();
 			
+			//on verifie si c'est une nouvelle recette ou une modification de recette
+			String idAModifier = request.getParameter("idRecetteAModifier");
+			if(idAModifier != null && idAModifier != ""){
+				Long id = Long.parseLong(idAModifier);
+				recette.setIdRecette(id);
+			}
+			
 			//on ajoute le nom, description et durée dans l'objet recette
 			recette.setNomRecette(request.getParameter("nomRecette"));
 			recette.setDescriptionRecette(request.getParameter("descRecette"));
@@ -154,6 +161,25 @@ public class RecetteServlet extends HttpServlet {
 			request.setAttribute("recette", recette);
 			request.setAttribute("dureeRecette", Conversion.convertirTemps(recette.getDureeRecette()));
 			pageDestination = "/WEB-INF/ViewRecette.jsp";
+			break;
+		
+		case "modifierRecette":
+			long idRecetteAmodifier = Long.parseLong(request.getParameter("idRecetteToModify"));
+			recette = Driver.getRecette(idRecetteAmodifier);
+			request.setAttribute("recette", recette);
+			heure = Conversion.getHeure(recette.getDureeRecette());
+			minute = Conversion.getMinute(recette.getDureeRecette());
+			request.setAttribute("heureRecette", heure);
+			request.setAttribute("minuteRecette", minute);
+			
+			listeTypes = Driver.getTypesRecette();
+			listeUnites = Driver.getUnites();
+			listeCategories = Driver.getCategories();
+			request.setAttribute("typesRecette", listeTypes);
+			request.setAttribute("unites", listeUnites);
+			request.setAttribute("categories", listeCategories);
+			pageDestination = "/WEB-INF/FormRecette.jsp";
+			break;
 		}
 		
 		RequestDispatcher rd = request.getRequestDispatcher(pageDestination);

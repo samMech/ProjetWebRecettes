@@ -35,7 +35,7 @@ public class Mesure implements Serializable {
 
 	//uni-directional many-to-one association to Unite
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="ID_UNITE", nullable=false)
+	@JoinColumn(name="ID_UNITE", nullable=true)
 	private Unite unite;
 
 	public Mesure() {
