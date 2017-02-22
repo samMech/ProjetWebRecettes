@@ -87,15 +87,15 @@
 											</div>
 											<div class="media-right media-middle">
 												<span
-													class="span3 mouseIcon glyphicon glyphicon-plus-sign green"></span>
+													class="span3 mouseIcon glyphicon glyphicon-plus-sign green"  onclick="ajouterIngredient(this)"></span>
 												<span
-													class="span3 mouseIcon glyphicon glyphicon-minus-sign red"></span>
+													class="span3 mouseIcon glyphicon glyphicon-minus-sign red"  onclick="supprimerIngredient(this)"></span>
 											</div>
 											<div class="media-right media-middle">
 												<span
-													class="span3 mouseIcon glyphicon glyphicon glyphicon-circle-arrow-up blue"></span>
+													class="span3 mouseIcon glyphicon glyphicon glyphicon-circle-arrow-up blue" onclick="monterIngredient(this)"></span>
 												<span
-													class="span3 mouseIcon glyphicon glyphicon glyphicon-circle-arrow-down blue"></span>
+													class="span3 mouseIcon glyphicon glyphicon glyphicon-circle-arrow-down blue" onclick="descendreIngredient(this)"></span>
 											</div>
 										</div>
 									</li>
