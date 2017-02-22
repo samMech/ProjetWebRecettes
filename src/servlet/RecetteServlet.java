@@ -42,7 +42,7 @@ public class RecetteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	
 		// on recupere la session
 		HttpSession session = request.getSession();
 		if(session == null){
