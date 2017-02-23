@@ -12,9 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import controle.Driver;
-import modele.Ingredient;
+import modele.CategoriesIngredient;
+import modele.Mesure;
 import modele.PanierRecettes;
 import modele.Recette;
+import modele.Unite;
 import modele.Usager;
 import utils.Conversion;
 
@@ -94,11 +96,13 @@ public class ListeEpicerieServlet extends HttpServlet {
 				List<Recette> listeRecettes = panier.getRecettes();
 				
 				// Récupération de la liste de tous les ingrédients
-				List<Ingredient> listeEpicerie = Conversion.creerListeEpicerie(listeRecettes);
-				
+				List<Mesure> listeEpicerie = Conversion.creerListeEpicerie(listeRecettes);
+				List<Unite> listeUnites = Driver.getUnites();
+				List<CategoriesIngredient> listeCategories = Driver.getCategories();
 				// Ajout de la liste des ingrédients à la requête
+				request.setAttribute("unites", listeUnites);
+				request.setAttribute("categories", listeCategories);
 				request.setAttribute("listeEpicerie", listeEpicerie);
-				
 				urlDestination = "/WEB-INF/modificationListe.jsp";				
 				break;
 			case "AFFICHER_LISTE":// TODO

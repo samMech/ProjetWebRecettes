@@ -65,37 +65,45 @@
 
 						<form method="POST" action="ListeEpicerieServlet">
 							<ul class="list-group">
-								<c:forEach var="ingredient"	items="${requestScope.listeIngredients}" varStatus="index">
+								<c:forEach var="mesure"	items="${requestScope.listeEpicerie}" varStatus="index">
 									<li class="list-group-item noBorder">
 										<div class="form-group media">
 											<div class="media-body autoWidth">
-												<select class="form-control form-control-inline" name="categorie${index.count}">
+												<select	class="form-control form-control-inline" name="categorie${index.count}">
 													<c:forEach var="categorie" items="${requestScope.categories}">
-														<option value="${categorie.idCategorieIng}"><fmt:message key="application.categorieIngredient.${categorie.nomCategorieIng}" /></option>
+														<c:if test="${categorie.idCategorieIng == mesure.ingredient.categoriesIngredient.idCategorieIng}">
+															<option value="${categorie.idCategorieIng}" selected><fmt:message key="application.categorieIngredient.${categorie.nomCategorieIng}"/></option>
+														</c:if>
+														<c:if test="${categorie.idCategorieIng != mesure.ingredient.categoriesIngredient.idCategorieIng}">
+															<option value="${categorie.idCategorieIng}"><fmt:message key="application.categorieIngredient.${categorie.nomCategorieIng}"/></option>
+														</c:if>
 													</c:forEach>
 												</select>
-												<input class="form-control form-control-inline" type="text"
-													size="22" placeholder="Ingrédient" name="nomIngredient${index.count}" />
-												<input class="form-control form-control-inline" type="text"
-													size="5" placeholder="Quantité" name="qte${index.count}" /> 
+												<input class="form-control form-control-inline" type="text"	size="22" placeholder="Ingrédient"	name="nomIngredient${index.count}" value="${mesure.ingredient.nomIngredient }" required/> 
+												<input class="form-control form-control-inline" type="number" min="0" step="1" max="999" size="5" placeholder="Quantité" name="qte${index.count}" value="${mesure.quantite }" required/>
 												<select	class="form-control form-control-inline" name="unite${index.count}">
 													<option value="0">---</option>
 													<c:forEach var="unit" items="${requestScope.unites}">
-														<option value="${unit.idUnite}"><fmt:message key="application.unites.${unit.nomUnite}" /></option>
+														<c:if test="${unit.idUnite == mesure.unite.idUnite}">
+															<option value="${unit.idUnite}" selected><fmt:message key="application.unites.${unit.nomUnite}"/></option>
+														</c:if>
+														<c:if test="${unit.idUnite != mesure.unite.idUnite}">
+															<option value="${unit.idUnite}"><fmt:message key="application.unites.${unit.nomUnite}"/></option>
+														</c:if>
 													</c:forEach>
 												</select>
 											</div>
 											<div class="media-right media-middle">
 												<span
-													class="span3 mouseIcon glyphicon glyphicon-plus-sign green"  onclick="ajouterIngredient(this)"></span>
+													class="span3 mouseIcon glyphicon glyphicon-plus-sign green"  onclick="ajouterIngredientListe(this)"></span>
 												<span
-													class="span3 mouseIcon glyphicon glyphicon-minus-sign red"  onclick="supprimerIngredient(this)"></span>
+													class="span3 mouseIcon glyphicon glyphicon-minus-sign red"  onclick="supprimerIngredientListe(this)"></span>
 											</div>
 											<div class="media-right media-middle">
 												<span
-													class="span3 mouseIcon glyphicon glyphicon glyphicon-circle-arrow-up blue" onclick="monterIngredient(this)"></span>
+													class="span3 mouseIcon glyphicon glyphicon glyphicon-circle-arrow-up blue" onclick="monterIngredientListe(this)"></span>
 												<span
-													class="span3 mouseIcon glyphicon glyphicon glyphicon-circle-arrow-down blue" onclick="descendreIngredient(this)"></span>
+													class="span3 mouseIcon glyphicon glyphicon glyphicon-circle-arrow-down blue" onclick="descendreIngredientListe(this)"></span>
 											</div>
 										</div>
 									</li>
@@ -103,7 +111,7 @@
 
 							</ul>
 							<div class="list-group-item noBorder">
-								<input type="hidden" name="action" value="afficherListe">
+								<input type="hidden" name="action" value="AFFICHER_LISTE">
 								<button type="submit" class="btn btn-primary" id="finaliserListe">Finaliser</button>
 							</div>
 						</form>

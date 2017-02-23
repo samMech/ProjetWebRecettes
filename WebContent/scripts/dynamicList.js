@@ -18,6 +18,15 @@ function ajusterNumerosIngredient(numero, li){
 	});	
 }
 
+//Fonction pour ajuster les numéros d'un ingrédient
+function ajusterNumerosIngredientListe(numero, li){	
+	// On fait aussi les sous-élément pour les ingrédients
+	$(li).find('div div input, div div select').each(function(){	
+		nom = this.getAttribute('name').replace(/[0-9]+$/g, '');// On enlève l'ancien numéro	
+		this.setAttribute('name', nom + numero);// On remplace par le bon numéro
+	});	
+}
+
 // Fonction pour ajuster les numéros d'une instruction
 function ajusterNumerosInstruction(numero, li){
 	// On change le numéro dans le nom.
@@ -37,6 +46,14 @@ function ajusterNumerosIngredients(listeIngredients){
 	var nom;
 	listeIngredients.find('li').each(function(i, li){
 		ajusterNumerosIngredient(i+1, li);
+	});	
+}
+
+//Fonction pour ajuster les numéros d'ordre pour les ingrédients
+function ajusterNumerosIngredientsListe(listeIngredients){
+	var nom;
+	listeIngredients.find('li').each(function(i, li){
+		ajusterNumerosIngredientListe(i+1, li);
 	});	
 }
 
@@ -79,6 +96,24 @@ function ajouterIngredient(elem){
 	ajusterNumerosIngredients(elementListe.parent());
 }
 
+function ajouterIngredientListe(elem){
+	// Récupération du 'li' courant
+	var elementListe = $(elem).parent().parent().parent();
+	
+	// Création du nouveau 'li'
+	var newElementListe = elementListe.clone();
+	
+	// On vide les champs du nouvel élément
+	$(newElementListe).find('input').each(function(){this.value = '';});
+	$(newElementListe).find('select').each(function(){this.selectedIndex = 0});
+	
+	// Ajout du nouvel élément après l'élément courant
+	newElementListe.insertAfter(elementListe);
+	
+	// On ajuste les numéros
+	ajusterNumerosIngredientsListe(elementListe.parent());
+}
+
 function ajouterInstruction(elem){
 	// Récupération du 'li' courant
 	var elementListe = $(elem).parent().parent();
@@ -107,8 +142,20 @@ function supprimerIngredient(elem){
 	
 	//On supprime l'élément s'il n'est pas le seul de la liste
 	if($(liste).find('li').length > 1){
-		elementListe.remove	();
+		elementListe.remove();
 		ajusterNumerosIngredients(liste);
+	}
+}
+
+function supprimerIngredientListe(elem){	
+	// Récupération du 'li' courant et de la liste
+	var elementListe = $(elem).parent().parent().parent();
+	var liste = elementListe.parent();
+	
+	//On supprime l'élément s'il n'est pas le seul de la liste
+	if($(liste).find('li').length > 1){
+		elementListe.remove();
+		ajusterNumerosIngredientsListe(liste);
 	}
 }
 
@@ -164,6 +211,47 @@ function descendreInstruction(elem){
 		// On ajuste les numéros (valeur après l'échange)
 		ajusterNumerosInstruction(index+2, elementListe);
 		ajusterNumerosInstruction(index+1, elementSuivant);
+		
+		// On fait l'échange
+		elementSuivant.swap(elementListe);		
+	}
+}
+
+/////////////////////////////////////////////////////////////////////////////
+//Fonctions pour monter et descendre un element de la liste des ingredients//
+/////////////////////////////////////////////////////////////////////////////
+function monterIngredientListe(elem){
+	// Récupération du 'li' courant et de sa position dans la liste
+	var elementListe = $(elem).parent().parent().parent();
+	var index = $(elementListe).index();
+
+	// On monte l'élément s'il n'est pas le premier
+	if(index > 0){
+		// On récupère l'élément précédent
+		var elementPrecedent = elementListe.prev();
+				
+		// On ajuste les numéros (valeur après l'échange)
+		ajusterNumerosIngredientListe(index, elementListe);
+		ajusterNumerosIngredientListe(index+1, elementPrecedent);
+		
+		// On fait l'échange
+		elementListe.swap(elementPrecedent);		
+	}
+}
+
+function descendreIngredientListe(elem){
+	// Récupération du 'li' courant et de sa position dans la liste
+	var elementListe = $(elem).parent().parent().parent();
+	var index = $(elementListe).index();
+	
+	// On descend l'élément s'il n'est pas le dernier
+	if(index+1 < elementListe.parent().find('li').length){	
+		// On récupère l'élément suivant	
+		var elementSuivant = elementListe.next();
+				
+		// On ajuste les numéros (valeur après l'échange)
+		ajusterNumerosIngredientListe(index+2, elementListe);
+		ajusterNumerosIngredientListe(index+1, elementSuivant);
 		
 		// On fait l'échange
 		elementSuivant.swap(elementListe);		

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import modele.Ingredient;
+import modele.Mesure;
 import modele.Recette;
 
 /**
@@ -87,9 +88,16 @@ public class Conversion {
 	 * @param listeRecettes La liste des recettes
 	 * @return La liste de tous les ingrédients combinés
 	 */
-	public static List<Ingredient> creerListeEpicerie(List<Recette> listeRecettes){
-		// TODO
-		return new ArrayList<>();
+	public static List<Mesure> creerListeEpicerie(List<Recette> listeRecettes){
+		
+		List<Mesure> result = new ArrayList<>();
+		
+		for (Recette recette : listeRecettes) {
+			for(Mesure mesure: recette.getMesures()){
+				result.add(mesure);
+			}
+		}
+		return result;
 	}
 	
 }
