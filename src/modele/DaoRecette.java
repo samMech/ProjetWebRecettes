@@ -229,10 +229,10 @@ public class DaoRecette extends DaoJPA<Recette> {
 			switch(c){
 			case TEXTE:
 				// Free search
-				requete += "(r.nomRecette like :" + nomParam
-						+ " OR r.descriptionRecette like :" + nomParam
-						+ " OR o.descInstruction like :" + nomParam
-						+ " OR i.nomIngredient like :" + nomParam + ")";
+				requete += "(lower(r.nomRecette) like :" + nomParam
+						+ " OR lower(r.descriptionRecette) like :" + nomParam
+						+ " OR lower(o.descInstruction) like :" + nomParam
+						+ " OR lower(i.nomIngredient) like :" + nomParam + ")";
 				break;
 			case TYPE:
 				// Recherche par type de recette
@@ -271,8 +271,8 @@ public class DaoRecette extends DaoJPA<Recette> {
 	 */
 	public static void ajouterParametres(Query requete, List<Object> params){
 		int i = 1;
-		for(Object p : params){
-			requete.setParameter("c" + i, p);
+		for(Object p : params){			
+			requete.setParameter("c" + i, (p instanceof String) ? ((String)p).toLowerCase() : p);
 			i++;
 		}		
 	}

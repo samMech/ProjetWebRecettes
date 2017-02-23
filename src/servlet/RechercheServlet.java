@@ -63,61 +63,57 @@ public class RechercheServlet extends HttpServlet {
 		List<Recette> recettesTrouvees = new ArrayList<>();
 		
 		// Aiguillage selon l'action
-		String urlDestination = "/WEB-INF/rechercheRecette.jsp";
+		String urlDestination = "";
 		switch(action){		
-			case "QUICK_SEARCH" :	
-				// Récupération des critères de recherche...
-				initCriteres(request);
+			case "QUICK_SEARCH" :					
+				/*
+				 *  Une fois la page chargée, la recherche va être lancée avec la chaîne...
+				 *  On ne fait donc pas la recherche ici.
+				*/
 				
 				// On récupère les critères de la recherche libre					
-				String chaine = (String) request.getParameter("texteRecherche");				
-				request.setAttribute("texteRecherche", chaine);
-								
-				// On récupère la liste des recettes trouvées
-				recettesTrouvees = Driver.rechercheLibre(user, chaine);
+				String chaine = (String) request.getParameter("texteRecherche");		
 				
+				// On remet les critères dans la requête
+				request.setAttribute("texteRecherche", chaine);	
+				
+				urlDestination = "/WEB-INF/rechercheRecette.jsp";
 				break;
 			case "SEARCH" :				
 				// Récupération des critères de recherche
+				String sTexte = request.getParameter("texte");
 				String sType = request.getParameter("type");
 				String sDuree = request.getParameter("duree"); 
 				String[] sCategories = request.getParameterValues("categories");
 						
 				// On récupère la liste des recettes trouvées
-				recettesTrouvees = Driver.recherche(user, sType, sDuree, sCategories);
-				
+				recettesTrouvees = Driver.rechercherRecettes(user, sTexte, sType, sDuree, sCategories);				
 				break;
 			case "ALL" :
 				// On récupère la liste de toutes les recettes de l'usager
 				recettesTrouvees = Driver.getRecettesUsager(user);					
 				break;
 			default :
+				urlDestination = "/WEB-INF/rechercheRecette.jsp";
 				break;
 		}		
 		
 		System.out.println("ACTION = " + action);
 		System.out.println("NB RÉSULTATS = " + recettesTrouvees.size());
-
-		// Ajout des résultats à la réponse
-		if(! action.equals("NONE")){
-			ajouterResultats(response, recettesTrouvees);
-		}
 		
 		// Si on vient d'une autre page
-		switch(action){
-			case "NONE":
-			case "QUICK_SEARCH" :
-				
-				// Récupération des critères de recherche...
-				initCriteres(request);	
-				
-				// Forward vers la page de recherche
-				RequestDispatcher rd = request.getRequestDispatcher(urlDestination);
-				rd.forward(request, response);				
-				break;
-			default:
-				break;
+		if(! urlDestination.isEmpty()){						
+			// Récupération des critères de recherche...
+			initCriteres(request);	
+		
+			// Forward vers la page de recherche
+			RequestDispatcher rd = request.getRequestDispatcher(urlDestination);
+			rd.forward(request, response);
 		}		
+		else{
+			// Ajout des résultats à la réponse (reçu par AJAX dans la page de recherche)
+			ajouterResultats(response, recettesTrouvees);
+		}
 	}
 	
 	// Méthode pour charger les critères de recherche dans la page

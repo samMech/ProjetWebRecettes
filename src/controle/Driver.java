@@ -165,50 +165,31 @@ public class Driver {
 	}
 	
 	/**
-	 * Méthode pour rechercher des recettes d'après des mots clés
+	 * Méthode pour rechercher des recettes d'après des mots clés, des types, des catégories et/ou une durée
 	 * 
 	 * @param usager L'usager connecté
-	 * @param chaine La chaîne contenant la recherche libre
-	 * @return La liste des recettes trouvées
-	 */
-	public static List<Recette> rechercheLibre(Usager usager, String chaine){
-			
-		// Découpage de la chaîne en critères
-		String[] motsCle = chaine.trim().split("\\s+");
-				
-		// Initialisation de la liste des critères et des paramètres
-		List<Object> params = new ArrayList<>();
-		List<CritereRecherche> criteres = new ArrayList<>();
-		for(int i=0; i < motsCle.length; i++){
-			params.add(motsCle[i]);
-			criteres.add(CritereRecherche.TEXTE);
-		}
-		
-		// Construction de la requête
-		String requete = DaoRecette.construireRequetteRecette(usager, criteres);
-		
-		System.out.println("================================\nREQUETE LIBRE:\n" + requete + "\n======================================");
-		
-		DaoRecette dao = new DaoRecette();
-		return dao.chercherRecette(requete, usager, params);
-	}	
-	
-	/**
-	 * Méthode pour rechercher des recettes d'après des mots clés
-	 * 
-	 * @param usager L'usager connecté
+	 * @param sTexte La chaîne contenant le texte pour la recherche libre
 	 * @param sType La chaîne contenant le id du type de recette
 	 * @param sDuree La chaîne contenant la durée maximale
 	 * @param sCategories Le tableau contenant les id des catégories d'ingrédient
 	 * @return La liste des recettes trouvées
 	 */
-	public static List<Recette> recherche(Usager usager, String sType, String sDuree, String[] sCategories){
+	public static List<Recette> rechercherRecettes(Usager usager, String sTexte, String sType, String sDuree, String[] sCategories){
 		
 		// Déclaration des variables	
 		long id;
 		int duree;
 		List<Object> params = new ArrayList<>();
 		List<CritereRecherche> criteres = new ArrayList<>();
+		
+		// Recherche libre
+		if(sTexte != null){
+			String[] motsCle = sTexte.trim().split("\\s+");
+			for(int i=0; i < motsCle.length; i++){
+				params.add(motsCle[i]);
+				criteres.add(CritereRecherche.TEXTE);
+			}
+		}
 		
 		// Type de recette	
 		if(sType != null){

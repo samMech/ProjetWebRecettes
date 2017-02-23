@@ -64,7 +64,8 @@
 									<!--Recherche libre-->
 									<div class="form-group">
 										<label for="texteRecherche"><fmt:message key="recherche.form.freeSearch"/></label>
-										<input type="text" class="form-control" id="texteRecherche" name="texteRecherche" value="${requestScope.texteRecherche}"/>
+										<input type="text" class="form-control" id="texteRecherche" name="texteRecherche" value="${requestScope.texteRecherche}" onkeyup="lancerRecherche();"/>
+										<script>$(document).ready(function(){alert("Id: " + document.getElementById("texteRecherche").getAttribute("class"))});</script>
 									</div>
 																		
 									<!--Recherche par types de recette-->
@@ -119,7 +120,8 @@
 								<div class="list-group" id="listeResultats">
 									
 								</div>													
-							</div>							
+							</div>
+							<input type="hidden" id="msgLabelDuree" value="<fmt:message key="recherche.duree"/>"/>							
 							<input type="hidden" id="titreBoutonChoisir" value="<fmt:message key="recherche.boutonChoisir.titre"/>"/>										
 						</div>
 					</div>

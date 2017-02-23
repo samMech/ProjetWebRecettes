@@ -29,13 +29,24 @@ function lancerRecherche() {
 	var nbCriteres = 0;
     var url = "RechercheServlet?action=SEARCH";
     
-    // Ajout des paramètres de recherche
+    // Ajout du critère pour la recherche rapide
+    var text = document.getElementById("texteRecherche");
+    alert(text);
+    alert(text.value);
+    if(text.value != ""){
+    	nbCriteres++;    	
+    	alert(text.value);
+    	url += "&texte=" + text.value;
+    }
+    
+    // Ajout des critères pour les types de recettes
     var idType = $("#typeRecherche :selected").val();
     if(idType != "-1"){
     	nbCriteres++;
     	url += "&type=" + idType;
     }
     
+    // Ajout des critères pour les catégories d'ingrédient
     var categories = [];
     $("#categoriesRecherche li input:checked").each(function(){
     	categories.push($(this).val())
@@ -45,6 +56,7 @@ function lancerRecherche() {
     	url += "&categories=" + categories[i];
     }
         
+    // Ajout du critère pour la durée
     var duree = $("#dureeRecherche :checked").val();
     if(duree != "NONE"){
     	nbCriteres++;
@@ -144,7 +156,7 @@ function ajouterResultat(id, nom, duree, description, listeResultats) {
 	var h5 = document.createElement('h5');	
 	var spanDuree = document.createElement('span');
 	spanDuree.setAttribute("class", "label label-info");
-	spanDuree.innerHTML = "Temps de préparation: " + duree;
+	spanDuree.innerHTML = document.getElementById("msgLabelDuree").value + " " + duree;
 	h5.appendChild(spanDuree);
 	div2a.appendChild(h5);
 	
