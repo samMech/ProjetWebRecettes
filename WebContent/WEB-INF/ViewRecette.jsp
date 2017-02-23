@@ -66,7 +66,7 @@
 									</button>
 								</form>	
 							</li>
-							<br>
+							<br />
 							<li>
 								<form method="POST" action="RecetteServlet">
 									<input type="hidden" name="idRecetteToDelete" value="${recette.idRecette}">

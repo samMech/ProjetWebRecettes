@@ -1,5 +1,9 @@
 /**
  * Script pour le AJAX de la page de recherche
+ * 
+ * @author Marc-andré Malouin
+ * @author Samy Mecheddal
+ * @version 1.00 (20 février 2017)
  */
 
 var req;

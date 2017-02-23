@@ -3,6 +3,10 @@
  * 
  * Il faut une partie AJAX pour notifier la servlet de mettre à jour le panier dans la session
  * sans avoir à recharger la page (et perdre les résultats de la recherche)
+ * 
+ * @author Marc-andré Malouin
+ * @author Samy Mecheddal
+ * @version 1.00 (22 février 2017)
  */
 
 var req;

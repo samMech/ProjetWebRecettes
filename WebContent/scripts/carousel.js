@@ -1,4 +1,6 @@
-// Script pour la gestion du carrousel de la page d'accueil et de bienvenue
+/*
+ *  Script pour la gestion du carrousel de la page d'accueil et de bienvenue
+ */
 
 $(document).ready(function (){
 					
@@ -29,16 +31,16 @@ $(document).ready(function (){
         alt: "Raisins"
     }, {
         url: "images/vegetables-1529719_960_720.jpg",
-        alt: "Légumes"
+        alt: "Lï¿½gumes"
     }, {
         url: "images/vegetables-1499904_960_720.jpg",
-        alt: "Légumes"
+        alt: "Lï¿½gumes"
     }, {
         url: "images/vegetables-1499905_960_720.jpg",
-        alt: "Légumes"
+        alt: "Lï¿½gumes"
     }, {
         url: "images/vegetables-1499906_960_720.jpg",
-        alt: "Légumes"
+        alt: "Lï¿½gumes"
     }, {
         url: "images/seafood-1494193_960_720.jpg",
         alt: "Fruits de mer"
@@ -50,10 +52,10 @@ $(document).ready(function (){
         alt: "Sushis"
     }, {
         url: "images/breakfast-1491729_960_720.jpg",
-        alt: "Céréales et yogourts"
+        alt: "Cï¿½rï¿½ales et yogourts"
     }, {
         url: "images/pancake-1491731_960_720.jpg",
-        alt: "Crêpes"
+        alt: "Crï¿½pes"
     }, {
         url: "images/chocolate-1502455_960_720.jpg",
         alt: "Chocolat"
@@ -78,20 +80,20 @@ $(document).ready(function (){
     }];
 	
     // http://css-tricks.com/snippets/javascript/shuffle-array/
-    images.sort(function () { return 0.5 - Math.random(); });// On organise les images aléatoirement
+    images.sort(function () { return 0.5 - Math.random(); });// On organise les images alï¿½atoirement
 
 	// On remplit le carrousel avec les images
     $.each(images, function (index, image) {
         var element = $('<div class="item"><img class="img-responsive img-rounded center-block" src="' + image.url + '" alt="' + image.alt + '" /></div>')
 
         if (index === 0) {
-            element.addClass("active");// La première image active   
+            element.addClass("active");// La premiï¿½re image active   
         }
 
         element.appendTo("#carouselAccueil div.carousel-inner");
     });
 	
-	// On ajuste les paramètres du carousel
+	// On ajuste les paramï¿½tres du carousel
 	$('#carouselAccueil').carousel({
 		interval: 8000
 	});

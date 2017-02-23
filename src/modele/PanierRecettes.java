@@ -9,7 +9,8 @@ import java.util.Map;
  * Classe pour le panier contenant la liste des recettes choisies pour créer la liste d'épicerie
  * Le panier ne contient aucun doublon, mais la quantité de chaque recette est conservée 
  *  
- * @author Marc-André Malouin
+ * @author Marc-andré Malouin
+ * @author Samy Mecheddal
  * @version 1.00 (22 février 2017)
  */
 public class PanierRecettes {

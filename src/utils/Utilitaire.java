@@ -19,7 +19,8 @@ import org.xml.sax.SAXException;
 /**
  * Classe utilitaire pour des méthodes générales
  * 
- * @author Marc-André Malouin
+ * @author Marc-andré Malouin
+ * @author Samy Mecheddal
  * @version 1.10 (8 janvier 2017)
  */
 public class Utilitaire {

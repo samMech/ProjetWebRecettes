@@ -1,4 +1,6 @@
-// Script pour l'affichage des tooltips pour les champs requis
+/*
+ *  Script pour l'affichage des tooltips pour les champs requis
+ */ 
 $(document).ready(function() {
 	
 	// Tooltip pour l'astérisque

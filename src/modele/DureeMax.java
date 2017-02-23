@@ -3,8 +3,8 @@ package modele;
 /**
  * Énumération pour les intervalles de durée pour la recherche par durée maximale
  * 
- * @author Marc-André
- *
+ * @author Marc-andré Malouin
+ * @author Samy Mecheddal
  */
 public enum DureeMax {
 	CINQ("5"),

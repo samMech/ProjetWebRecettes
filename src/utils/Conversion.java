@@ -1,7 +1,9 @@
 package utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import modele.Ingredient;
 import modele.Recette;
 
 /**
@@ -77,6 +79,17 @@ public class Conversion {
 			sb.append("<description>" + r.getDescriptionRecette() + "</description>");
 			sb.append("</recette>");
 		}
+	}
+	
+	/**
+	 * Méthode pour créer une liste d'ingrédient à partir d'une liste de recette
+	 * 
+	 * @param listeRecettes La liste des recettes
+	 * @return La liste de tous les ingrédients combinés
+	 */
+	public static List<Ingredient> creerListeEpicerie(List<Recette> listeRecettes){
+		// TODO
+		return new ArrayList<>();
 	}
 	
 }

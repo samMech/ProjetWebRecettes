@@ -12,9 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import controle.Driver;
+import modele.Ingredient;
 import modele.PanierRecettes;
 import modele.Recette;
 import modele.Usager;
+import utils.Conversion;
 
 /**
  * Servlet implementation class ListeEpicerieServlet
@@ -86,15 +88,16 @@ public class ListeEpicerieServlet extends HttpServlet {
 				panier.retirerRecette(idRecette);
 				
 				break;		
-			case "CREER_LISTE":// TODO
+			case "CREER_LISTE":
 				
 				// Récupération des recettes du panier
 				List<Recette> listeRecettes = panier.getRecettes();
 				
 				// Récupération de la liste de tous les ingrédients
-				
+				List<Ingredient> listeEpicerie = Conversion.creerListeEpicerie(listeRecettes);
 				
 				// Ajout de la liste des ingrédients à la requête
+				request.setAttribute("listeEpicerie", listeEpicerie);
 				
 				urlDestination = "/WEB-INF/modificationListe.jsp";				
 				break;
@@ -113,14 +116,7 @@ public class ListeEpicerieServlet extends HttpServlet {
 		
 		// On remet le panier mis à jour dans la session
 		session.setAttribute("panierRecettes", panier);
-		
-		// TEST: AFFICHAGE DU PANIER
-		System.out.println("==============================");
-		for(Recette r : panier.getRecettes()){
-			System.out.println(r.getNomRecette() + " (" + panier.getQuantite(r.getIdRecette())+ ")");
-		}
-		System.out.println("==============================");
-		
+				
 		// Forward
 		if(! urlDestination.isEmpty()){
 			// Si on va vers une autre page (i.e: pas une requête AJAX)

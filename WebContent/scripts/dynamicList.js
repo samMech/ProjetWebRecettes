@@ -1,10 +1,11 @@
-/* 
+/** 
  * Script pour la gestion dynamique des listes
  * 
  * Fournit les fonctionnalités des icônes (+ / - / up / down)
  * tout en gardant l'ordre des éléments (numéros affichés et attributs 'name')
  * 
  * @author Marc-andré Malouin
+ * @author Samy Mecheddal
  * @version 1.00 (7 février 2017)
  */
 

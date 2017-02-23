@@ -14,7 +14,7 @@ import javax.persistence.TypedQuery;
  * Classe abstraite pour une DAO implémentant des méthodes générales avec JPA
  *
  * @version 2.20 (22 nov. 2016)
- * @author Marc-André Malouin
+ * @author Marc-andré Malouin
  */
 public class DaoJPA<T> {
     

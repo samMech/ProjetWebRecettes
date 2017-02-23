@@ -53,7 +53,17 @@ public class Locale extends ListResourceBundle {
 	    {"recherche.duree90", "Moins de 90 minutes"},
 	    {"recherche.duree120", "Moins de 120 minutes"},
 	    {"recherche.duree121", "Plus de 120 minutes"},
+	    /////////////////////////////////////////////////////////
+	    {"recherche.titre", "Nouvelle liste d'épicerie"},
+	    {"recherche.form.titre", "Recherche"},
+	    {"recherche.form.freeSearch", "Recettes / Instructions / Ingrédients:"},
+	    {"recherche.form.recherche.type", "Types de recette:"},
+	    {"recherche.form.recherche.categorie", "Catégories d'ingrédient:"},
+	    {"recherche.form.recherche.duree", "Temps de préparation:"},
+	    {"recherche.resultats.titre", "Recettes trouvées"},
 	    {"recherche.boutonChoisir.titre", "Choisir"},
+	    {"recherche.panier.titre", "Recettes choisies"},	    
+	    {"recherche.panier.submit", "Créer la liste d'épicerie"},
 	    /////////////////////////////////////////////////////////
 	    {"navbar.accueil", "Accueil"},
 	    {"navbar.nouvelleListe", "Nouvelle liste d'épicerie"},

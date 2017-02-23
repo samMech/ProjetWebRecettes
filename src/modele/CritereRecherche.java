@@ -3,7 +3,8 @@ package modele;
 /**
  * Énumération pour les critères de recherche possible
  * 
- * @author Marc-André
+ * @author Marc-andré Malouin
+ * @author Samy Mecheddal
  */
 public enum CritereRecherche {
 	TEXTE,
