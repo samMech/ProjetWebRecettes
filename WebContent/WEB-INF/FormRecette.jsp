@@ -130,7 +130,7 @@
 											</c:forEach>
 										</select>
 										<input class="form-control form-control-inline" type="text"	size="22" placeholder="Ingrédient"	name="nomIngredient1" value="" required/> 
-										<input class="form-control form-control-inline" type="number" min="0" step="1" max="999" size="5" placeholder="Quantité" name="qte1" value="" required/>
+										<input class="form-control form-control-inline" type="number" min="0" step="any" max="999" size="5" placeholder="Quantité" name="qte1" value="" required/>
 										<select	class="form-control form-control-inline" name="unite1">
 											<option value="0">---</option>
 											<c:forEach var="unit" items="${requestScope.unites}">
@@ -161,7 +161,7 @@
 											</c:forEach>
 										</select>
 										<input class="form-control form-control-inline" type="text"	size="22" placeholder="Ingrédient"	name="nomIngredient${index.count}" value="${ingredient.ingredient.nomIngredient }" required/> 
-										<input class="form-control form-control-inline" type="number" min="0" step="1" max="999" size="5" placeholder="Quantité" name="qte${index.count}" value="${ingredient.quantite }" required/>
+										<input class="form-control form-control-inline" type="number" min="0" step="any" max="999" size="5" placeholder="Quantité" name="qte${index.count}" value="${ingredient.quantite }" required/>
 										<select	class="form-control form-control-inline" name="unite${index.count}">
 											<option value="0">---</option>
 											<c:forEach var="unit" items="${requestScope.unites}">

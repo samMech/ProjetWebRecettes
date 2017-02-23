@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -12,9 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import controle.Driver;
-import modele.Ingredient;
+import modele.CategoriesIngredient;
+import modele.Mesure;
 import modele.PanierRecettes;
 import modele.Recette;
+import modele.Unite;
 import modele.Usager;
 import utils.Conversion;
 
@@ -94,20 +97,33 @@ public class ListeEpicerieServlet extends HttpServlet {
 				List<Recette> listeRecettes = panier.getRecettes();
 				
 				// Récupération de la liste de tous les ingrédients
-				List<Ingredient> listeEpicerie = Conversion.creerListeEpicerie(listeRecettes);
-				
+				List<Mesure> listeEpicerie = Conversion.creerListeEpicerie(listeRecettes);
+				List<Unite> listeUnites = Driver.getUnites();
+				List<CategoriesIngredient> listeCategories = Driver.getCategories();
 				// Ajout de la liste des ingrédients à la requête
+				request.setAttribute("unites", listeUnites);
+				request.setAttribute("categories", listeCategories);
 				request.setAttribute("listeEpicerie", listeEpicerie);
-				
-				urlDestination = "/WEB-INF/modificationListe.jsp";				
+				urlDestination = "ListeEpicerieServlet?action=MODIFIER_LISTE&";				
 				break;
 			case "AFFICHER_LISTE":// TODO
 				
+				ArrayList<String> listePourAffichage = new ArrayList<>();
 				// Récupération de la liste des ingrédients modifiées
-				
-				
+				int i = 1;
+				while(request.getParameter("nomIngredient"+i) != null){
+					
+					//recuperer nom, quantite et unite de l'ingredient
+					String nomIngredient = request.getParameter("nomIngredient"+i);
+					String qte = request.getParameter("qte"+i);
+					String unite = request.getParameter("unite"+i);
+					String result = nomIngredient + ": " + qte+unite;
+					System.out.println(result);
+					listePourAffichage.add(result);
+					i++;
+				}
 				// Ajout de la liste à la requête				
-				
+				request.setAttribute("listeFinale", listePourAffichage);
 				urlDestination = "/WEB-INF/affichageListe.jsp";
 				break;
 			default:

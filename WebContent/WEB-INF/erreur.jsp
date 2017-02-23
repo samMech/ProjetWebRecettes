@@ -46,10 +46,10 @@
 								<h3><fmt:message key="application.nom"/></h3>
 							</div>
 							<div class="panel body">
-								<h3><span class="label label-danger">Oups, une erreur est survenue !</span></h3>
+								<h3><span class="label label-danger"><fmt:message key="erreur.info.messageerreur"/></span></h3>
 							</div>
 							<div class="panel-footer">
-								<a href="ConnexionServlet">Retour à l'accueil</a>
+								<a href="ConnexionServlet"><fmt:message key="erreur.info.retour"/></a>
 							</div>												
 						</div>
 					</div>

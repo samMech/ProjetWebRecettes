@@ -138,7 +138,19 @@ public class Locale extends ListResourceBundle {
 	    {"viewrecette.ingredients.titre","Ingrédients"},
 	    {"viewrecette.instructions.titre","Instructions"},
 	    {"viewrecette.modifier.button","Modifier"},
-	    {"viewrecette.supprimer.button","Supprimer"}
+	    {"viewrecette.supprimer.button","Supprimer"},
+	    /////////////////////////////////////////////////////////
+	    {"modificationListe.info.titre","Modification de la liste d'épicerie"},
+	    {"modificationListe.ingredients.titre","Ingrédients"},
+	    {"modificationListe.finaliser.button","Finaliser"},
+	    /////////////////////////////////////////////////////////
+	    {"affichageListe.info.titre","Liste d'épicerie finale"},
+	    {"affichageListe.imprimer.button","Imprimer"},
+	    {"affichageListe.envoyer.button","Envoyer "},
+	    {"affichageListe.retour.button","Retour"},
+	    /////////////////////////////////////////////////////////
+	    {"erreur.info.messageerreur", "Oups, une erreur est survenue !"},
+	    {"erreur.info.retour","Retour à l'accueil"}
 	    };
 	
 	/**

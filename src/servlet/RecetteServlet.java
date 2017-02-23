@@ -58,15 +58,17 @@ public class RecetteServlet extends HttpServlet {
 		}
 		
 		//on recupere le paramètre qui indique l'action à executer
-		String requete = request.getParameter("action");
-		
+		String action = request.getParameter("action");
+		if(action == null){
+			action = "NONE";// Chargement initial
+		}
 		//on prepare un objet recette qui va etre utiliser pour toutes les operations de la servlet
 		Recette recette = null;
 		
 		//string contenant la page vers laquelle on redirige
 		String pageDestination = "";
 		
-		switch(requete){
+		switch(action){
 		
 		case "chargerFormulaire":
 			
@@ -143,10 +145,9 @@ public class RecetteServlet extends HttpServlet {
 			//on enregistre la recette dans BD
 			recette = Driver.enregistrer(recette, Recette.class);
 			
-			//on ajoute la recette dans la requete pour l'afficher dans la page viewRecette
-			request.setAttribute("recette", recette);
-			request.setAttribute("dureeRecette", Conversion.convertirTemps(recette.getDureeRecette()));
-			pageDestination = "/WEB-INF/ViewRecette.jsp";
+			//on retourne a la servlet avec l'action voirRecette pour afficher
+			//pour maintenir les fonctionnalités i18n
+			pageDestination = "RecetteServlet?action=voirRecette&idRecette="+recette.getIdRecette();
 			break;
 			
 		case "supprimerRecette":
@@ -180,10 +181,18 @@ public class RecetteServlet extends HttpServlet {
 			request.setAttribute("categories", listeCategories);
 			pageDestination = "/WEB-INF/FormRecette.jsp";
 			break;
+		default:
+			break;
 		}
 		
-		RequestDispatcher rd = request.getRequestDispatcher(pageDestination);
-		rd.forward(request, response);
+		if(action.equals("ajouterRecette")){
+			response.sendRedirect(pageDestination);
+		}
+		else{
+			RequestDispatcher rd = request.getRequestDispatcher(pageDestination);
+			rd.forward(request, response);
+		}
+
 	}
 
 	/**
