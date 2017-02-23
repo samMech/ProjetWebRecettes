@@ -111,7 +111,7 @@
 
 							</ul>
 							<div class="list-group-item noBorder">
-								<input type="hidden" name="action" value="AFFICHER_LISTE">
+								<input type="hidden" name="action" value="FINALISER_LISTE">
 								<button type="submit" class="btn btn-primary" id="finaliserListe"><fmt:message key="modificationListe.finaliser.button"/></button>
 							</div>
 						</form>

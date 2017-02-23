@@ -104,9 +104,9 @@ public class ListeEpicerieServlet extends HttpServlet {
 				request.setAttribute("unites", listeUnites);
 				request.setAttribute("categories", listeCategories);
 				request.setAttribute("listeEpicerie", listeEpicerie);
-				urlDestination = "ListeEpicerieServlet?action=MODIFIER_LISTE&";				
+				urlDestination = "/WEB-INF/modificationListe.jsp";				
 				break;
-			case "AFFICHER_LISTE":// TODO
+			case "FINALISER_LISTE":
 				
 				ArrayList<String> listePourAffichage = new ArrayList<>();
 				// Récupération de la liste des ingrédients modifiées
@@ -123,7 +123,11 @@ public class ListeEpicerieServlet extends HttpServlet {
 					i++;
 				}
 				// Ajout de la liste à la requête				
-				request.setAttribute("listeFinale", listePourAffichage);
+				session.setAttribute("listeIntermediaire", listePourAffichage);
+				urlDestination = "ListeEpicerieServlet?action=AFFICHER_LISTE";
+				break;
+			case "AFFICHER_LISTE":
+				request.setAttribute("listeFinale", session.getAttribute("listeIntermediaire"));
 				urlDestination = "/WEB-INF/affichageListe.jsp";
 				break;
 			default:
@@ -135,9 +139,14 @@ public class ListeEpicerieServlet extends HttpServlet {
 				
 		// Forward
 		if(! urlDestination.isEmpty()){
-			// Si on va vers une autre page (i.e: pas une requête AJAX)
-			RequestDispatcher rd = request.getRequestDispatcher(urlDestination);
-			rd.forward(request, response);
+			if(action.equals("FINALISER_LISTE")){
+				response.sendRedirect(urlDestination);
+			}
+			else{
+				// Si on va vers une autre page (i.e: pas une requête AJAX)
+				RequestDispatcher rd = request.getRequestDispatcher(urlDestination);
+				rd.forward(request, response);
+			}
 		}				
 	}
 

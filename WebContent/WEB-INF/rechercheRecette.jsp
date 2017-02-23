@@ -133,34 +133,34 @@
 								<h3><fmt:message key="recherche.panier.titre"/>   <span class="badge" id="nbRecettesPanier"><c:if test="${sessionScope.panierRecettes != null}">${sessionScope.panierRecettes.recettes.size()}</c:if></span></h3>
 							</div>
 							<div class="panel-body">
-								<form id="formRecettes" method="POST" action="ListeEpicerieServlet">
-									<div class="list-group" id="panierRecettes">
-										<c:forEach var="recette" items="${sessionScope.panierRecettes.recettes}" varStatus="status">
-											<div class="list-group-item noBorder" id="recettePanier${recette.idRecette}">
-												<div class="media">												
-													<div class="media-body">
-														<h4><a href="RecetteServlet?voirRecette&idRecette=${recette.idRecette}" class="list-group-item-heading">${recette.nomRecette}</a></h4>
-													</div>
-													<div class="media-left media-middle">
-														<span class="badge alert-info" id="nbRecettes${recette.idRecette}">${panierRecettes.getQuantite(recette.idRecette)}</span>
-													</div>
-													<div class="media-right media-middle">
-														<span class="mouseIcon glyphicon glyphicon-plus-sign green" onclick="ajouterRecette(${recette.idRecette},'${recette.nomRecette}')"></span>
-													</div>
-													<div class="media-right media-middle">
-														<span class="mouseIcon glyphicon glyphicon-minus-sign red" onclick="retirerRecette(${recette.idRecette})"></span>
-													</div>
+
+								<div class="list-group" id="panierRecettes">
+									<c:forEach var="recette" items="${sessionScope.panierRecettes.recettes}" varStatus="status">
+										<div class="list-group-item noBorder" id="recettePanier${recette.idRecette}">
+											<div class="media">												
+												<div class="media-body">
+													<h4><a href="RecetteServlet?voirRecette&idRecette=${recette.idRecette}" class="list-group-item-heading">${recette.nomRecette}</a></h4>
 												</div>
-												<input type="hidden" name="recettePanier" value="${recette.idRecette}"/>
-											</div>											
-										</c:forEach>										
-									</div>
-									<div class="text-center">
-										<input type="hidden" name="action" value="CREER_LISTE"/>
-										<input type="submit" <c:if test="${sessionScope.panierRecettes == null || sessionScope.panierRecettes.recettes.isEmpty()}">style="visibility:hidden;"</c:if> 
-										       class="btn btn-primary btn-block" id="submitListe" value="<fmt:message key="recherche.panier.submit"/>" />
-									</div>
-								</form>
+												<div class="media-left media-middle">
+													<span class="badge alert-info" id="nbRecettes${recette.idRecette}">${panierRecettes.getQuantite(recette.idRecette)}</span>
+												</div>
+												<div class="media-right media-middle">
+													<span class="mouseIcon glyphicon glyphicon-plus-sign green" onclick="ajouterRecette(${recette.idRecette},'${recette.nomRecette}')"></span>
+												</div>
+												<div class="media-right media-middle">
+													<span class="mouseIcon glyphicon glyphicon-minus-sign red" onclick="retirerRecette(${recette.idRecette})"></span>
+												</div>
+											</div>
+											<input type="hidden" name="recettePanier" value="${recette.idRecette}"/>
+										</div>											
+									</c:forEach>										
+								</div>
+								<div class="text-center">
+									<input type="button" <c:if test="${sessionScope.panierRecettes == null || sessionScope.panierRecettes.recettes.isEmpty()}">style="visibility:hidden;"</c:if> 
+									       class="btn btn-primary btn-block" id="submitListe" value="<fmt:message key="recherche.panier.submit"/>" 
+									       onclick="document.location.href='ListeEpicerieServlet?action=CREER_LISTE'"/>
+								</div>
+
 							</div>							
 						</div>
 					</div>
