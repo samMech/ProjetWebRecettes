@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -21,6 +23,7 @@ import modele.TypesRecette;
 import modele.Unite;
 import modele.Usager;
 import utils.Conversion;
+import utils.Utilitaire;
 
 /**
  * Servlet implementation class RecetteServlet
@@ -134,6 +137,7 @@ public class RecetteServlet extends HttpServlet {
 			i=1;
 			while(request.getParameter("instruction" + i) != null){
 				Instruction instruction = new Instruction();
+				instruction.setNumOrdre(i);
 				instruction.setDescInstruction(request.getParameter("instruction" + i));
 				recette.addInstruction(instruction);
 				i++;
@@ -159,6 +163,8 @@ public class RecetteServlet extends HttpServlet {
 		case "voirRecette":
 			long id = Long.parseLong(request.getParameter("idRecette"));
 			recette = Driver.getRecette(id);
+			//trier la liste des instructions pour assurer l'ordre
+			Utilitaire.trierListeInstructions(recette.getInstructions());
 			request.setAttribute("recette", recette);
 			request.setAttribute("dureeRecette", Conversion.convertirTemps(recette.getDureeRecette()));
 			pageDestination = "/WEB-INF/ViewRecette.jsp";
@@ -167,6 +173,8 @@ public class RecetteServlet extends HttpServlet {
 		case "modifierRecette":
 			long idRecetteAmodifier = Long.parseLong(request.getParameter("idRecetteToModify"));
 			recette = Driver.getRecette(idRecetteAmodifier);
+			//trier la liste des instructions pour assurer l'ordre
+			Utilitaire.trierListeInstructions(recette.getInstructions());
 			request.setAttribute("recette", recette);
 			heure = Conversion.getHeure(recette.getDureeRecette());
 			minute = Conversion.getMinute(recette.getDureeRecette());

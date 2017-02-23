@@ -1,6 +1,9 @@
 package utils;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -15,6 +18,8 @@ import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
+
+import modele.Instruction;
 
 /**
  * Classe utilitaire pour des méthodes générales
@@ -133,5 +138,16 @@ public class Utilitaire {
 		// Mot de passe valide
 		return true;		
 	}
-	
+	/**
+	 * Methode pour trier une liste d'instructions
+	 * @param liste la liste à trier
+	 */
+	public static void trierListeInstructions(List<Instruction> liste){
+		Collections.sort(liste, new Comparator<Instruction>() {
+			@Override
+			public int compare(Instruction o1, Instruction o2) {
+				return o1.getNumOrdre() - o2.getNumOrdre();
+			}
+		});
+	}
 }

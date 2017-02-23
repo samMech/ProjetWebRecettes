@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Entity
 @Table(name="INSTRUCTIONS")
 @NamedQuery(name="Instruction.findAll", query="SELECT i FROM Instruction i")
-public class Instruction implements Serializable {
+public class Instruction implements Serializable, Comparable<Instruction>{
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -20,6 +20,9 @@ public class Instruction implements Serializable {
 	@Column(name="ID_INSTRUCTION", unique=true, nullable=false, precision=20)
 	private long idInstruction;
 
+	@Column(name="NUMORDRE", nullable=false, precision=2)
+	private int numOrdre;
+	
 	@Column(name="DESC_INSTRUCTION", nullable=false, length=2000)
 	private String descInstruction;
 
@@ -54,5 +57,19 @@ public class Instruction implements Serializable {
 	public void setRecette(Recette recette) {
 		this.recette = recette;
 	}
+	
+	public int getNumOrdre() {
+		return this.numOrdre;
+	}
+
+	public void setNumOrdre(int numOrdre) {
+		this.numOrdre = numOrdre;
+	}
+
+	@Override
+	public int compareTo(Instruction o) {
+		return this.getNumOrdre() - o.getNumOrdre();
+	}
+
 
 }
