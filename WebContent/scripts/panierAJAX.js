@@ -31,24 +31,12 @@ function ajouterRecette(idRecette, nomRecette) {
 	else{
 		ajouterRecettePanier(idRecette, nomRecette);
 	}
-}
-
-
-// Fonction pour retirer une recette du panier
-function retirerRecette() {		
-	// On vérifie si la recette est dans le panier
-	var recette = document.getElementById("recettePanier" + idRecette);
-	if(recette != null){
-		decrementerRecette(idRecette);
-	}	
-}
-
-// Fonction pour incrémenter la quantité d'une recette existante dans le panier
-function incrementerRecette(idRecette){	
-	// On récupère le badge contenant la quantité
-	var badge = document.getElementById("nbRecettes" + idRecette);
-	var quantite = Number(badge.innerHTML);
-	badge.innerHTML = quantite + 1
+	
+	// On ajuste le badge contenant le nombre de recette du panier
+	document.getElementById("nbRecettesPanier").innerHTML = $("#panierRecettes > div").length;
+	
+	// On active le bouton submit du panier
+	document.getElementById("submitListe").style.visibility = 'visible';
 	
 	// Envoie du changement à la servlet pour mettre le panier dans la session à jour
 	var url = "ListeEpicerieServlet?action=INCREMENTER&idRecette=" + idRecette;
@@ -58,24 +46,51 @@ function incrementerRecette(idRecette){
     req.send(null);	
 }
 
+
+// Fonction pour retirer une recette du panier
+function retirerRecette(idRecette) {		
+	// On vérifie si la recette est dans le panier
+	var recette = document.getElementById("recettePanier" + idRecette);
+	if(recette != null){
+		decrementerRecette(idRecette);		
+	}	
+}
+
+// Fonction pour incrémenter la quantité d'une recette existante dans le panier
+function incrementerRecette(idRecette){	
+	// On récupère le badge contenant la quantité
+	var badge = document.getElementById("nbRecettes" + idRecette);
+	var quantite = Number(badge.innerHTML);
+	badge.innerHTML = quantite + 1
+}
+
 // Fonction pour décrémenter la quantité d'une recette existane dans le panier
 function decrementerRecette(idRecette){
 	// On récupère le badge contenant la quantité
 	var badge = document.getElementById("nbRecettes" + idRecette);
 	var quantite = Number(badge.innerHTML);
-	if(quantite == 0){
+	if(quantite == 1){
 		retirerRecettePanier(idRecette);
 	}
 	else{
 		badge.innerHTML = quantite - 1		
-	}		
+	}	
 	
+	// On ajuste le badge contenant le nombre de recette du panier
+	var nbRecettes = $("#panierRecettes > div").length;
+	document.getElementById("nbRecettesPanier").innerHTML = nbRecettes;
+	
+	if(nbRecettes == 0){
+		// On désactive le bouton submit du panier vide
+		document.getElementById("submitListe").style.visibility = 'hidden';
+	}	
+		
 	// Envoie du changement à la servlet pour mettre le panier dans la session à jour
 	var url = "ListeEpicerieServlet?action=DECREMENTER&idRecette=" + idRecette;
 	req = initRequest();    
     req.open("GET", url, true);    
     req.onreadystatechange = ignorerReponse;
-    req.send(null);
+    req.send(null);	
 }
 
 // Fonction pour traiter la réponse de la servlet
@@ -93,7 +108,7 @@ function ignorerReponse(){
 // Fonction pour ajouter une recette dans le panier
 function ajouterRecettePanier(idRecette, nomRecette){
 	// Récupération du panier
-	var panier = document.getElementById("panierRecette");
+	var panier = document.getElementById("panierRecettes");
 	
 	// Création des éléments
 	var div = document.createElement('div');
@@ -143,13 +158,13 @@ function ajouterRecettePanier(idRecette, nomRecette){
 	div3c.appendChild(span3c);
 	div3d.appendChild(span3d);
 	
-	div2.appendchild(div3a);
-	div2.appendchild(div3b);
-	div2.appendchild(div3c);
-	div2.appendchild(div3d);
+	div2.appendChild(div3a);
+	div2.appendChild(div3b);
+	div2.appendChild(div3c);
+	div2.appendChild(div3d);
 	
 	div.appendChild(div2);
-	div.appendchild(input);
+	div.appendChild(input);
 	
 	panier.appendChild(div);			
 }
@@ -157,7 +172,7 @@ function ajouterRecettePanier(idRecette, nomRecette){
 // Fonction pour retirer une recette du panier
 function retirerRecettePanier(idRecette){
 	// Récupération du panier
-	var panier = document.getElementById("panierRecette");
+	var panier = document.getElementById("panierRecettes");
 	
 	// Récupération de la recette
 	var recette = document.getElementById("recettePanier" + idRecette);

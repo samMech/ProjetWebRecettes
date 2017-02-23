@@ -1,7 +1,9 @@
 package modele;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Classe pour le panier contenant la liste des recettes choisies pour créer la liste d'épicerie
@@ -15,8 +17,8 @@ public class PanierRecettes {
 	// La liste des recettes dans le panier
 	List<Recette> recettes = new ArrayList<>();
 	
-	// La liste des quantités pour chaque recette
-	List<Integer> quantite = new ArrayList<>();
+	// La map pour associer chaque recette à sa quantité
+	Map<Long, Integer> quantite = new HashMap<>();
 	
 	/**
 	 * Constructeur par défaut
@@ -33,16 +35,16 @@ public class PanierRecettes {
 	public List<Recette> getRecettes(){
 		return recettes;
 	}
-
+	
 	/**
 	 * Méthode pour retourner la quantité d'une recette dans le panier
 	 * 
-	 * @param pos La position de la recette dans le panier
-	 * @return La quantité
+	 * @param idRecette L'id de la recette
+	 * @return La quantité de cette recette dans le panier ou -1 si la recette n'est pas dans le panier
 	 */
-	public int getQuantite(int pos){
-		if(pos > 0 && pos < quantite.size()){
-			return quantite.get(pos);
+	public int getQuantite(long idRecette){
+		if(quantite.containsKey(idRecette)){
+			return quantite.get(idRecette);
 		}
 		return -1;
 	}
@@ -54,22 +56,7 @@ public class PanierRecettes {
 		recettes.clear();
 		quantite.clear();
 	}
-	
-	/**
-	 * Méthode pour retourner l'index d'une recette dans le panier panier
-	 * 
-	 * @param idRecette L'id de la recette
-	 * @return L'index ou -1 si elle n'est pas dans le panier
-	 */
-	public int getPositionRecette(long idRecette){
-		for(int i=0; i < recettes.size(); i++){
-			if(recettes.get(i).getIdRecette() == idRecette){
-				return i;
-			}
-		}
-		return -1;
-	}
-	
+			
 	/**
 	 * Méthode pour ajouter une recette au panier
 	 * 
@@ -78,27 +65,30 @@ public class PanierRecettes {
 	 * @param recette La recette à ajouter
 	 */
 	public void ajouterRecette(Recette recette){
-		int pos = recettes.indexOf(recette);
-		if(pos != -1){
-			// La recette est déjà dans le panier
-			quantite.set(pos, quantite.get(pos) + 1);
+		if(quantite.containsKey(recette.getIdRecette())){
+			// On incrémente la quantité de la recette existante
+			quantite.put(recette.getIdRecette(), quantite.get(recette.getIdRecette()) + 1);
 		}
 		else{
 			// Ajout de la recette au panier
 			recettes.add(recette);
-			quantite.add(1);
+			quantite.put(recette.getIdRecette(), 1);
 		}
 	}
-	
+		
 	/**
-	 * Méthode pour augmenter la quantité d'une recette dans le panier
+	 * Méthode pour incrementer la quantité d'une recette dans le panier
 	 * 
-	 * @param recette La position de la recette à incrémenter
+	 * @param idRecette L'id de la recette
+	 * @return false si la recette n'est pas dans le panier
 	 */
-	public void augmenterQuantiteRecette(int pos){
-		if(pos > 0 && pos < quantite.size()){
-			quantite.set(pos, quantite.get(pos) + 1);
+	public boolean augmenterQuantiteRecette(long idRecette){
+		if(quantite.get(idRecette) != null){
+			// On incrémente la quantité de la recette existante
+			quantite.put(idRecette, quantite.get(idRecette) + 1);
+			return true;
 		}
+		return false;
 	}
 	
 	/**
@@ -110,17 +100,22 @@ public class PanierRecettes {
 	 * @param idRecette L'id de la recette à retirer
 	 */
 	public void retirerRecette(long idRecette){
-		int pos = getPositionRecette(idRecette);
-		if(pos != -1){
-			int qte = quantite.get(pos);
+		// Si la recette est dans le panier
+		if(quantite.containsKey(idRecette)){				
+			int qte = quantite.get(idRecette);
 			if(qte == 1){
-				// On enlève la recette
-				recettes.remove(pos);
-				quantite.remove(pos);
+				// On supprime la recette
+				quantite.remove(idRecette);
+				for(int i=0; i < recettes.size(); i++){
+					if(recettes.get(i).getIdRecette() == idRecette){
+						recettes.remove(i);
+						return;
+					}
+				}				
 			}
 			else{
-				// On remet la nouvelle quantité décrémentée
-				quantite.set(pos,  qte - 1);
+				// On décrémente la quantité
+				quantite.put(idRecette, qte - 1);
 			}
 		}
 	}	

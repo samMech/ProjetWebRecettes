@@ -15,7 +15,7 @@
 <fmt:setBundle basename="ressources_i18n.Locale"/>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 	<title><fmt:message key="application.nom"/></title>
 	<meta charset="utf-8">

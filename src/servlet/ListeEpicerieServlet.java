@@ -70,14 +70,9 @@ public class ListeEpicerieServlet extends HttpServlet {
 				// Récupération de l'id de la recette
 				idRecette = Long.parseLong(request.getParameter("idRecette"));
 				
-				// On ajoute la recette au panier
-				int posRecette = panier.getPositionRecette(idRecette);
-				if(posRecette != -1){
-					// On augmente la quantite de la recette existante
-					panier.augmenterQuantiteRecette(posRecette);
-				}
-				else{
-					// On récupère la recette
+				// On incrémente la quantité de la recette dans le panier
+				if(panier.augmenterQuantiteRecette(idRecette) == false){
+					// On récupère la nouvelle recette pour l'ajouter au panier
 					recette = Driver.getRecette(idRecette);
 					panier.ajouterRecette(recette);
 				}
@@ -118,6 +113,13 @@ public class ListeEpicerieServlet extends HttpServlet {
 		
 		// On remet le panier mis à jour dans la session
 		session.setAttribute("panierRecettes", panier);
+		
+		// TEST: AFFICHAGE DU PANIER
+		System.out.println("==============================");
+		for(Recette r : panier.getRecettes()){
+			System.out.println(r.getNomRecette() + " (" + panier.getQuantite(r.getIdRecette())+ ")");
+		}
+		System.out.println("==============================");
 		
 		// Forward
 		if(! urlDestination.isEmpty()){

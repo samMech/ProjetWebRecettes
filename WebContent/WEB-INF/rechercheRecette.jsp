@@ -15,7 +15,7 @@
 <fmt:setBundle basename="ressources_i18n.Locale"/>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 	<title><fmt:message key="application.nom"/></title>
 	<meta charset="utf-8">
@@ -26,6 +26,7 @@
 	<link rel="stylesheet" type="text/css" href="styles/styles.css">
 	<script type="text/javascript" src="scripts/dynamicList.js"></script>
 	<script type="text/javascript" src="scripts/rechercheAJAX.js"></script>
+	<script type="text/javascript" src="scripts/panierAJAX.js"></script>
 </head>
 <body onload="lancerRecherche();">
 
@@ -127,11 +128,11 @@
 					<div class="col-sm-3">
 						<div class="panel panel-info">
 							<div class="panel-heading">
-								<h3>Recettes choisies   <span class="badge" id="nbSelections">2</span></h3>
+								<h3>Recettes choisies   <span class="badge" id="nbRecettesPanier"><c:if test="${sessionScope.panierRecettes != null}">${sessionScope.panierRecettes.recettes.size()}</c:if></span></h3>
 							</div>
 							<div class="panel-body">
 								<form id="formRecettes" method="POST" action="ListeEpicerieServlet">
-									<div class="list-group" id="panierRecette">
+									<div class="list-group" id="panierRecettes">
 										<c:forEach var="recette" items="${sessionScope.panierRecettes.recettes}" varStatus="status">
 											<div class="list-group-item noBorder" id="recettePanier${recette.idRecette}">
 												<div class="media">												
@@ -139,7 +140,7 @@
 														<h4><a href="RecetteServlet?voirRecette&idRecette=${recette.idRecette}" class="list-group-item-heading">${recette.nomRecette}</a></h4>
 													</div>
 													<div class="media-left media-middle">
-														<span class="badge alert-info" id="nbRecettes${recette.idRecette}">${panierRecettes.getQuantite(${status.index})}</span>
+														<span class="badge alert-info" id="nbRecettes${recette.idRecette}">${panierRecettes.getQuantite(recette.idRecette)}</span>
 													</div>
 													<div class="media-right media-middle">
 														<span class="mouseIcon glyphicon glyphicon-plus-sign green" onclick="ajouterRecette(${recette.idRecette},'${recette.nomRecette}')"></span>
@@ -154,7 +155,7 @@
 									</div>
 									<div class="text-center">
 										<input type="hidden" name="action" value="CREER_LISTE"/>
-										<button type="submit" class="btn btn-primary btn-block" id="creerListe">Créer la liste d'épicerie</button>
+										<input type="submit" <c:if test="${sessionScope.panierRecettes == null || sessionScope.panierRecettes.recettes.isEmpty()}">style="visibility:hidden;"</c:if> class="btn btn-primary btn-block" id="submitListe" value="Créer la liste d'épicerie" />
 									</div>
 								</form>
 							</div>							

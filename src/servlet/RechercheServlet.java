@@ -88,10 +88,8 @@ public class RechercheServlet extends HttpServlet {
 				
 				break;
 			case "ALL" :
-			case "NONE" :
 				// On récupère la liste de toutes les recettes de l'usager
-				recettesTrouvees = Driver.getRecettesUsager(user);	
-				
+				recettesTrouvees = Driver.getRecettesUsager(user);					
 				break;
 			default :
 				break;
@@ -101,7 +99,9 @@ public class RechercheServlet extends HttpServlet {
 		System.out.println("NB RÉSULTATS = " + recettesTrouvees.size());
 
 		// Ajout des résultats à la réponse
-		ajouterResultats(response, recettesTrouvees);
+		if(! action.equals("NONE")){
+			ajouterResultats(response, recettesTrouvees);
+		}
 		
 		// Si on vient d'une autre page
 		switch(action){

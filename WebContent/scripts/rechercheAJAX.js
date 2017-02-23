@@ -111,7 +111,7 @@ function parseMessages(responseXML) {
     	description = recette.getElementsByTagName("description")[0];
     	
     	// Ajout de la recette à la liste
-    	ajouterRecette(id.childNodes[0].nodeValue,
+    	ajouterResultat(id.childNodes[0].nodeValue,
     				   nom.childNodes[0].nodeValue,
     				   duree.childNodes[0].nodeValue,
     				   description.childNodes[0].nodeValue, listeResultats);
@@ -119,7 +119,7 @@ function parseMessages(responseXML) {
 }
 
 // Fonction pour ajouter une recette à la liste des résultats
-function ajouterRecette(id, nom, duree, description, listeResultats) {
+function ajouterResultat(id, nom, duree, description, listeResultats) {
 
 	// Création du div principal
 	var div = document.createElement('div');
