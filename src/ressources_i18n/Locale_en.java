@@ -62,7 +62,7 @@ public class Locale_en extends ListResourceBundle {
 	    {"recherche.form.recherche.duree", "Preparation time:"},
 	    {"recherche.resultats.titre", "Recipes found"},
 	    {"recherche.boutonChoisir.titre", "Choose"},
-	    {"recherche.panier.titre", "Recipes choosed"},
+	    {"recherche.panier.titre", "Recipes chosen"},
 	    {"recherche.panier.submit", "Create grocery list"},
 	    /////////////////////////////////////////////////////////
 	    {"navbar.accueil", "Home"},
@@ -138,7 +138,19 @@ public class Locale_en extends ListResourceBundle {
 	    {"viewrecette.ingredients.titre","Ingredients"},
 	    {"viewrecette.instructions.titre","Instructions"},
 	    {"viewrecette.modifier.button","Modify"},
-	    {"viewrecette.supprimer.button","  Delete  "}	    
+	    {"viewrecette.supprimer.button","  Delete  "},
+	    /////////////////////////////////////////////////////////
+	    {"modificationListe.info.titre","Customize your grocery list"},
+	    {"modificationListe.ingredients.titre","Ingredients"},
+	    {"modificationListe.finaliser.button","Finalize"},
+	    /////////////////////////////////////////////////////////
+	    {"affichageListe.info.titre","Final Grocery List"},
+	    {"affichageListe.imprimer.button","Print"},
+	    {"affichageListe.envoyer.button","Send"},
+	    {"affichageListe.retour.button","Back"},
+	    /////////////////////////////////////////////////////////
+	    {"erreur.info.messageerreur", "An error has occurred."},
+	    {"erreur.info.retour","Return to the home page."}
 	};
 	 
 	/**

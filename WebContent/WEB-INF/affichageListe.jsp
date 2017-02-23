@@ -43,7 +43,7 @@
 				<!--Titre de la page-->
 				<div class="panel panel-primary text-center">
 					<div class="panel-heading">
-						<h1>Liste d'épicerie finale</h1>
+						<h1><fmt:message key="affichageListe.info.titre"/></h1>
 					</div>
 				</div>
 				
@@ -59,10 +59,11 @@
 								<div class="col-xs-8 col-sm-10">
 									
 									<div class="list-group-item-text col-xs-offset-1">
-										<h4 class="list-group-item-heading page-header">Liste d'épicerie</h4>
+										<!-- <h4 class="list-group-item-heading page-header">Liste d'épicerie</h4> -->
 										<ul id="listeIngredients">
-											<c:forEach var="mesure" items="${recette.mesures}">
-												<li>${mesure.ingredient.nomIngredient} : ${mesure.quantite}<fmt:message key="application.unites.${mesure.unite.nomUnite}"/></li><br />
+											<c:forEach var="ingredient" items="${requestScope.listeFinale}">
+												<li>${ingredient}</li>
+												<br />
 											</c:forEach>
 										</ul>
 									</div>
@@ -71,8 +72,8 @@
 								<!--Menu de navigation-->
 								<nav class="col-xs-4 col-sm-2">
 									<ul class="nav nav-pills nav-stacked" data-spy="affix" data-offset-top="160">
-										<li><button type="submit" class="btn btn-primary" id="imprimer"><span class="glyphicon glyphicon-print"></span> Imprimer</button></li>
-										<li><button type="submit" class="btn btn-primary" id="connexion"><span class="glyphicon glyphicon-send"></span> Envoyer</button></li>
+										<li><button type="submit" class="btn btn-primary" id="imprimer"><span class="glyphicon glyphicon-print"></span> <fmt:message key="affichageListe.imprimer.button"/></button></li>
+										<li><button type="submit" class="btn btn-primary" id="connexion"><span class="glyphicon glyphicon-send"></span> <fmt:message key="affichageListe.envoyer.button"/></button></li>
 									</ul>
 								</nav>
 								
@@ -85,7 +86,7 @@
 				
 				<!--Retour à la page précédente-->
 				<ul class="pager text-center">
-					<li><a href="modificationListe.html">Retour</a></li>
+					<li><a href="modificationListe.html"><fmt:message key="affichageListe.retour.button"/></a></li>
 				</ul>
 				
 			</div>

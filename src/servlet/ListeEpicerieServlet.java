@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -103,15 +104,26 @@ public class ListeEpicerieServlet extends HttpServlet {
 				request.setAttribute("unites", listeUnites);
 				request.setAttribute("categories", listeCategories);
 				request.setAttribute("listeEpicerie", listeEpicerie);
-				urlDestination = "/WEB-INF/modificationListe.jsp";				
+				urlDestination = "ListeEpicerieServlet?action=MODIFIER_LISTE&";				
 				break;
 			case "AFFICHER_LISTE":// TODO
 				
+				ArrayList<String> listePourAffichage = new ArrayList<>();
 				// Récupération de la liste des ingrédients modifiées
-				
-				
+				int i = 1;
+				while(request.getParameter("nomIngredient"+i) != null){
+					
+					//recuperer nom, quantite et unite de l'ingredient
+					String nomIngredient = request.getParameter("nomIngredient"+i);
+					String qte = request.getParameter("qte"+i);
+					String unite = request.getParameter("unite"+i);
+					String result = nomIngredient + ": " + qte+unite;
+					System.out.println(result);
+					listePourAffichage.add(result);
+					i++;
+				}
 				// Ajout de la liste à la requête				
-				
+				request.setAttribute("listeFinale", listePourAffichage);
 				urlDestination = "/WEB-INF/affichageListe.jsp";
 				break;
 			default:

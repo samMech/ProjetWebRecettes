@@ -48,7 +48,7 @@
 				<!--Titre de la page-->
 				<div class="panel panel-primary text-center">
 					<div class="panel-heading">
-						<h1>Modification de la liste d'épicerie</h1>
+						<h1><fmt:message key="modificationListe.info.titre"/></h1>
 					</div>
 				</div>
 
@@ -57,7 +57,7 @@
 
 					<!--Titre du contenu-->
 					<div class="panel-heading">
-						<h3>Ingrédients</h3>
+						<h3><fmt:message key="modificationListe.ingredients.titre"/></h3>
 					</div>
 
 					<!--Liste des ingrédients-->
@@ -80,15 +80,15 @@
 													</c:forEach>
 												</select>
 												<input class="form-control form-control-inline" type="text"	size="22" placeholder="Ingrédient"	name="nomIngredient${index.count}" value="${mesure.ingredient.nomIngredient }" required/> 
-												<input class="form-control form-control-inline" type="number" min="0" step="1" max="999" size="5" placeholder="Quantité" name="qte${index.count}" value="${mesure.quantite }" required/>
+												<input class="form-control form-control-inline" type="number" min="0" step="any" max="999" size="5" placeholder="Quantité" name="qte${index.count}" value="${mesure.quantite }" required/>
 												<select	class="form-control form-control-inline" name="unite${index.count}">
 													<option value="0">---</option>
 													<c:forEach var="unit" items="${requestScope.unites}">
 														<c:if test="${unit.idUnite == mesure.unite.idUnite}">
-															<option value="${unit.idUnite}" selected><fmt:message key="application.unites.${unit.nomUnite}"/></option>
+															<option value="<fmt:message key="application.unites.${unit.nomUnite}"/>" selected><fmt:message key="application.unites.${unit.nomUnite}"/></option>
 														</c:if>
 														<c:if test="${unit.idUnite != mesure.unite.idUnite}">
-															<option value="${unit.idUnite}"><fmt:message key="application.unites.${unit.nomUnite}"/></option>
+															<option value="<fmt:message key="application.unites.${unit.nomUnite}"/>"><fmt:message key="application.unites.${unit.nomUnite}"/></option>
 														</c:if>
 													</c:forEach>
 												</select>
@@ -112,7 +112,7 @@
 							</ul>
 							<div class="list-group-item noBorder">
 								<input type="hidden" name="action" value="AFFICHER_LISTE">
-								<button type="submit" class="btn btn-primary" id="finaliserListe">Finaliser</button>
+								<button type="submit" class="btn btn-primary" id="finaliserListe"><fmt:message key="modificationListe.finaliser.button"/></button>
 							</div>
 						</form>
 					</div>

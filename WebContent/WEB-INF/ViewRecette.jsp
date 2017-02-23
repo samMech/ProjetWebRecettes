@@ -80,7 +80,7 @@
 						<br />
 					</div>
 				
-					<!--Les ingrédient-->				
+					<!--Les ingrédients-->				
 					<div class="col-sm-4 col-sm-pull-2">
 						<div class="panel panel-info">
 							<div class="panel-heading">
