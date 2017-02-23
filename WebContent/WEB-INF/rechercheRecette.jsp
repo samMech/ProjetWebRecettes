@@ -26,7 +26,7 @@
 	<link rel="stylesheet" type="text/css" href="styles/styles.css">
 	<script type="text/javascript" src="scripts/dynamicList.js"></script>
 	<script type="text/javascript" src="scripts/rechercheAJAX.js"></script>
-	<script type="text/javascript" src="scripts/panierAJAX.js"></script>
+	<script type="text/javascript" src="scripts/panierAJAX.js"></script>	
 </head>
 <body onload="lancerRecherche();">
 
@@ -63,9 +63,8 @@
 								
 									<!--Recherche libre-->
 									<div class="form-group">
-										<label for="texteRecherche"><fmt:message key="recherche.form.freeSearch"/></label>
-										<input type="text" class="form-control" id="texteRecherche" name="texteRecherche" value="${requestScope.texteRecherche}" onkeyup="lancerRecherche();"/>
-										<script>$(document).ready(function(){alert("Id: " + document.getElementById("texteRecherche").getAttribute("class"))});</script>
+										<label for="texteQuickSearch"><fmt:message key="recherche.form.freeSearch"/></label>
+										<input type="text" class="form-control" id="texteQuickSearch" name="texteRecherche" value="${requestScope.texteRecherche}" onkeyup="lancerRecherche();"/>
 									</div>
 																		
 									<!--Recherche par types de recette-->

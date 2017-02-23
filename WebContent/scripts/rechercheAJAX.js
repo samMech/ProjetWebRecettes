@@ -30,12 +30,9 @@ function lancerRecherche() {
     var url = "RechercheServlet?action=SEARCH";
     
     // Ajout du critère pour la recherche rapide
-    var text = document.getElementById("texteRecherche");
-    alert(text);
-    alert(text.value);
+    var text = document.getElementById("texteQuickSearch");
     if(text.value != ""){
     	nbCriteres++;    	
-    	alert(text.value);
     	url += "&texte=" + text.value;
     }
     
