@@ -3,8 +3,13 @@ package modele;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import javafx.scene.control.TableColumn.SortType;
+
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 
 /**
@@ -38,7 +43,8 @@ public class Recette implements Serializable {
 	private Usager usager;
 	
 	//bi-directional many-to-one association to Instruction
-	@OneToMany(mappedBy="recette", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="recette", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OrderBy("numOrdre")
 	private List<Instruction> instructions;
 
 	//bi-directional many-to-one association to Mesure
