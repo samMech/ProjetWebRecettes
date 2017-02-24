@@ -6,7 +6,7 @@ package modele;
  * @author Marc-andré Malouin
  * @author Samy Mecheddal
  */
-public enum DureeMax {
+public enum DUREE {
 	CINQ("5"),
 	DIX("10"),
 	VINGTS("20"),
@@ -19,7 +19,7 @@ public enum DureeMax {
 		
 	private String value;
 
-    private DureeMax(String value) {
+    private DUREE(String value) {
         this.value = value;
 	}
     

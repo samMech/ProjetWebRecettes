@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import modele.CategoriesIngredient;
-import modele.CritereRecherche;
+import modele.CRITERE_RECHERCHE;
 import modele.DaoJPA;
 import modele.DaoRecette;
-import modele.DureeMax;
+import modele.DUREE;
 import modele.PanierRecettes;
 import modele.Recette;
 import modele.TypesRecette;
@@ -180,14 +180,14 @@ public class Driver {
 		long id;
 		int duree;
 		List<Object> params = new ArrayList<>();
-		List<CritereRecherche> criteres = new ArrayList<>();
+		List<CRITERE_RECHERCHE> criteres = new ArrayList<>();
 		
 		// Recherche libre
 		if(sTexte != null){
 			String[] motsCle = sTexte.trim().split("\\s+");
 			for(int i=0; i < motsCle.length; i++){
 				params.add(motsCle[i]);
-				criteres.add(CritereRecherche.TEXTE);
+				criteres.add(CRITERE_RECHERCHE.TEXTE);
 			}
 		}
 		
@@ -195,18 +195,18 @@ public class Driver {
 		if(sType != null){
 			id = Long.parseLong(sType);
 			params.add(id);
-			criteres.add(CritereRecherche.TYPE);
+			criteres.add(CRITERE_RECHERCHE.TYPE);
 		}
 		
 		// Durée maximale
 		if(sDuree != null){			
 			duree = Integer.parseInt(sDuree);
 			params.add(duree);
-			if(sDuree.equals(DureeMax.CENT_VINGTS_PLUS.getValue())){
-				criteres.add(CritereRecherche.DUREE_MIN);
+			if(sDuree.equals(DUREE.CENT_VINGTS_PLUS.getValue())){
+				criteres.add(CRITERE_RECHERCHE.DUREE_MIN);
 			}
 			else{
-				criteres.add(CritereRecherche.DUREE_MAX);
+				criteres.add(CRITERE_RECHERCHE.DUREE_MAX);
 			}			
 		}
 		
@@ -215,7 +215,7 @@ public class Driver {
 			for(int i=0; i < sCategories.length; i++){
 				id = Integer.parseInt(sCategories[i]);
 				params.add(id);
-				criteres.add(CritereRecherche.CATEGORIE);
+				criteres.add(CRITERE_RECHERCHE.CATEGORIE);
 			}
 		}
 		

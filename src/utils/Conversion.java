@@ -6,6 +6,7 @@ import java.util.List;
 import modele.Ingredient;
 import modele.Mesure;
 import modele.Recette;
+import modele.UNITE_MESURE;
 
 /**
  * Classe utilitaire pour des méthodes de conversion de données
@@ -83,21 +84,65 @@ public class Conversion {
 	}
 	
 	/**
-	 * Méthode pour créer une liste d'ingrédient à partir d'une liste de recette
+	 * Méthode pour créer une liste d'épicerie à partir d'une liste de recette
+	 * 
+	 * Les ingrédients en double sont combinés si leurs unités sont compatibles
 	 * 
 	 * @param listeRecettes La liste des recettes
 	 * @return La liste de tous les ingrédients combinés
 	 */
 	public static List<Mesure> creerListeEpicerie(List<Recette> listeRecettes){
 		
-		List<Mesure> result = new ArrayList<>();
+		// Création de la liste d'épicerie
+		List<Mesure> listeEpicerie = new ArrayList<>();
 		
-		for (Recette recette : listeRecettes) {
-			for(Mesure mesure: recette.getMesures()){
-				result.add(mesure);
+		// Ajout des ingrédients de toutes les recettes
+		Mesure m1;
+		UNITE_MESURE u1, u2;
+		for (Recette r : listeRecettes) {
+			for(Mesure m2: r.getMesures()){
+				
+				// On vérifie si l'ingrédient est déjà dans la liste d'épicerie
+				m1 = getMesureAvecIngredient(listeEpicerie, m2.getIngredient());
+				if(m1 != null){
+					
+					// Récupération des unités de mesure
+					u1 = UNITE_MESURE.valueOf(m1.getUnite().getNomUnite());
+					u2 = UNITE_MESURE.valueOf(m2.getUnite().getNomUnite());
+					
+					// On obtient le taux de conversion de la nouvelle mesure vers celle existante
+					double taux = UNITE_MESURE.getTauxConversion(u2, u1);
+					if(taux == 0){
+						// Les unités sont incompatibles, on gardes les mesures séparées
+						listeEpicerie.add(m2);
+					}
+					else{
+						// On augmentre la quantité de la mesure existante
+						m1.setQuantite(m1.getQuantite() + taux * m2.getQuantite());
+					}
+				}
+				else{
+					// Ajout de la nouvelle mesure
+					listeEpicerie.add(m2);
+				}
 			}
 		}
-		return result;
+		
+		return listeEpicerie;
 	}
 	
+	/**
+	 * Méthode pour savoir si une liste de mesure contient un ingrédient
+	 * 
+	 * @param listeMesures La liste des mesures
+	 * @return La mesure contenant l'ingrédient ou null si l'ingrédient n'est pas trouvé
+	 */
+	public static Mesure getMesureAvecIngredient(List<Mesure> listeMesures, Ingredient ingredient){
+		for(Mesure m : listeMesures){
+			if(m.getIngredient().getNomIngredient().equals(ingredient.getNomIngredient())){
+				return m;
+			}
+		}
+		return null;		
+	}	
 }
