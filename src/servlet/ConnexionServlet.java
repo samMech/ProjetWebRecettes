@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.net.ConnectException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -67,7 +68,7 @@ public class ConnexionServlet extends HttpServlet {
 				// Récupération du login et password
 				String login = request.getParameter("email");
 				String password = request.getParameter("pwd");
-								
+				
 				// Recherche de l'usager
 				user = Driver.trouverUsager(login);
 				
@@ -90,7 +91,7 @@ public class ConnexionServlet extends HttpServlet {
 				else{
 					// Erreur --> on retourne à la page
 					request.setAttribute("erreurConnexion", true);
-				}				
+				}	
 				
 				break;
 			case "DECONNEXION" :

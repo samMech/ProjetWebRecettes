@@ -106,7 +106,7 @@
 									</c:when>
 									<c:when test="${requestScope.confirmationEmail == true }">
 										<h3 class="text-center"><span id="messageConfirmation" class="label label-success"><fmt:message key="password.panel.succes"/></span></h3>
-									</c:when>
+									</c:when>	
 								</c:choose>
 																								
 							</div>							

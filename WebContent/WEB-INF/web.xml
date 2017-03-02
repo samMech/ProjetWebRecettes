@@ -13,6 +13,14 @@
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
 	<error-page>
-		<location>/WEB-INF/erreur.jsp</location>
+		<location>/WEB-INF/pagesErreur/erreur.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>400</error-code>
+		<location>/WEB-INF/pagesErreur/erreurPageIntrouvable.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/WEB-INF/pagesErreur/erreurConnexionBD.jsp</location>
 	</error-page>
 </web-app>

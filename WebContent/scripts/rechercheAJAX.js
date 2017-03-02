@@ -86,9 +86,6 @@ function afficherResultats() {
         if (req.status == 200) {           
             parseMessages(req.responseXML);            
         }
-        else{
-        	alert("Erreur ! (" + req.readyState + ")");// Pour débogguer
-        }
     }
 }
 

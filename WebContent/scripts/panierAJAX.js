@@ -103,9 +103,6 @@ function ignorerReponse(){
         if (req.status == 200) {           
             return;          
         }
-        else{
-        	alert("Erreur Panier ! (" + req.readyState + ")");// Pour débogguer
-        }
     }	
 }
 

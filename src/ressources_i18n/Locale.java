@@ -150,8 +150,10 @@ public class Locale extends ListResourceBundle {
 	    {"affichageListe.retour.button","Retour"},
 	    /////////////////////////////////////////////////////////
 	    {"erreur.info.messageerreur", "Oups, une erreur est survenue !"},
-	    {"erreur.info.retour","Retour à l'accueil"}
-	    };
+	    {"erreur.info.messageerreur.400", "Désolé, cette page n'est pas disponible pour le moment, veuillez revenir plus tard."},
+	    {"erreur.info.messageerreur.500", "Désolé, le serveur n'est pas disponible pour le moment, veuillez ré-essayer plus tard."},
+	    {"erreur.info.retour","Retour à l'accueil"},
+	};
 	
 	/**
 	 * Redéfinition de la méthode pour retourner les données de localisation

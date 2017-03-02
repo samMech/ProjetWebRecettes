@@ -102,12 +102,12 @@
 									</div>	
 																	
 									<c:if test="${requestScope.erreurConnexion == true}">
-									<!--Erreur-->
-									<div class="form-group text-center">
-										<h3 class="text-center"><span class="label label-warning"><fmt:message key="accueil.form.erreurInfosConnexion"/></span></h3><br />
-									</div>									
+										<!--Erreur-->
+										<div class="form-group text-center">
+											<h3 class="text-center"><span class="label label-warning"><fmt:message key="accueil.form.erreurInfosConnexion"/></span></h3><br />
+										</div>									
 									</c:if>	
-																	
+						
 									<!--Enter-->
 									<div class="form-group text-center">
 										<input type="hidden" name="action" value="SE_CONNECTER" />
