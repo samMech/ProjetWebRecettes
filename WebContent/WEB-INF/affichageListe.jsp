@@ -86,7 +86,7 @@
 				
 				<!--Retour à la page précédente-->
 				<ul class="pager text-center">
-					<li><a href="modificationListe.html"><fmt:message key="affichageListe.retour.button"/></a></li>
+					<li><a href="RechercheServlet"><fmt:message key="affichageListe.retour.button"/></a></li>
 				</ul>
 				
 			</div>

@@ -3,10 +3,15 @@ package controle;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import modele.CategoriesIngredient;
 import modele.CRITERE_RECHERCHE;
 import modele.DaoJPA;
 import modele.DaoRecette;
+import modele.Ingredient;
+import modele.Instruction;
+import modele.Mesure;
 import modele.DUREE;
 import modele.PanierRecettes;
 import modele.Recette;
@@ -256,5 +261,87 @@ public class Driver {
 	 */
 	public static PanierRecettes creerPanier(){
 		return new PanierRecettes();
+	}
+	
+	/**
+	 * Methode pour creer la recette
+	 * @param request la requete contenant les donnees
+	 * @return Un objet recette rempli
+	 */
+	public static Recette creerRecette(HttpServletRequest request){
+		
+		//on crée un objet recette
+		Recette recette = new Recette();
+		
+		//on verifie si c'est une nouvelle recette ou une modification de recette
+		String idAModifier = request.getParameter("idRecetteAModifier");
+		if(idAModifier != null && idAModifier != ""){
+			Long id = Long.parseLong(idAModifier);
+			recette.setIdRecette(id);
+		}
+		
+		//on ajoute le nom, description et durée dans l'objet recette
+		recette.setNomRecette(request.getParameter("nomRecette"));
+		recette.setDescriptionRecette(request.getParameter("descRecette"));
+		int heure = Integer.parseInt(request.getParameter("heureRecette"));
+		int minute = Integer.parseInt(request.getParameter("minRecette"));
+		recette.setDureeRecette(utils.Conversion.convertirTemps(heure, minute));
+		
+		//on ajoute le type de la recette dans la recette
+		long idType = Long.parseLong(request.getParameter("typeRecette"));	
+		TypesRecette type = Driver.getTypeRecette(idType);
+		recette.setTypesRecette(type);
+		
+		//parcourir la liste des ingredients et ajouter le nom, quantité et unité de mesure dans la recette
+		int i = 1;
+		while(request.getParameter("nomIngredient" +i) != null){	
+
+			//recuperer l'ingredient, la quantité, l'unite de mesure et la categorie du formulaire
+			String nomIngredient = request.getParameter("nomIngredient"+i);
+			double qte = Double.parseDouble(request.getParameter("qte"+i));
+			String unite = request.getParameter("unite"+i);
+			String categorieIng = request.getParameter("categorie"+i);
+			
+
+			Unite unit = Driver.getUnite(Long.parseLong(unite));
+			CategoriesIngredient categorie = Driver.getCategorie(Long.parseLong(categorieIng));
+			
+			Ingredient ing = new Ingredient();
+			ing.setNomIngredient(nomIngredient);
+			ing.setCategoriesIngredient(categorie);
+			
+			Mesure mesure = new Mesure();
+			mesure.setQuantite(qte);
+			mesure.setIngredient(ing);
+			mesure.setUnite(unit);
+			recette.addMesure(mesure);
+			i++;
+		}
+		
+		i=1;
+		while(request.getParameter("instruction" + i) != null){
+			Instruction instruction = new Instruction();
+			instruction.setNumOrdre(i);
+			instruction.setDescInstruction(request.getParameter("instruction" + i));
+			recette.addInstruction(instruction);
+			i++;
+		}
+		return recette;
+	}
+	
+	public static ArrayList<String> creerListeEpicerie(HttpServletRequest request){
+		ArrayList<String> listePourAffichage = new ArrayList<>();
+		// Récupération de la liste des ingrédients modifiées
+		int i = 1;
+		while(request.getParameter("nomIngredient"+i) != null){
+			//recuperer nom, quantite et unite de l'ingredient
+			String nomIngredient = request.getParameter("nomIngredient"+i);
+			String qte = request.getParameter("qte"+i);
+			String unite = request.getParameter("unite"+i);
+			String result = nomIngredient + ": " + qte+unite;
+			listePourAffichage.add(result);
+			i++;
+		}
+		return listePourAffichage;
 	}
 }

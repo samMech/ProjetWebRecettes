@@ -1,8 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -15,9 +13,6 @@ import javax.servlet.http.HttpSession;
 
 import controle.Driver;
 import modele.CategoriesIngredient;
-import modele.Ingredient;
-import modele.Instruction;
-import modele.Mesure;
 import modele.Recette;
 import modele.TypesRecette;
 import modele.Unite;
@@ -38,7 +33,6 @@ public class RecetteServlet extends HttpServlet {
      */
     public RecetteServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -67,6 +61,8 @@ public class RecetteServlet extends HttpServlet {
 		}
 		//on prepare un objet recette qui va etre utiliser pour toutes les operations de la servlet
 		Recette recette = null;
+		int heure;
+		int minute;
 		
 		//string contenant la page vers laquelle on redirige
 		String pageDestination = "";
@@ -86,63 +82,8 @@ public class RecetteServlet extends HttpServlet {
 			
 		case "ajouterRecette":
 			
-			//on crée un objet recette
-			recette = new Recette();
-			
-			//on verifie si c'est une nouvelle recette ou une modification de recette
-			String idAModifier = request.getParameter("idRecetteAModifier");
-			if(idAModifier != null && idAModifier != ""){
-				Long id = Long.parseLong(idAModifier);
-				recette.setIdRecette(id);
-			}
-			
-			//on ajoute le nom, description et durée dans l'objet recette
-			recette.setNomRecette(request.getParameter("nomRecette"));
-			recette.setDescriptionRecette(request.getParameter("descRecette"));
-			int heure = Integer.parseInt(request.getParameter("heureRecette"));
-			int minute = Integer.parseInt(request.getParameter("minRecette"));
-			recette.setDureeRecette(utils.Conversion.convertirTemps(heure, minute));
-			
-			//on ajoute le type de la recette dans la recette
-			long idType = Long.parseLong(request.getParameter("typeRecette"));	
-			TypesRecette type = Driver.getTypeRecette(idType);
-			recette.setTypesRecette(type);
-			
-			//parcourir la liste des ingredients et ajouter le nom, quantité et unité de mesure dans la recette
-			int i = 1;
-			while(request.getParameter("nomIngredient" +i) != null){	
-
-				//recuperer l'ingredient, la quantité, l'unite de mesure et la categorie du formulaire
-				String nomIngredient = request.getParameter("nomIngredient"+i);
-				double qte = Double.parseDouble(request.getParameter("qte"+i));
-				String unite = request.getParameter("unite"+i);
-				String categorieIng = request.getParameter("categorie"+i);
-				
-
-				Unite unit = Driver.getUnite(Long.parseLong(unite));
-				CategoriesIngredient categorie = Driver.getCategorie(Long.parseLong(categorieIng));
-				
-				Ingredient ing = new Ingredient();
-				ing.setNomIngredient(nomIngredient);
-				ing.setCategoriesIngredient(categorie);
-				
-				Mesure mesure = new Mesure();
-				mesure.setQuantite(qte);
-				mesure.setIngredient(ing);
-				mesure.setUnite(unit);
-				recette.addMesure(mesure);
-				i++;
-			}
-			
-			i=1;
-			while(request.getParameter("instruction" + i) != null){
-				Instruction instruction = new Instruction();
-				instruction.setNumOrdre(i);
-				instruction.setDescInstruction(request.getParameter("instruction" + i));
-				recette.addInstruction(instruction);
-				i++;
-			}
-			
+			//creer et remplir la recette
+			recette = Driver.creerRecette(request);
 			//on associe la recette à l'usager connecté
 			recette.setUsager(user);
 			

@@ -3,13 +3,8 @@ package modele;
 import java.io.Serializable;
 import javax.persistence.*;
 
-import javafx.scene.control.TableColumn.SortType;
-
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 
 /**

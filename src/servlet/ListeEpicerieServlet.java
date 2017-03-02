@@ -107,21 +107,7 @@ public class ListeEpicerieServlet extends HttpServlet {
 				urlDestination = "/WEB-INF/modificationListe.jsp";				
 				break;
 			case "FINALISER_LISTE":
-				
-				ArrayList<String> listePourAffichage = new ArrayList<>();
-				// Récupération de la liste des ingrédients modifiées
-				int i = 1;
-				while(request.getParameter("nomIngredient"+i) != null){
-					
-					//recuperer nom, quantite et unite de l'ingredient
-					String nomIngredient = request.getParameter("nomIngredient"+i);
-					String qte = request.getParameter("qte"+i);
-					String unite = request.getParameter("unite"+i);
-					String result = nomIngredient + ": " + qte+unite;
-					System.out.println(result);
-					listePourAffichage.add(result);
-					i++;
-				}
+				ArrayList<String> listePourAffichage = Driver.creerListeEpicerie(request);
 				// Ajout de la liste à la requête				
 				session.setAttribute("listeIntermediaire", listePourAffichage);
 				urlDestination = "ListeEpicerieServlet?action=AFFICHER_LISTE";
