@@ -43,10 +43,42 @@ public enum UNITE_MESURE {
     	return taux == null ? 0 : taux;
     }
     
+    /**
+     * Méthode pour obtenir le taux de conversion entre 2 unités de mesure
+     * 
+     * @param u1 le nom de l'unite d'origine
+     * @param u2 le nom de l'unité de destination
+     * @return Le taux de conversion tel que (u1 * taux = u2) ou 0 si les unités sont incompatibles (e.g: masse et volume)
+     */
+    public static double getTauxConversion(String u1, String u2){
+    	UNITE_MESURE m1 = UNITES.get(u1);
+    	UNITE_MESURE m2 = UNITES.get(u2);
+    	
+    	Double taux = null;
+    	if(FACTEUR_CONVERSION_UNITE.get(m1)!=null){
+    		taux = FACTEUR_CONVERSION_UNITE.get(m1).get(m2);
+    	}
+    	return taux == null ? 0 : taux;
+    }
+    
+    public static final Map<String, UNITE_MESURE> UNITES = new HashMap<>();
+    
     // Constante pour la conversion entre les unités
  	private static final Map<UNITE_MESURE, Map<UNITE_MESURE, Double>> FACTEUR_CONVERSION_UNITE;
  	static{
- 		// Bloc d'initialisation de la constante
+ 		// Bloc d'initialisation des constantes
+ 		UNITES.put("U02", CUILLEREACAFE_US);
+ 		UNITES.put("U03", CUILLEREASOUPE_US);
+ 		UNITES.put("U04", TASSE_US);
+ 		UNITES.put("U05", MILLIGRAMME);
+ 		UNITES.put("U06", GRAMME);
+ 		UNITES.put("U07", KILOGRAMME);
+ 		UNITES.put("U08", ONCE);
+ 		UNITES.put("U09", LIVRE);
+ 		UNITES.put("U10", MILLILITRE);
+ 		UNITES.put("U11", LITRE);
+ 		//////////////////////////////////////////////////////////////////////
+ 		
  		FACTEUR_CONVERSION_UNITE = new HashMap<>();
  		
  		//////////////////////////////////////////////////////////////////////

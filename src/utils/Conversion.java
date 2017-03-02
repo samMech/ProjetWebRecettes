@@ -98,20 +98,13 @@ public class Conversion {
 		
 		// Ajout des ingrédients de toutes les recettes
 		Mesure m1;
-		UNITE_MESURE u1, u2;
 		for (Recette r : listeRecettes) {
 			for(Mesure m2: r.getMesures()){
-				
 				// On vérifie si l'ingrédient est déjà dans la liste d'épicerie
 				m1 = getMesureAvecIngredient(listeEpicerie, m2.getIngredient());
 				if(m1 != null){
-					
-					// Récupération des unités de mesure
-					u1 = UNITE_MESURE.valueOf(m1.getUnite().getNomUnite());
-					u2 = UNITE_MESURE.valueOf(m2.getUnite().getNomUnite());
-					
 					// On obtient le taux de conversion de la nouvelle mesure vers celle existante
-					double taux = UNITE_MESURE.getTauxConversion(u2, u1);
+					double taux = UNITE_MESURE.getTauxConversion(m2.getUnite().getNomUnite(), m1.getUnite().getNomUnite());
 					if(taux == 0){
 						// Les unités sont incompatibles, on gardes les mesures séparées
 						listeEpicerie.add(m2);
