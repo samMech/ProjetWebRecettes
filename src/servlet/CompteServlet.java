@@ -3,6 +3,7 @@ package servlet;
 import java.io.IOException;
 
 import javax.mail.MessagingException;
+import javax.persistence.PersistenceException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -208,7 +209,7 @@ public class CompteServlet extends HttpServlet {
 					// Erreur: l'usager n'existe pas
 					request.setAttribute("usagerInexistant", true);
 				}
-								
+												
 				urlDestination = "/WEB-INF/resetPassword.jsp";
 				
 				break;

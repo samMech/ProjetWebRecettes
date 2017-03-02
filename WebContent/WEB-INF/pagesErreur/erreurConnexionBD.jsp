@@ -21,7 +21,7 @@
 <body>
 
 	<!--La barre de navigation-->
-	<jsp:include page="jspf/navbar.jsp"></jsp:include>
+	<jsp:include page="../jspf/navbar.jsp"></jsp:include>
 
 	<!--Le contenu central-->  
 	<div class="container-fluid">
@@ -46,7 +46,7 @@
 								<h3><fmt:message key="application.nom"/></h3>
 							</div>
 							<div class="panel body">
-								<h3><span class="label label-danger"><fmt:message key="erreur.info.messageerreur"/></span></h3>
+								<h3><span class="label label-danger"><fmt:message key="erreur.info.messageerreur.500"/></span></h3>
 							</div>
 							<div class="panel-footer">
 								<a href="ConnexionServlet"><fmt:message key="erreur.info.retour"/></a>
@@ -67,7 +67,7 @@
 	</div>
 
 	<!--Le bas de page-->
-	<jsp:include page="jspf/footer.jsp"></jsp:include>
+	<jsp:include page="../jspf/footer.jsp"></jsp:include>
 
 </body>
 </html>

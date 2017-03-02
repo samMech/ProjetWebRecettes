@@ -150,6 +150,8 @@ public class Locale_en extends ListResourceBundle {
 	    {"affichageListe.retour.button","Back"},
 	    /////////////////////////////////////////////////////////
 	    {"erreur.info.messageerreur", "An error has occurred."},
+	    {"erreur.info.messageerreur.400", "Sorry, this page is not available at this time, please come back later."},
+	    {"erreur.info.messageerreur.500", "Sorry, the server is not available at this time, please try again later."},
 	    {"erreur.info.retour","Return to the home page."}
 	};
 	 

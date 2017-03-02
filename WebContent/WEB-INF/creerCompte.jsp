@@ -121,9 +121,7 @@
 											<div class="form-group text-center">
 												<h3 class="text-center"><span class="label label-danger"><fmt:message key="compte.form.erreurCreation"/></span></h3><br />
 											</div>									
-										</c:when>
-										<c:otherwise>											
-										</c:otherwise>
+										</c:when>	
 									</c:choose>
 									
 									<!--Enter-->
