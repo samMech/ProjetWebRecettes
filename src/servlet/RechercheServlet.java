@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import controle.Driver;
 import modele.CategoriesIngredient;
-import modele.DureeMax;
+import modele.DUREE;
 import modele.Recette;
 import modele.TypesRecette;
 import modele.Usager;
@@ -120,7 +120,7 @@ public class RechercheServlet extends HttpServlet {
 	private void initCriteres(HttpServletRequest request){
 		List<TypesRecette> types = Driver.getTypesRecette();
 		List<CategoriesIngredient> categories = Driver.getCategories();
-		DureeMax[] dureesMax = DureeMax.values();
+		DUREE[] dureesMax = DUREE.values();
 		request.setAttribute("typesRecette", types);
 		request.setAttribute("categoriesIngredient", categories);
 		request.setAttribute("dureesMax", dureesMax);

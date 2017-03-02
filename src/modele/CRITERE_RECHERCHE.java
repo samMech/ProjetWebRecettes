@@ -6,7 +6,7 @@ package modele;
  * @author Marc-andré Malouin
  * @author Samy Mecheddal
  */
-public enum CritereRecherche {
+public enum CRITERE_RECHERCHE {
 	TEXTE,
 	TYPE,
 	CATEGORIE,

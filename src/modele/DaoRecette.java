@@ -200,7 +200,7 @@ public class DaoRecette extends DaoJPA<Recette> {
 	 * @param params La liste des critères de recherche à utiliser
 	 * @return La requête paramétrée à utiliser
 	 */
-	public static String construireRequetteRecette(Usager usager, List<CritereRecherche> criteres){
+	public static String construireRequetteRecette(Usager usager, List<CRITERE_RECHERCHE> criteres){
 		
 		// Si on n'a aucun critères, on retourne toutes les recettes
 		if(criteres == null || criteres.isEmpty()){
@@ -219,7 +219,7 @@ public class DaoRecette extends DaoJPA<Recette> {
 		// Ajout des conditions paramétrées d'après les critères
 		int i = 1;
 		String nomParam = "";
-		for (CritereRecherche c : criteres) {
+		for (CRITERE_RECHERCHE c : criteres) {
 			
 			// Recherche inclusive (tout ce qui est bon est gardé)
 			requete += (i == 1) ? " AND " : " OR ";
