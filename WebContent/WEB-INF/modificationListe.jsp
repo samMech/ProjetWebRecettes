@@ -80,7 +80,7 @@
 													</c:forEach>
 												</select>
 												<input class="form-control form-control-inline" type="text"	size="22" placeholder="Ingrédient"	name="nomIngredient${index.count}" value="${mesure.ingredient.nomIngredient }" required/> 
-												<input class="form-control form-control-inline" type="number" min="0" step="any" max="999" size="5" placeholder="Quantité" name="qte${index.count}" value="${mesure.quantite }" required/>
+												<input class="form-control form-control-inline" type="number" min="0" step="any" max="99999" size="5" placeholder="Quantité" name="qte${index.count}" value="${mesure.quantite }" required/>
 												<select	class="form-control form-control-inline" name="unite${index.count}">
 													<option value="0">---</option>
 													<c:forEach var="unit" items="${requestScope.unites}">

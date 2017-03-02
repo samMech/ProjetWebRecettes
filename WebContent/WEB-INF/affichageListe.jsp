@@ -72,8 +72,17 @@
 								<!--Menu de navigation-->
 								<nav class="col-xs-4 col-sm-2">
 									<ul class="nav nav-pills nav-stacked" data-spy="affix" data-offset-top="160">
-										<li><button type="submit" class="btn btn-primary" id="imprimer"><span class="glyphicon glyphicon-print"></span> <fmt:message key="affichageListe.imprimer.button"/></button></li>
-										<li><button type="submit" class="btn btn-primary" id="connexion"><span class="glyphicon glyphicon-send"></span> <fmt:message key="affichageListe.envoyer.button"/></button></li>
+										<li>
+											<button type="submit" class="btn btn-primary" id="imprimer">
+												<span class="glyphicon glyphicon-print"></span> <span class="espacement"><fmt:message key="affichageListe.imprimer.button"/> </span>
+											</button>
+										</li>
+										<br />
+										<li>
+											<button type="submit" class="btn btn-primary" id="connexion">
+												<span class="glyphicon glyphicon-send"></span> <span class="espacement"><fmt:message key="affichageListe.envoyer.button"/></span>
+											</button>
+										</li>
 									</ul>
 								</nav>
 								
